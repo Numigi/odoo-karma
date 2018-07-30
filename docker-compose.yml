@@ -7,7 +7,7 @@ services:
     volumes:
       - odoo-web-data:/var/lib/odoo
       - ./.log:/var/log/odoo
-      - ./date_range_computed_field:/mnt/extra-addons/date_range_computed_field
+      - ./date_range_field_template:/mnt/extra-addons/date_range_field_template
     ports:
       - "8069:8069"
       - "8071:8071"

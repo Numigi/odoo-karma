@@ -8,7 +8,7 @@ RUN pip3 install -r requirements.txt
 
 USER odoo
 
-COPY date_range_computed_field /mnt/extra-addons/date_range_computed_field
+COPY date_range_field_template /mnt/extra-addons/date_range_field_template
 
 COPY .docker_files/main /mnt/extra-addons/main
 COPY .docker_files/odoo.conf /etc/odoo

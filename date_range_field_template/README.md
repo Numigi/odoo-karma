@@ -8,13 +8,13 @@ Each generate field is computed with a distinct date range.
 For example, you could define a field template for a partner's invoiced amount over a period of time.
 
 | Label | Model | Technical Reference | Active |
-|-|-|-|-|
+|-------|-------|---------------------|--------|
 | Invoiced Amount | Partner | customer_invoiced_amount | [ x ] |
 
 Then you may combine the field template with date ranges:
 
 | Field Template | Date Range | Active |
-|-|-|-|
+|----------------|------------|--------|
 | Partner - Invoiced Amount | Current Month | [ x ] |
 | Partner - Invoiced Amount | Year-To-Date | [ x ] |
 | Partner - Invoiced Amount | Previous Month | [ x ] |
@@ -73,3 +73,11 @@ The last step is to define the field template in xml data.
 ```
 
 The bottom line is that the field you just defined is now reusable with any range type.
+
+Contributors
+------------
+* Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+
+More information
+----------------
+* Meet us at https://bit.ly/numigi-com

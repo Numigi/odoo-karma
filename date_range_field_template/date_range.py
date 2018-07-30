@@ -121,6 +121,38 @@ class YearEndDateComputer(AbstractRelativeDateComputer):
         return reference_date - relativedelta(days=1)
 
 
+class DayStartDateComputer(AbstractRelativeDateComputer):
+
+    def __init__(self, computer: AbstractRelativeDateComputer):
+        self._computer = computer
+
+    def compute(self, reference_date):
+        reference_date = self._computer.compute(reference_date)
+        return reference_date - relativedelta(
+            hours=reference_date.hour,
+            minutes=reference_date.minute,
+            seconds=reference_date.second,
+            microseconds=reference_date.microsecond,
+        )
+
+
+class DayEndDateComputer(AbstractRelativeDateComputer):
+
+    def __init__(self, computer: AbstractRelativeDateComputer):
+        self._computer = computer
+
+    def compute(self, reference_date):
+        reference_date = self._computer.compute(reference_date)
+        reference_date -= relativedelta(
+            hours=reference_date.hour,
+            minutes=reference_date.minute,
+            seconds=reference_date.second,
+            microseconds=reference_date.microsecond,
+        )
+        reference_date += relativedelta(days=1)
+        return reference_date - relativedelta(microseconds=1)
+
+
 class ComputedFieldDateRange(models.Model):
 
     _name = 'computed.field.date.range'
@@ -152,7 +184,8 @@ class ComputedFieldDateRange(models.Model):
          'The reference of a date range must be unique.'),
     ]
 
-    def get_date_min(self):
+    def get_date_min(self) -> date:
+        """Get the minimum date of the range relative to the current time."""
         computer = BasicRelativeDateComputer(
             years=self.year_min, months=self.month_min, weeks=self.week_min, days=self.day_min,
         )
@@ -166,10 +199,13 @@ class ComputedFieldDateRange(models.Model):
         elif self.year_start:
             computer = YearStartDateComputer(computer)
 
+        computer = DayStartDateComputer(computer)
+
         now = datetime.now(pytz.utc)
         return computer.compute(now)
 
-    def get_date_max(self):
+    def get_date_max(self) -> date:
+        """Get the maximum date of the range relative to the current time."""
         computer = BasicRelativeDateComputer(
             years=self.year_max, months=self.month_max, weeks=self.week_max, days=self.day_max,
         )
@@ -182,6 +218,8 @@ class ComputedFieldDateRange(models.Model):
 
         elif self.year_end:
             computer = YearEndDateComputer(computer)
+
+        computer = DayEndDateComputer(computer)
 
         now = datetime.now(pytz.utc)
         return computer.compute(now)

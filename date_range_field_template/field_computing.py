@@ -6,6 +6,7 @@ from datetime import datetime
 
 from odoo import api, fields, models
 from odoo.addons.base.ir.ir_model import FIELD_TYPES
+from odoo.exceptions import UserError
 from .field_template import FieldTemplate
 from .tools import get_technical_field_name
 

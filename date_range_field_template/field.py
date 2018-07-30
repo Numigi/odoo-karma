@@ -1,0 +1,89 @@
+# © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+
+from odoo import api, fields, models
+from .tools import get_technical_field_name
+
+
+class ComputedField(models.Model):
+
+    _name = 'computed.field'
+    _description = 'Computed Field'
+
+    name = fields.Char(related='field_id.field_description', readonly=True)
+    template_id = fields.Many2one(
+        'computed.field.template', 'Field Template', required=True, ondelete='restrict')
+    range_id = fields.Many2one(
+        'computed.field.date.range', 'Date Range', required=True, ondelete='restrict')
+    field_id = fields.Many2one('ir.model.fields', 'Field', ondelete='restrict')
+    active = fields.Boolean(default=True)
+
+    _sql_constraints = [
+        ('unique_reference', 'unique(template_id, range_id)',
+         'Only one field can be created per field template and date range type.'),
+    ]
+
+    @api.model
+    def create(self, vals):
+        record = super().create(vals)
+        record._create_related_field()
+        return record
+
+    @api.multi
+    def write(self, vals):
+        super().write(vals)
+        self._update_related_field()
+        return True
+
+    def _create_related_field(self):
+        initial_values = self._get_field_values()
+        initial_values['field_description'] = self._get_field_label()
+        self.field_id = self.env['ir.model.fields'].create(initial_values)
+
+    def _update_related_field(self):
+        for record in self:
+            record.field_id.write(record._get_field_values())
+
+    def _get_field_values(self):
+        technical_name = get_technical_field_name(
+            self.template_id.reference, self.range_id.reference)
+        return {
+            'column1': False,
+            'column2': False,
+            'compute': self._get_compute_script(),
+            'copy': False,
+            'depends': False,
+            'domain': False,
+            'groups': False,
+            'help': False,
+            'index': False,
+            'model': self.template_id.model_id.model,
+            'model_id': self.template_id.model_id.id,
+            'name': technical_name,
+            'on_delete': False,
+            'readonly': True,
+            'related': False,
+            'relation': False,
+            'relation_field': False,
+            'required': False,
+            'selectable': False,
+            'selection': False,
+            'size': False,
+            'state': 'manual',
+            'store': False,
+            'translate': False,
+            'ttype': self.template_id.field_type,
+        }
+
+    def _get_field_label(self):
+        return '{template} ({range})'.format(
+            template=self.template_id.name, range=self.range_id.name)
+
+    def _get_compute_script(self):
+        return "self.compute_date_range_field('{template}', '{range}')".format(
+            template=self.template_id.reference, range=self.range_id.reference)
+
+    def _update_related_field_label(self):
+        for lang in self.env['res.lang'].search([]):
+            for record in self.with_context(lang=lang.code):
+                record.field_id.field_description = record._get_field_label()

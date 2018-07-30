@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 {
-    'name': 'Date Range Computed Fields',
+    'name': 'Date Range Field Template',
     'version': '1.0.0',
     'author': 'Numigi',
     'maintainer': 'Numigi',
@@ -11,6 +11,8 @@
     'category': 'Other',
     'summary': 'Enable generating computed fields from templates based on date ranges.',
     'depends': ['base'],
-    'data': [],
+    'data': [
+        'data/date_range.xml',
+    ],
     'installable': True,
 }

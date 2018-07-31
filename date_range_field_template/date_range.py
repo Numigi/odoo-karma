@@ -53,20 +53,20 @@ class BasicRelativeDateComputer(AbstractRelativeDateComputer):
         return reference_date
 
 
-class WeekStartDateComputer(AbstractRelativeDateComputer):
+class DateComputerDecorator(AbstractRelativeDateComputer):
 
     def __init__(self, computer: AbstractRelativeDateComputer):
         self._computer = computer
+
+
+class WeekStartDateComputer(DateComputerDecorator):
 
     def compute(self, reference_date):
         reference_date = self._computer.compute(reference_date)
         return reference_date - relativedelta(days=reference_date.isoweekday())
 
 
-class WeekEndDateComputer(AbstractRelativeDateComputer):
-
-    def __init__(self, computer: AbstractRelativeDateComputer):
-        self._computer = computer
+class WeekEndDateComputer(DateComputerDecorator):
 
     def compute(self, reference_date):
         reference_date = self._computer.compute(reference_date)
@@ -75,20 +75,14 @@ class WeekEndDateComputer(AbstractRelativeDateComputer):
         return reference_date - relativedelta(days=1)
 
 
-class MonthStartDateComputer(AbstractRelativeDateComputer):
-
-    def __init__(self, computer: AbstractRelativeDateComputer):
-        self._computer = computer
+class MonthStartDateComputer(DateComputerDecorator):
 
     def compute(self, reference_date):
         reference_date = self._computer.compute(reference_date)
         return reference_date - relativedelta(days=reference_date.day - 1)
 
 
-class MonthEndDateComputer(AbstractRelativeDateComputer):
-
-    def __init__(self, computer: AbstractRelativeDateComputer):
-        self._computer = computer
+class MonthEndDateComputer(DateComputerDecorator):
 
     def compute(self, reference_date):
         reference_date = self._computer.compute(reference_date)
@@ -97,10 +91,7 @@ class MonthEndDateComputer(AbstractRelativeDateComputer):
         return reference_date - relativedelta(days=1)
 
 
-class YearStartDateComputer(AbstractRelativeDateComputer):
-
-    def __init__(self, computer: AbstractRelativeDateComputer):
-        self._computer = computer
+class YearStartDateComputer(DateComputerDecorator):
 
     def compute(self, reference_date):
         reference_date = self._computer.compute(reference_date)
@@ -108,10 +99,7 @@ class YearStartDateComputer(AbstractRelativeDateComputer):
         return reference_date - relativedelta(months=reference_date.month - 1)
 
 
-class YearEndDateComputer(AbstractRelativeDateComputer):
-
-    def __init__(self, computer: AbstractRelativeDateComputer):
-        self._computer = computer
+class YearEndDateComputer(DateComputerDecorator):
 
     def compute(self, reference_date):
         reference_date = self._computer.compute(reference_date)
@@ -121,10 +109,7 @@ class YearEndDateComputer(AbstractRelativeDateComputer):
         return reference_date - relativedelta(days=1)
 
 
-class DayStartDateComputer(AbstractRelativeDateComputer):
-
-    def __init__(self, computer: AbstractRelativeDateComputer):
-        self._computer = computer
+class DayStartDateComputer(DateComputerDecorator):
 
     def compute(self, reference_date):
         reference_date = self._computer.compute(reference_date)
@@ -136,10 +121,7 @@ class DayStartDateComputer(AbstractRelativeDateComputer):
         )
 
 
-class DayEndDateComputer(AbstractRelativeDateComputer):
-
-    def __init__(self, computer: AbstractRelativeDateComputer):
-        self._computer = computer
+class DayEndDateComputer(DateComputerDecorator):
 
     def compute(self, reference_date):
         reference_date = self._computer.compute(reference_date)

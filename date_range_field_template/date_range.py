@@ -184,6 +184,7 @@ class ComputedFieldDateRange(models.Model):
          'The reference of a date range must be unique.'),
     ]
 
+    @api.multi
     def get_date_min(self) -> date:
         """Get the minimum date of the range relative to the current time."""
         computer = BasicRelativeDateComputer(
@@ -204,6 +205,7 @@ class ComputedFieldDateRange(models.Model):
         now = datetime.now(pytz.utc)
         return computer.compute(now)
 
+    @api.multi
     def get_date_max(self) -> date:
         """Get the maximum date of the range relative to the current time."""
         computer = BasicRelativeDateComputer(

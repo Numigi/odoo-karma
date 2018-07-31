@@ -13,7 +13,7 @@ from typing import Tuple
 class AbstractRelativeDateComputer(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
-    def compute(self, reference_date: date) -> date:
+    def compute(self, reference_date: datetime) -> datetime:
         """Compute a date range given a date of reference.
 
         The given reference_date parameter is expected to be expressed in the user's timezone.
@@ -185,7 +185,7 @@ class ComputedFieldDateRange(models.Model):
     ]
 
     @api.multi
-    def get_date_min(self) -> date:
+    def get_date_min(self) -> datetime:
         """Get the minimum date of the range relative to the current time."""
         computer = BasicRelativeDateComputer(
             years=self.year_min, months=self.month_min, weeks=self.week_min, days=self.day_min,
@@ -205,7 +205,7 @@ class ComputedFieldDateRange(models.Model):
         return computer.compute(self._get_current_datetime())
 
     @api.multi
-    def get_date_max(self) -> date:
+    def get_date_max(self) -> datetime:
         """Get the maximum date of the range relative to the current time."""
         computer = BasicRelativeDateComputer(
             years=self.year_max, months=self.month_max, weeks=self.week_max, days=self.day_max,

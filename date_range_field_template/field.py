@@ -45,6 +45,10 @@ class ComputedField(models.Model):
             record.field_id.write(record._get_field_values())
 
     def _get_field_values(self):
+        """Get the values to propagate to the ir.model.fields record.
+
+        :return: a dictionary containing the ir.model.fields values
+        """
         technical_name = get_technical_field_name(
             self.template_id.reference, self.range_id.reference)
         return {

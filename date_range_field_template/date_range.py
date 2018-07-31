@@ -202,8 +202,7 @@ class ComputedFieldDateRange(models.Model):
 
         computer = DayStartDateComputer(computer)
 
-        now = datetime.now(pytz.utc)
-        return computer.compute(now)
+        return computer.compute(self._get_current_datetime())
 
     @api.multi
     def get_date_max(self) -> date:
@@ -223,5 +222,8 @@ class ComputedFieldDateRange(models.Model):
 
         computer = DayEndDateComputer(computer)
 
-        now = datetime.now(pytz.utc)
-        return computer.compute(now)
+        return computer.compute(self._get_current_datetime())
+
+    def _get_current_datetime(self):
+        tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
+        return datetime.now(tz)

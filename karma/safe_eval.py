@@ -40,7 +40,7 @@ _SAFE_OPCODES = frozenset(opmap[x] for x in [
 ])
 
 
-def safe_eval(expr, locals_dict=None):
+def restricted_safe_eval(expr, locals_dict=None):
     """Safely eval the given expression.
 
     This function is much more restrictive than the safe_eval function in Odoo.

@@ -5,7 +5,7 @@ import pytest
 from decimal import Decimal
 
 from odoo.tests.common import TransactionCase
-from ..safe_eval import safe_eval
+from ..safe_eval import restricted_safe_eval as safe_eval
 
 
 class TestConditionSafeEval(TransactionCase):

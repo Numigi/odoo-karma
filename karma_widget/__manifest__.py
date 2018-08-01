@@ -11,9 +11,7 @@
     'category': 'Other',
     'summary': 'Defines a widget usable in form views.',
     'depends': ['base'],
-    'data': [
-        'data/date_range.xml',
-    ],
+    'data': [],
     'installable': True,
     'application': True,
 }

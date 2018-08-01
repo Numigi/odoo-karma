@@ -53,13 +53,10 @@ class ComputedFieldDateRange(models.Model):
 
         if self.week_start:
             date_min = get_week_start(date_min)
-
         elif self.month_start:
             date_min = get_month_start(date_min)
-
         elif self.year_start:
             date_min = get_year_start(date_min)
-
         else:
             date_min = get_day_start(date_min)
 
@@ -79,13 +76,10 @@ class ComputedFieldDateRange(models.Model):
 
         if self.week_end:
             date_max = get_week_end(date_max)
-
         elif self.month_end:
             date_max = get_month_end(date_max)
-
         elif self.year_end:
             date_max = get_year_end(date_max)
-
         else:
             date_max = get_day_end(date_max)
 

@@ -45,7 +45,8 @@ class ReachedGoalRatio(FieldTemplate):
             total = reached_count[user] + failed_count[user]
             user[field_name] = reached_count[user] / total if total else 0
 
-    def _get_goal_count(self, users, state, date_from, date_to):
+    @staticmethod
+    def _get_goal_count(users, state, date_from, date_to):
         goals = users.env['gamification.goal'].search([
             ('start_date', '>=', fields.Date.to_string(date_from)),
             ('start_date', '<=', fields.Date.to_string(date_to)),

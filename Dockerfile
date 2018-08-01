@@ -6,6 +6,9 @@ USER root
 COPY .docker_files/requirements.txt .
 RUN pip3 install -r requirements.txt
 
+COPY ./gitoo.yml /
+RUN gitoo install_all --conf_file /gitoo.yml --destination "${THIRD_PARTY_ADDONS}" && rm /gitoo.yml
+
 USER odoo
 
 COPY date_range_field_template /mnt/extra-addons/date_range_field_template

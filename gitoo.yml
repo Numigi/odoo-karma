@@ -1,0 +1,2 @@
+- url: https://{{GIT_TOKEN}}@github.com/Numigi/vue-odoo
+  branch: "11.0"

@@ -9,6 +9,25 @@ from odoo import api, fields, models
 
 
 class ComputedFieldDateRange(models.Model):
+    """Date ranges for computed fields.
+
+    The methods get_date_min and get_date_max return
+    datetimes in the timezone of the context (UTC if none given).
+
+    The combined result of the 2 methods is a datetime range.
+
+    The range depends on the user's timezone.
+
+    If the given current datetime is 2018-05-31 23:00:00 in Canada/Eastern,
+    the expected datetime range that represents the current month is
+
+    2018-05-01 00:00:00 to 2018-05-31 23:59:59 and 999999 microseconds
+    in Canada/Eastern
+
+    This is equivalent to the following range in UTC.
+
+    2018-05-01 04:00:00 to 2018-06-01 03:59:59 and 999999 microseconds
+    """
 
     _name = 'computed.field.date.range'
     _description = 'Date Range For Computed Fields'
@@ -90,64 +109,64 @@ class ComputedFieldDateRange(models.Model):
         return datetime.now(tz)
 
 
-def get_day_start(date_: datetime) -> datetime:
+def get_day_start(datetime_: datetime) -> datetime:
     """Get the start of the day relative to a given date."""
-    return date_ - relativedelta(
-        hours=date_.hour,
-        minutes=date_.minute,
-        seconds=date_.second,
-        microseconds=date_.microsecond,
+    return datetime_ - relativedelta(
+        hours=datetime_.hour,
+        minutes=datetime_.minute,
+        seconds=datetime_.second,
+        microseconds=datetime_.microsecond,
     )
 
 
-def get_day_end(date_: datetime) -> datetime:
+def get_day_end(datetime_: datetime) -> datetime:
     """Get the end of the day relative to a given date."""
-    date_ -= relativedelta(
-        hours=date_.hour,
-        minutes=date_.minute,
-        seconds=date_.second,
-        microseconds=date_.microsecond,
+    datetime_ -= relativedelta(
+        hours=datetime_.hour,
+        minutes=datetime_.minute,
+        seconds=datetime_.second,
+        microseconds=datetime_.microsecond,
     )
-    date_ += timedelta(1)
-    return date_ - relativedelta(microseconds=1)
+    datetime_ += timedelta(1)
+    return datetime_ - relativedelta(microseconds=1)
 
 
-def get_week_start(date_: datetime) -> datetime:
+def get_week_start(datetime_: datetime) -> datetime:
     """Get the start of the week relative to a given datetime."""
-    first_day = date_ - timedelta(date_.isoweekday())
+    first_day = datetime_ - timedelta(datetime_.isoweekday())
     return get_day_start(first_day)
 
 
-def get_week_end(date_: datetime) -> datetime:
+def get_week_end(datetime_: datetime) -> datetime:
     """Get the start of the week relative to a given datetime."""
-    last_day = date_ + timedelta(6 - date_.isoweekday())
+    last_day = datetime_ + timedelta(6 - datetime_.isoweekday())
     return get_day_end(last_day)
 
 
-def get_month_start(date_: datetime) -> datetime:
+def get_month_start(datetime_: datetime) -> datetime:
     """Get the start of the month relative to a given datetime."""
-    first_day = date_ - timedelta(date_.day - 1)
+    first_day = datetime_ - timedelta(datetime_.day - 1)
     return get_day_start(first_day)
 
 
-def get_month_end(date_: datetime) -> datetime:
+def get_month_end(datetime_: datetime) -> datetime:
     """Get the start of the month relative to a given datetime."""
-    date_ -= timedelta(date_.day - 1)
-    date_ += relativedelta(months=1)
-    last_day = date_ - timedelta(1)
+    datetime_ -= timedelta(datetime_.day - 1)
+    datetime_ += relativedelta(months=1)
+    last_day = datetime_ - timedelta(1)
     return get_day_end(last_day)
 
 
-def get_year_start(date_: datetime) -> datetime:
+def get_year_start(datetime_: datetime) -> datetime:
     """Get the start of the year relative to a given datetime."""
-    date_ -= timedelta(date_.day - 1)
-    first_day = date_ - relativedelta(months=date_.month - 1)
+    datetime_ -= timedelta(datetime_.day - 1)
+    first_day = datetime_ - relativedelta(months=datetime_.month - 1)
     return get_day_start(first_day)
 
 
-def get_year_end(date_: datetime) -> datetime:
+def get_year_end(datetime_: datetime) -> datetime:
     """Get the start of the year relative to a given datetime."""
-    date_ -= timedelta(date_.day - 1)
-    date_ += relativedelta(months=13 - date_.month)
-    last_day = date_ - timedelta(1)
+    datetime_ -= timedelta(datetime_.day - 1)
+    datetime_ += relativedelta(months=13 - datetime_.month)
+    last_day = datetime_ - timedelta(1)
     return get_day_end(last_day)

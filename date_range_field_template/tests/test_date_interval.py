@@ -51,6 +51,7 @@ class TestBasicDateConversionCases:
 
 
 class TestComputedFieldDateRange(TransactionCase):
+    """Test special cases with timezones and bisextile years."""
 
     def _get_range(self, reference):
         range_ = self.ref('date_range_field_template.range_{ref}'.format(ref=reference))

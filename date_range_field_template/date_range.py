@@ -96,7 +96,7 @@ class ComputedFieldDateRange(models.Model):
         return datetime.now(tz)
 
 
-def get_day_start(date_: datetime):
+def get_day_start(date_: datetime) -> datetime:
     """Get the start of the day relative to a given date."""
     return date_ - relativedelta(
         hours=date_.hour,
@@ -106,7 +106,7 @@ def get_day_start(date_: datetime):
     )
 
 
-def get_day_end(date_: datetime):
+def get_day_end(date_: datetime) -> datetime:
     """Get the end of the day relative to a given date."""
     date_ -= relativedelta(
         hours=date_.hour,
@@ -118,25 +118,25 @@ def get_day_end(date_: datetime):
     return date_ - relativedelta(microseconds=1)
 
 
-def get_week_start(date_: datetime):
+def get_week_start(date_: datetime) -> datetime:
     """Get the start of the week relative to a given datetime."""
     first_day = date_ - timedelta(date_.isoweekday())
     return get_day_start(first_day)
 
 
-def get_week_end(date_: datetime):
+def get_week_end(date_: datetime) -> datetime:
     """Get the start of the week relative to a given datetime."""
     last_day = date_ + timedelta(6 - date_.isoweekday())
     return get_day_end(last_day)
 
 
-def get_month_start(date_: datetime):
+def get_month_start(date_: datetime) -> datetime:
     """Get the start of the month relative to a given datetime."""
     first_day = date_ - timedelta(date_.day - 1)
     return get_day_start(first_day)
 
 
-def get_month_end(date_: datetime):
+def get_month_end(date_: datetime) -> datetime:
     """Get the start of the month relative to a given datetime."""
     date_ -= timedelta(date_.day - 1)
     date_ += relativedelta(months=1)
@@ -144,14 +144,14 @@ def get_month_end(date_: datetime):
     return get_day_end(last_day)
 
 
-def get_year_start(date_: datetime):
+def get_year_start(date_: datetime) -> datetime:
     """Get the start of the year relative to a given datetime."""
     date_ -= timedelta(date_.day - 1)
     first_day = date_ - relativedelta(months=date_.month - 1)
     return get_day_start(first_day)
 
 
-def get_year_end(date_: datetime):
+def get_year_end(date_: datetime) -> datetime:
     """Get the start of the year relative to a given datetime."""
     date_ -= timedelta(date_.day - 1)
     date_ += relativedelta(months=13 - date_.month)

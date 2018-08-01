@@ -10,6 +10,9 @@
     'license': 'LGPL-3',
     'category': 'Other',
     'summary': 'Install all addons required for testing.',
-    'depends': [],
+    'depends': [
+        'gamification',  # Used to test karma addons
+        'date_range_field_template',
+    ],
     'installable': True,
 }

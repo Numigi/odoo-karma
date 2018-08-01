@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="range_previous_week" model="computed.field.date.range">
+        <field name="name">Previous Week</field>
+        <field name="reference">previous_week</field>
+        <field name="week_min" eval="-1"/>
+        <field name="week_max" eval="-1"/>
+        <field name="week_start" eval="True"/>
+        <field name="week_end" eval="True"/>
+    </record>
+
+    <record id="range_current_week" model="computed.field.date.range">
+        <field name="name">Current Week</field>
+        <field name="reference">current_week</field>
+        <field name="week_start" eval="True"/>
+        <field name="week_end" eval="True"/>
+    </record>
+
+    <record id="range_next_week" model="computed.field.date.range">
+        <field name="name">Next Week</field>
+        <field name="reference">next_week</field>
+        <field name="week_min" eval="1"/>
+        <field name="week_max" eval="1"/>
+        <field name="week_start" eval="True"/>
+        <field name="week_end" eval="True"/>
+    </record>
+
+    <record id="range_previous_month" model="computed.field.date.range">
+        <field name="name">Previous Month</field>
+        <field name="reference">previous_month</field>
+        <field name="month_min" eval="-1"/>
+        <field name="month_max" eval="-1"/>
+        <field name="month_start" eval="True"/>
+        <field name="month_end" eval="True"/>
+    </record>
+
+    <record id="range_current_month" model="computed.field.date.range">
+        <field name="name">Current Month</field>
+        <field name="reference">current_month</field>
+        <field name="month_start" eval="True"/>
+        <field name="month_end" eval="True"/>
+    </record>
+
+    <record id="range_next_month" model="computed.field.date.range">
+        <field name="name">Next Month</field>
+        <field name="reference">next_month</field>
+        <field name="month_min" eval="1"/>
+        <field name="month_max" eval="1"/>
+        <field name="month_start" eval="True"/>
+        <field name="month_end" eval="True"/>
+    </record>
+
+    <record id="range_previous_year" model="computed.field.date.range">
+        <field name="name">Previous Year</field>
+        <field name="reference">previous_year</field>
+        <field name="year_min" eval="-1"/>
+        <field name="year_max" eval="-1"/>
+        <field name="year_start" eval="True"/>
+        <field name="year_end" eval="True"/>
+    </record>
+
+    <record id="range_current_year" model="computed.field.date.range">
+        <field name="name">Current Year</field>
+        <field name="reference">current_year</field>
+        <field name="year_start" eval="True"/>
+        <field name="year_end" eval="True"/>
+    </record>
+
+    <record id="range_next_year" model="computed.field.date.range">
+        <field name="name">Next Year</field>
+        <field name="reference">next_year</field>
+        <field name="year_min" eval="1"/>
+        <field name="year_max" eval="1"/>
+        <field name="year_start" eval="True"/>
+        <field name="year_end" eval="True"/>
+    </record>
+
+    <record id="range_today" model="computed.field.date.range">
+        <field name="name">Today</field>
+        <field name="reference">today</field>
+    </record>
+
+    <record id="range_yesterday" model="computed.field.date.range">
+        <field name="name">Yesterday</field>
+        <field name="reference">yesterday</field>
+        <field name="day_min" eval="-1"/>
+        <field name="day_max" eval="-1"/>
+    </record>
+
+</odoo>

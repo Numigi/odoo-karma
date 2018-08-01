@@ -11,9 +11,7 @@
     'category': 'Other',
     'summary': 'Compute scores on all types of records.',
     'depends': ['base'],
-    'data': [
-        'data/date_range.xml',
-    ],
+    'data': [],
     'installable': True,
     'application': True,
 }

@@ -46,7 +46,8 @@ class KarmaLine(models.Model):
     _name = 'karma.line'
     _description = 'Karma Line'
 
-    karma_id = fields.Many2one('karma', 'Parent Karma', index=True, ondelete='cascade')
+    karma_id = fields.Many2one(
+        'karma', 'Parent Karma', index=True, ondelete='cascade', required=True)
     child_karma_id = fields.Many2one('karma', 'Child Karma', index=True, required=True)
     model_id = fields.Many2one(related='child_karma_id.model_id')
     field_id = fields.Many2one(

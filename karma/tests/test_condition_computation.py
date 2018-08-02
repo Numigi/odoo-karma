@@ -7,7 +7,7 @@ from odoo.tests.common import SavepointCase
 from ..computation import ConditionKarmaComputer
 
 
-class TestComputedKarmaComputation(SavepointCase):
+class ComputedKarmaCase(SavepointCase):
 
     @classmethod
     def setUpClass(cls):
@@ -60,6 +60,9 @@ class TestComputedKarmaComputation(SavepointCase):
         cls.partner_2 = cls.env['res.partner'].create({
             'name': 'Jane Doe',
         })
+
+
+class TestComputedKarmaComputation(ComputedKarmaCase):
 
     def setUp(self):
         super().setUp()
@@ -140,3 +143,66 @@ class TestComputedKarmaComputation(SavepointCase):
         assert len(score_1_conditions) == 2
         assert len(score_2_conditions) == 2
         assert score_1_conditions != score_2_conditions
+
+
+class TestComputeAllScores(ComputedKarmaCase):
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.partner.email = 'test_karma@test.com'
+        cls.partner_2.category_id = cls.category_0 | cls.category_1 | cls.category_2
+
+        cls.karma.domain = "[('id', 'in', {ids})]".format(ids=[cls.partner.id, cls.partner_2.id])
+
+        cls.expected_partner_1_score = 10
+        cls.expected_partner_2_score = 3 * 5 / 2
+
+    def _find_last_score(self, partner):
+        return self.env['karma.score'].search([
+            ('res_id', '=', partner.id), ('karma_id', '=', self.karma.id),
+        ], limit=1, order='id desc')
+
+    def test_compute_all_scores(self):
+        self.karma.compute_all_scores(raise_=True)
+
+        score = self._find_last_score(self.partner)
+        assert score.score == self.expected_partner_1_score
+
+        score_2 = self._find_last_score(self.partner_2)
+        assert score_2.score == self.expected_partner_2_score
+
+    def test_ifFirstRecordFails_thenSecondRecordIsNotImpacted(self):
+        self.line_1.result_if_true = "1 / 0"  # Only executed with self.partner
+
+        self.karma.compute_all_scores()
+
+        score = self._find_last_score(self.partner)
+        assert not score
+
+        score_2 = self._find_last_score(self.partner_2)
+        assert score_2.score == self.expected_partner_2_score
+
+    def test_ifSecondRecordFails_thenFirstRecordIsNotImpacted(self):
+        self.line_2.result_if_true = "1 / 0"  # Only executed with self.partner_2
+
+        self.karma.compute_all_scores()
+
+        score = self._find_last_score(self.partner)
+        assert score.score == self.expected_partner_1_score
+
+        score_2 = self._find_last_score(self.partner_2)
+        assert not score_2
+
+    def test_ifRecordFails_thenKarmaErrorIsLogged(self):
+        self.line_1.result_if_true = "1 / 0"  # Only executed with self.partner
+
+        self.karma.compute_all_scores()
+
+        session = self.env['karma.session'].search([('karma_id', '=', self.karma.id)])
+        assert len(session.error_log_ids) == 1
+
+        log = session.error_log_ids
+        assert log.res_id == self.partner.id
+        assert log.res_model == 'res.partner'
+        assert 'division by zero' in log.error_message

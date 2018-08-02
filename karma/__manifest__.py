@@ -10,7 +10,10 @@
     'license': 'LGPL-3',
     'category': 'Other',
     'summary': 'Compute scores on all types of records.',
-    'depends': ['base', 'decimal_precision'],
+    'depends': [
+        'decimal_precision',
+        'queue_job',
+    ],
     'data': [],
     'installable': True,
     'application': True,

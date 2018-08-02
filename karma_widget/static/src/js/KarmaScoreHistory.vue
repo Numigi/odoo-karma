@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  name: 'karma-score-history',
+  name: "karma-score-history",
   props: {
     onClicked: {
       type: Function,
@@ -13,7 +13,7 @@ export default {
     },
     label: {
       type: String,
-      default: 'History',
+      default: "History",
     },
   },
 };

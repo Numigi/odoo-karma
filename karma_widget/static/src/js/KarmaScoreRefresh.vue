@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  name: 'karma-score-refresh',
+  name: "karma-score-refresh",
   props: {
     onClicked: {
       type: Function,

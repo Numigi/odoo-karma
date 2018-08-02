@@ -8,7 +8,7 @@
 </template>
 <script>
 export default {
-  name: 'karma-score',
+  name: "karma-score",
   props: {
     score: {
       // The score is a string containing the decimal number already formated.

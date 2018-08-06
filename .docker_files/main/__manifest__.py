@@ -13,6 +13,8 @@
     'depends': [
         'gamification',  # Used to test karma addons
         'date_range_field_template',
+        'karma',
+        'karma_widget',
     ],
     'installable': True,
 }

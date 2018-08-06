@@ -28,6 +28,9 @@ _SAFE_OPCODES = frozenset(opmap[x] for x in [
     'BINARY_TRUE_DIVIDE',
     'BINARY_XOR',
 
+    # Enable comparisons
+    'COMPARE_OP',
+
     # Enable to load variables
     'LOAD_CONST',
     'LOAD_NAME',

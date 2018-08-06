@@ -13,8 +13,14 @@ class KarmaScore(models.Model):
 
     karma_id = fields.Many2one('karma', 'Karma', required=True, index=True)
     res_id = fields.Integer('Object ID', required=True, index=True)
-    res_model = fields.String('Object Model', required=True)
+    res_model = fields.Char('Object Model', required=True)
     score = fields.Float('Score', digits=dp.get_precision('Karma Score'))
+
+    inherited_detail_ids = fields.One2many(
+        'karma.score.inherited.detail', 'score_id', 'Details (Inherited)')
+
+    condition_detail_ids = fields.One2many(
+        'karma.score.condition.detail', 'score_id', 'Details (Ad Hoc)')
 
 
 class KarmaScoreInheritedDetail(models.Model):
@@ -25,9 +31,9 @@ class KarmaScoreInheritedDetail(models.Model):
     score_id = fields.Many2one('karma.score', 'Score', index=True, ondelete='cascade')
     child_score_id = fields.Many2one('karma.score', 'Score', ondelete='restrict')
 
-    karma_id = fields.Many2one('karma', 'Karma', required=True)
+    karma_id = fields.Many2one(related='child_score_id.karma_id')
     res_id = fields.Integer('Object ID')
-    res_model = fields.String('Object Model')
+    res_model = fields.Char('Object Model')
     score = fields.Float('Score', digits=dp.get_precision('Karma Score'))
 
     weighting = fields.Float('Weighting', digits=dp.get_precision('Karma Weighting'))
@@ -52,7 +58,8 @@ class KarmaScoreCondition(models.Model):
     _name = 'karma.score.condition'
     _description = 'Karma Score Condition'
 
-    field_id = fields.Many2one('ir.model.fields', required=True)
+    field_id = fields.Many2one('ir.model.fields', 'Field', required=True, index=True)
+    condition_label = fields.Char(required=True)
     condition = fields.Char(required=True)
     result_if_true = fields.Char(required=True)
     result_if_false = fields.Char(required=True)

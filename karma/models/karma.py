@@ -18,8 +18,8 @@ class Karma(models.Model):
         ('condition', 'Ad Hoc'),
     ])
     active = fields.Boolean(default=True)
-    line_ids = fields.One2many('karma.line', 'Children Karmas')
-    condition_line_ids = fields.One2many('karma.condition.line', 'Conditions')
+    line_ids = fields.One2many('karma.line', 'karma_id', 'Children Karmas')
+    condition_line_ids = fields.One2many('karma.condition.line', 'karma_id', 'Conditions')
     domain = fields.Text()
 
 
@@ -34,6 +34,7 @@ class KarmaConditionLine(models.Model):
     field_id = fields.Many2one(
         'ir.model.fields', 'Field', required=True,
         domain="[('parent.model_id', '=', model_id)]")
+    condition_label = fields.Char(required=True)
     condition = fields.Char(required=True)
     result_if_true = fields.Char(required=True)
     result_if_false = fields.Char(required=True, default='0')
@@ -47,8 +48,8 @@ class KarmaLine(models.Model):
 
     karma_id = fields.Many2one('karma', 'Parent Karma', index=True, ondelete='cascade')
     child_karma_id = fields.Many2one('karma', 'Child Karma', index=True, required=True)
-    model_id = fields.Many2one('ir.model', 'Model', required=True)
+    model_id = fields.Many2one(related='child_karma_id.model_id')
     field_id = fields.Many2one(
-        'ir.model.fields', 'Field', required=True,
+        'ir.model.fields', 'Field',
         domain="[('parent.model_id', '=', model_id), ('type', '=', 'many2one')]")
     weighting = fields.Float('Weighting', digits=dp.get_precision('Karma Weighting'))

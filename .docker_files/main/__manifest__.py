@@ -11,7 +11,10 @@
     'category': 'Other',
     'summary': 'Install all addons required for testing.',
     'depends': [
-        'gamification',  # Used to test karma addons
+        # Modules used to test karma addons
+        'gamification',
+        'sale',
+
         'date_range_field_template',
         'karma',
         'karma_widget',

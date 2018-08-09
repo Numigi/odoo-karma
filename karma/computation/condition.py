@@ -24,11 +24,6 @@ class ConditionKarmaComputer:
     """This class defines how Ad Hoc Karma scores are computed."""
 
     def __init__(self, karma):
-        """Add a dict for caching `karma.score.condition` records.
-
-        `karma.score.condition` are snapshots of `karma.score.condition` when
-        a score is computed.
-        """
         self._karma = karma
         self._env = karma.env
         self._condition_cache = ScoreConditionCache(self._env)

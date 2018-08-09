@@ -1,15 +1,13 @@
 # © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import _
-from .common import KarmaComputationError, AbstractKarmaComputer
 
-
-class InheritedKarmaComputer(AbstractKarmaComputer):
+class InheritedKarmaComputer:
     """This class defines how Inherited Karma scores are computed."""
 
     def __init__(self, karma):
-        super().__init__(karma)
+        self._karma = karma
+        self._env = karma.env
         self._total_weight = sum(l.weighting for l in karma.line_ids)
 
     def compute(self, record):

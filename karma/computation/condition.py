@@ -1,9 +1,15 @@
 # © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
+import sys
+
 from odoo import _
+from odoo.tools import pycompat
 from ..safe_eval import restricted_safe_eval
-from .common import KarmaComputationError, AbstractKarmaComputer
+
+
+class KarmaComputationError(Exception):
+    pass
 
 
 FIELD_NULL_VALUES = {
@@ -14,7 +20,7 @@ FIELD_NULL_VALUES = {
 }
 
 
-class ConditionKarmaComputer(AbstractKarmaComputer):
+class ConditionKarmaComputer:
     """This class defines how Ad Hoc Karma scores are computed."""
 
     def __init__(self, karma):
@@ -23,8 +29,9 @@ class ConditionKarmaComputer(AbstractKarmaComputer):
         `karma.score.condition` are snapshots of `karma.score.condition` when
         a score is computed.
         """
-        super().__init__(karma)
-        self._conditions = {}
+        self._karma = karma
+        self._env = karma.env
+        self._condition_cache = ScoreConditionCache(self._env)
 
     def compute(self, record):
         """Compute the score for a given record.
@@ -52,7 +59,7 @@ class ConditionKarmaComputer(AbstractKarmaComputer):
         :param karma_line: the `karma.condition.line` to process
         :param record: the record to process
         """
-        condition = self._get_score_condition(karma_line)
+        condition = self._condition_cache.get(karma_line)
 
         value = self._get_field_value(karma_line, record)
 
@@ -102,12 +109,49 @@ class ConditionKarmaComputer(AbstractKarmaComputer):
 
         return value
 
-    def _get_score_condition(self, karma_line):
+    def _eval_expression(self, expression, value):
+        """Evaluate an expression for a given value.
+
+        In case of an error in the execution in the evaluation of the expression,
+        the safe_eval function from Odoo raises ValueError.
+        This method adds more context to the exception raised.
+
+        :param expression: the expression to eval.
+        :param value: the value to assign to the `value` attribute of the expression.
+        """
+        try:
+            return restricted_safe_eval(expression, {'value': value})
+        except ValueError as err:
+            error_message = _(
+                'The following expression could not be evaluated with the value {value}. '
+                '\n\n{expression}'
+                '\n\n{err}'
+            ).format(value=value, expression=expression, err=err)
+            pycompat.reraise(ValueError, ValueError(error_message), sys.exc_info()[2])
+
+
+class ScoreConditionCache:
+    """Class responsible for caching records of `karma.score.condition`.
+
+    The purpose of this complexity is to limit disk space usage of score data.
+
+    A record of `karma.score.condition` represents a snapshot of a `karma.condition.line`.
+    If the condition lines on a karma record are chagned, this has no impact on
+    scores already computed.
+
+    All scores that are computed from the same `karma.condition.line` will be linked to the
+    same `karma.score.condition` record unless the `karma.condition.line` changes.
+    """
+
+    def __init__(self, env):
+        self._env = env
+        self._conditions = {}
+
+    def get(self, karma_line):
         """Get a `karma.score.condition` record matching a `karma.condition.line`.
 
         If a matching `karma.score.condition` does not exist, then create a new one.
 
-        The purpose of this complexity is to limit disk space usage of score data.
 
         :param karma_line: a `karma.condition.line` record
         :return: a `karma.score.condition` record
@@ -141,18 +185,3 @@ class ConditionKarmaComputer(AbstractKarmaComputer):
             'result_if_false': karma_line.result_if_false,
             'weighting': karma_line.weighting,
         })
-
-    def _eval_expression(self, expression, value):
-        """Evaluate an expression for a given value.
-
-        :param expression: the expression to eval.
-        :param value: the value to assign to the `value` attribute of the expression.
-        """
-        try:
-            return restricted_safe_eval(expression, {'value': value})
-        except Exception as err:
-            raise KarmaComputationError(_(
-                'The following expression could not be evaluated with the value {value}. '
-                '\n\n{expression}'
-                '\n\n{err}'
-            ).format(expression=expression, value=value, err=err))

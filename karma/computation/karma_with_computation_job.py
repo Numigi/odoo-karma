@@ -99,7 +99,7 @@ class SavepointContextManager:
     def __enter__(self):
         self._begin_nested()
 
-    def __exit__(self, type, value, traceback):
+    def __exit__(self, type_, value, traceback):
         if value:
             self._rollback()
             return False
@@ -127,7 +127,7 @@ class KarmaErrorLogContextManager:
     def __enter__(self):
         pass
 
-    def __exit__(self, type, value, traceback):
+    def __exit__(self, type_, value, traceback):
         if value:
             self._log_error_in_syslogs(value)
             self._create_error_log_record(value)
@@ -163,7 +163,7 @@ class IgnoreConditionEvaluationContextManager:
     def __enter__(self):
         pass
 
-    def __exit__(self, type, value, traceback):
+    def __exit__(self, type_, value, traceback):
         if value:
             error_should_be_ignored = isinstance(value, KarmaConditionEvaluationError)
             return error_should_be_ignored

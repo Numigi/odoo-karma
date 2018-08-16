@@ -156,7 +156,7 @@ class TestComputeAllScores(ComputedKarmaCase):
         cls.karma.domain = "[('id', 'in', {ids})]".format(ids=[cls.partner.id, cls.partner_2.id])
 
         cls.expected_partner_1_score = 10
-        cls.expected_partner_2_score = 3 * 5 / 2
+        cls.expected_partner_2_score = 7.5  # 3 * 5 / 2
 
     def _find_last_score(self, partner):
         return self.env['karma.score'].search([

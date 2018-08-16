@@ -39,6 +39,8 @@ class KarmaWithComputationScheduling(models.Model):
         """Get the delay in minutes per depth of inherited karmas.
 
         The default value is 10 minutes.
+
+        :rtype: datetime.timedelta
         """
         minutes = int(self.env['ir.config_parameter'].get_param('karma.inherited_karma_delay', 10))
         return timedelta(minutes=minutes)

@@ -26,6 +26,11 @@ class KarmaWithScoreComputingJob(models.Model):
         """Compute the scores for all records targeted by the karma.
 
         :param raise_: whether to raise the exception when a single computation fails.
+
+            raise_=False prevents a complete rollback if a computation error happens
+            for a single record.
+
+            raise_=True can be used for testing purposes.
         """
         records = self._get_targeted_records()
         computer = self._get_score_computer()
@@ -89,7 +94,7 @@ def call_with_context_managers(func, managers):
 
 
 class SavepointContextManager:
-    """Class that allows to tun a nested transaction given an environment."""
+    """Class that allows to run a nested transaction given an environment."""
 
     def __init__(self, env):
         self._env = env

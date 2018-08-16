@@ -1,2 +1,5 @@
 - url: https://{{GIT_TOKEN}}@github.com/Numigi/vue-odoo
   branch: "11.0"
+
+- url: https://github.com/OCA/queue
+  branch: "11.0"

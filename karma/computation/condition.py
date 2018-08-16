@@ -8,7 +8,7 @@ from odoo.tools import pycompat
 from ..safe_eval import restricted_safe_eval
 
 
-class KarmaComputationError(Exception):
+class KarmaConditionEvaluationError(Exception):
     pass
 
 
@@ -122,7 +122,11 @@ class ConditionKarmaComputer:
                 '\n\n{expression}'
                 '\n\n{err}'
             ).format(value=value, expression=expression, err=err)
-            pycompat.reraise(ValueError, ValueError(error_message), sys.exc_info()[2])
+            pycompat.reraise(
+                KarmaConditionEvaluationError,
+                KarmaConditionEvaluationError(error_message),
+                sys.exc_info()[2],
+            )
 
 
 class ScoreConditionCache:
@@ -147,7 +151,6 @@ class ScoreConditionCache:
 
         If a matching `karma.score.condition` does not exist, then create a new one.
 
-
         :param karma_line: a `karma.condition.line` record
         :return: a `karma.score.condition` record
         """
@@ -159,7 +162,15 @@ class ScoreConditionCache:
 
             self._conditions[karma_line] = condition
 
-        return self._conditions[karma_line]
+        else:
+            condition = self._conditions[karma_line]
+
+            # If a rollback happened, a cached condition may not exist in the database.
+            if not condition.exists():
+                self._conditions = {}
+                return self.get(karma_line)
+
+        return condition
 
     def _find_matching_score_condition(self, karma_line):
         return self._env['karma.score.condition'].search([

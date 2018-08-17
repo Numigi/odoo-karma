@@ -15,19 +15,22 @@ var ScoreDrilldownWidget = basicFields.FieldFloat.extend({
         return this._super.apply(this, arguments).then(() => {
             this.$el.click((event) => {
                 event.preventDefault();
-                this.drilldown()
+                this.drilldown();
             });
         });
     },
     drilldown(){
+        var karmaType;
+        var scoreId;
+
         if(this.model === "karma.score"){
-            var karmaType = this.recordData.karma_type;
-            var scoreId = this.recordData.id;
+            karmaType = this.recordData.karma_type;
+            scoreId = this.recordData.id;
         }
         else {
             // Details from a line of inherited score detail.
-            var karmaType = this.recordData.child_score_karma_type;
-            var scoreId = this.recordData.child_score_id.data.id;
+            karmaType = this.recordData.child_score_karma_type;
+            scoreId = this.recordData.child_score_id.data.id;
         }
         var actionModel = (
             karmaType === "inherited" ?

@@ -11,10 +11,10 @@ require("web.FormController").include({
         var recordModel = this.renderer.state.model;
         var recordId = this.renderer.state.res_id;
         this._rpc({
-            route: '/web/dataset/call_kw/karma/compute_score_on_save',
+            route: "/web/dataset/call_kw/karma/compute_score_on_save",
             params: {
-                model: 'karma',
-                method: 'compute_score_on_save',
+                model: "karma",
+                method: "compute_score_on_save",
                 args: [recordModel, recordId],
                 kwargs: {},
             }

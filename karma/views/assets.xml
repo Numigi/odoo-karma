@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_backend_with_karma" name="assets_backend_with_karma" inherit_id="web.assets_common">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/karma/static/src/js/karmaComputationOnSave.js"></script>
+            <script type="text/javascript" src="/karma/static/src/js/KarmaScoreDrilldown.js"></script>
+        </xpath>
+    </template>
+
+</odoo>

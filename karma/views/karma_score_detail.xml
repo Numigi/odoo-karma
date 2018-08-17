@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_karma_score_inherited_defail_list" model="ir.ui.view">
+        <field name="name">Karma Score Inherited Detail List View</field>
+        <field name="model">karma.score.inherited.detail</field>
+        <field name="arch" type="xml">
+            <tree string="Score Details" create="0" delete="0" duplicate="0" edit="0">
+                <field name="child_score_id" invisible="1"/>
+                <field name="child_score_karma_type" invisible="1"/>
+                <field name="karma_id"/>
+                <field name="record_display_name"/>
+                <field name="score" widget="karma_score_drilldown" class="karma-score__link"/>
+                <field name="weighting"/>
+                <field name="result"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_karma_score_condition_detail_list" model="ir.ui.view">
+        <field name="name">Karma Score Condition Detail List View</field>
+        <field name="model">karma.score.condition.detail</field>
+        <field name="arch" type="xml">
+            <tree string="Score Detail" create="0" delete="0" duplicate="0" edit="0">
+                <field name="condition_label"/>
+                <field name="field_value"/>
+                <field name="condition_fulfilled"/>
+                <field name="score"/>
+                <field name="result_if_true"/>
+                <field name="result_if_false"/>
+                <field name="weighting"/>
+                <field name="result"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

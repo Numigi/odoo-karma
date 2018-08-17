@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem
+        id="menu_karma_root"
+        name="Karma"
+        web_icon="karma,static/description/app_icon.png"
+        />
+
+    <menuitem
+        id="menu_karma_settings"
+        name="Settings"
+        parent="menu_karma_root"
+        sequence="50"/>
+
+    <menuitem
+        id="menu_karma_hierarchy"
+        name="Karmas"
+        parent="menu_karma_settings"
+        action="action_karma_hierarchy"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_karma_score"
+        name="Scores"
+        parent="menu_karma_settings"
+        action="action_karma_score"
+        sequence="20"/>
+
+</odoo>

@@ -14,7 +14,13 @@
         'decimal_precision',
         'queue_job',
     ],
-    'data': [],
+    'data': [
+        'views/assets.xml',
+        'views/karma_score.xml',
+        'views/karma_score_detail.xml',
+        'views/karma.xml',
+        'views/menu.xml',
+    ],
     'installable': True,
     'application': True,
 }

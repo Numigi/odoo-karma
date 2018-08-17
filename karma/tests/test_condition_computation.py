@@ -15,6 +15,7 @@ class ComputedKarmaCase(SavepointCase):
 
         cls.karma = cls.env['karma'].create({
             'name': 'Partner Information',
+            'type_': 'condition',
             'model_id': cls.env.ref('base.model_res_partner').id,
             'description': 'Scores the completeness of the information on the partner.',
         })
@@ -60,6 +61,11 @@ class ComputedKarmaCase(SavepointCase):
         cls.partner_2 = cls.env['res.partner'].create({
             'name': 'Jane Doe',
         })
+
+    def _find_last_score(self, partner):
+        return self.env['karma.score'].search([
+            ('res_id', '=', partner.id), ('karma_id', '=', self.karma.id),
+        ], limit=1, order='id desc')
 
 
 class TestComputedKarmaComputation(ComputedKarmaCase):
@@ -157,11 +163,6 @@ class TestComputeAllScores(ComputedKarmaCase):
 
         cls.expected_partner_1_score = 10
         cls.expected_partner_2_score = 7.5  # 3 * 5 / 2
-
-    def _find_last_score(self, partner):
-        return self.env['karma.score'].search([
-            ('res_id', '=', partner.id), ('karma_id', '=', self.karma.id),
-        ], limit=1, order='id desc')
 
     def test_compute_all_scores(self):
         self.karma.compute_all_scores(raise_=True)

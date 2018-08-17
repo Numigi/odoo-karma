@@ -7,4 +7,5 @@ from .inherited import InheritedKarmaComputer
 from . import (
     karma_with_computation_job,
     karma_with_computation_scheduling,
+    karma_with_compute_on_save,
 )

@@ -1,0 +1,43 @@
+.o_karma_widget {
+    display: inline-block;
+}
+
+.o_karma_widget__box {
+    width: 120px;
+    height: 120px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-flow: column;
+}
+
+.o_karma_widget__box__top,
+.o_karma_widget__box__middle,
+.o_karma_widget__box__bottom,
+.o_karma_widget__history
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.o_karma_widget__box__middle {
+    flex: 1;
+}
+
+.o_karma_widget__box__top,
+.o_karma_widget__box__bottom,
+.o_karma_widget__history
+{
+    margin: 0.5em 0;
+}
+
+.o_karma_widget__score {
+    font-size: 2em;
+}
+
+.o_karma_widget__score,
+.o_karma_widget__refresh,
+.o_karma_widget__history
+{
+    cursor: pointer;
+}

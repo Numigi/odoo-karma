@@ -17,7 +17,6 @@
 
         'date_range_field_template',
         'karma',
-        'karma_widget',
     ],
     'installable': True,
 }

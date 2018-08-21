@@ -58,8 +58,11 @@ class KarmaWithScoreComputingJob(models.Model):
             'force_next_cron_date': False,
         })
 
+    def _get_domain(self):
+        return ast.literal_eval(self.domain) if self.domain else []
+
     def _get_targeted_records(self):
-        domain = ast.literal_eval(self.domain) if self.domain else []
+        domain = self._get_domain()
         return self.env[self.model_id.model].search(domain)
 
     def _get_score_computer(self):

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_karma_form" model="ir.ui.view">
+        <field name="name">Karma Form View</field>
+        <field name="model">karma</field>
+        <field name="arch" type="xml">
+            <form string="Karma">
+                <header>
+                    <button name="compute_all_scores" type="object" string="Compute"/>
+                </header>
+                <sheet>
+                    <field name="id" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_karma_score)d"
+                                context="{'search_default_karma_id': id}"
+                                attrs="{'invisible': [('id', '=', False)]}"
+                                string="Score Details"
+                                type="action"
+                                icon="fa-star"
+                                class="oe_stat_button"/>
+                    </div>
+                    <h1>
+                        <field name="ref"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="label"/>
+                            <field name="model_id"/>
+                            <field name="model" invisible="1"/>
+                            <field name="type_"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="cron_schedule"/>
+                            <field name="authorize_anticipate_computation"/>
+                        </group>
+                        <group>
+                            <field name="compute_on_save"/>
+                            <field name="display_on_form_view"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                    <notebook>
+                        <page name="children" string="Child Karmas" attrs="{'invisible': [('type_', '!=', 'inherited')]}">
+                            <field name="line_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="child_karma_id"/>
+                                    <field name="model_id"/>
+                                    <field name="model" invisible="1"/>
+                                    <field name="field_id"/>
+                                    <field name="weighting"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="conditions" string="Condition" attrs="{'invisible': [('type_', '!=', 'condition')]}">
+                            <field name="condition_line_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="field_id"/>
+                                    <field name="condition_label"/>
+                                    <field name="condition"/>
+                                    <field name="result_if_true"/>
+                                    <field name="result_if_false"/>
+                                    <field name="weighting"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="filter" string="Filters">
+                            <group>
+                                <field name="domain" widget="domain" options="{'model': 'model'}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_karma_list" model="ir.ui.view">
+        <field name="name">Karma List View</field>
+        <field name="model">karma</field>
+        <field name="arch" type="xml">
+            <tree string="Karmas">
+                <field name="ref"/>
+                <field name="name"/>
+                <field name="model_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_karma_search" model="ir.ui.view">
+        <field name="name">Karma Search View</field>
+        <field name="model">karma</field>
+        <field name="arch" type="xml">
+            <search string="Karmas">
+                <field name="name" string="Karma"
+                    filter_domain="[ '|', '|', ('name', 'ilike', self), ('ref', 'like', self), ('model_id', 'like', self)]"/>
+                <field name="model_id" string="Model"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_model_id" string="Model" context="{'group_by': 'model_id'}"/>
+                    <filter name="group_by_type" string="Type" context="{'group_by': 'type_'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_karma_hierarchy" model="ir.actions.act_window">
+        <field name="name">Karmas</field>
+        <field name="res_model">karma</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

@@ -15,6 +15,7 @@ class TestComputedKarmaComputation(SavepointCase):
 
         cls.partner_karma = cls.env['karma'].create({
             'name': 'Partner Information',
+            'type_': 'condition',
             'model_id': cls.env.ref('base.model_res_partner').id,
             'condition_line_ids': [(0, 0, {
                 'field_id': cls.env['ir.model.fields'].search([
@@ -31,6 +32,7 @@ class TestComputedKarmaComputation(SavepointCase):
 
         cls.sale_order_karma = cls.env['karma'].create({
             'name': 'Sale Order Conditions',
+            'type_': 'condition',
             'model_id': cls.env.ref('sale.model_sale_order').id,
             'condition_line_ids': [(0, 0, {
                 'field_id': cls.env['ir.model.fields'].search([
@@ -47,6 +49,7 @@ class TestComputedKarmaComputation(SavepointCase):
 
         cls.karma = cls.env['karma'].create({
             'name': 'Global Sale Order Karma',
+            'type_': 'inherited',
             'model_id': cls.env.ref('sale.model_sale_order').id,
         })
 

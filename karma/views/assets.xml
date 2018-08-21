@@ -5,6 +5,8 @@
         <xpath expr="." position="inside">
             <script type="text/javascript" src="/karma/static/src/js/karmaComputationOnSave.js"></script>
             <script type="text/javascript" src="/karma/static/src/js/KarmaScoreDrilldown.js"></script>
+            <script type="text/javascript" src="/karma/static/src/js/KarmaWidget.js"></script>
+            <link type="text/css" rel="stylesheet" href="/karma/static/src/css/karma_widget.css"></link>
         </xpath>
     </template>
 

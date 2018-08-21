@@ -21,7 +21,6 @@ class KarmaWithComputationScheduling(models.Model):
 
     last_cron_date = fields.Date('Previous Cron Date', readonly=True)
     force_next_cron_date = fields.Date('Force Next Cron Date')
-    authorize_anticipate_computation = fields.Boolean()
 
     def schedule_computation(self):
         """Plan a queued job for each outdated karma.

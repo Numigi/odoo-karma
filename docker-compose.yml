@@ -9,6 +9,7 @@ services:
     volumes:
       - odoo-web-data:/var/lib/odoo
       - ./.log:/var/log/odoo
+      - ./karma:/mnt/extra-addons/karma
     ports:
       - "8069:8069"
       - "8071:8071"

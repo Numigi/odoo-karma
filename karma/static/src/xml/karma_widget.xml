@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="KarmaWidget">
+        <div class="o_karma_widget">
+            <div class="o_karma_widget__box">
+                <div class="o_karma_widget__box__top">
+                </div>
+                <div class="o_karma_widget__box__middle">
+                    <t t-call="KarmaWidgetScore"/>
+                </div>
+                <div class="o_karma_widget__box__bottom">
+                    <t t-call="KarmaWidgetLabel"/>
+                    <t t-call="KarmaWidgetRefresh"/>
+                </div>
+            </div>
+            <t t-call="KarmaWidgetHistory"/>
+        </div>
+    </t>
+
+    <t t-name="KarmaWidgetLabel">
+        <div class="o_karma_widget__label">
+            <t t-raw="widget.karma &amp;&amp; widget.karma.label"/>
+        </div>
+    </t>
+
+    <t t-name="KarmaWidgetScore">
+        <div class="o_karma_widget__score">
+            <a><t t-if="widget.score" t-raw="widget.score.score"/></a>
+        </div>
+    </t>
+
+    <t t-name="KarmaWidgetHistory">
+        <div class="o_karma_widget__history">
+            <a>History</a>
+        </div>
+    </t>
+
+    <t t-name="KarmaWidgetRefresh">
+        <div class="o_karma_widget__refresh" t-if="widget.karma &amp;&amp; widget.karma.authorize_anticipate_computation">
+            <a><i class="fa fa-refresh"></i></a>
+        </div>
+    </t>
+
+</templates>

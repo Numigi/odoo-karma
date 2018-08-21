@@ -21,6 +21,9 @@
         'views/karma.xml',
         'views/menu.xml',
     ],
+    'qweb': [
+        'static/src/xml/karma_widget.xml',
+    ],
     'installable': True,
     'application': True,
 }

@@ -6,9 +6,6 @@ var registry = require("web.field_registry");
 
 var _t = core._t;
 
-/**
- * After saving the form view, trigger the computation of the karma for the record.
- */
 var ScoreDrilldownWidget = basicFields.FieldFloat.extend({
     tagName: "a",
     start(){
@@ -19,6 +16,9 @@ var ScoreDrilldownWidget = basicFields.FieldFloat.extend({
             });
         });
     },
+    /**
+     * Open the details that compose the karma score.
+     */
     drilldown(){
         var karmaType;
         var scoreId;

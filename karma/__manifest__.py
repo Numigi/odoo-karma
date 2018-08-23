@@ -15,6 +15,8 @@
         'queue_job',
     ],
     'data': [
+        'security/res_groups.xml',
+        'security/ir.model.access.csv',
         'views/assets.xml',
         'views/karma_score.xml',
         'views/karma_score_detail.xml',

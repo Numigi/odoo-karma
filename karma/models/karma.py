@@ -1,6 +1,8 @@
 # © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
+import ast
+
 from odoo import api, fields, models
 from odoo.addons import decimal_precision as dp
 
@@ -23,7 +25,50 @@ class Karma(models.Model):
     line_ids = fields.One2many('karma.line', 'karma_id', 'Children Karmas')
     condition_line_ids = fields.One2many('karma.condition.line', 'karma_id', 'Conditions')
     domain = fields.Text()
+
+    def _get_domain(self):
+        return ast.literal_eval(self.domain) if self.domain else []
+
+    def _domain_matches_record(self, record):
+        """Evaluate whether the karma matches the given record.
+
+        :param record: the record to check.
+        :return: True if the record matches the karma's domain filter, false otherwise.
+        """
+        filter_domain = self._get_domain()
+        found_records = self.env[record._name].search([('id', '=', record.id)] + filter_domain)
+        return found_records.ids == [record.id]
+
+
+class KarmaWithDisplayOnFormView(models.Model):
+    """Add a boolean to indicate that the karma must be displayed on the form view.
+
+    Multiple karma objects may be displayed on the form view of a given model.
+
+    Only the karma(s) matching the record will be displayed.
+
+    For example, if a karma on res.partner has the filter [('customer', '=', True)],
+    it will only appear on the form view for customers.
+
+    Therefore, you may have distinct karmas for customers and suppliers.
+    In case a partner is supplier and customer, both karmas will appear
+    on the form view.
+    """
+
+    _inherit = 'karma'
+
     display_on_form_view = fields.Boolean()
+
+    @api.model
+    def find_karmas_to_display_on_form_view(self, model, record_id):
+        model_matching_karmas = self.search([
+            ('model_id.model', '=', model),
+            ('display_on_form_view', '=', True),
+        ])
+        record = self.env[model].browse(record_id)
+        matching_karmas = model_matching_karmas.filtered(
+            lambda k: k.sudo()._domain_matches_record(record))
+        return matching_karmas.read()
 
 
 class KarmaWithReference(models.Model):

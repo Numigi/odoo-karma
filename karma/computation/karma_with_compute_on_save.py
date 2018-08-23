@@ -19,22 +19,16 @@ class KarmaWithScoreComputingJob(models.Model):
         :param record_id: the database id of the saved record.
         """
         record = self.env[model].browse(record_id)
-        karmas = self._find_karmas_triggered_on_save(model, record_id)
+        karmas = self._find_karmas_triggered_on_save(record)
 
         for karma in karmas:
             computer = karma._get_score_computer()
             computer.compute(record)
 
-    def _find_karmas_triggered_on_save(self, model, record_id):
+    def _find_karmas_triggered_on_save(self, record):
         """Find karma objects that should be triggered on save for the given record."""
-        all_karmas = self.search([
-            ('model_id.model', '=', model),
+        model_matching_karmas = self.search([
+            ('model_id.model', '=', record._name),
             ('compute_on_save', '=', True),
         ])
-
-        def should_be_triggered(karma):
-            filter_domain = karma._get_domain()
-            found_records = self.env[model].search([('id', '=', record_id)] + filter_domain)
-            return found_records.ids == [record_id]
-
-        return all_karmas.filtered(lambda k: should_be_triggered(k))
+        return model_matching_karmas.filtered(lambda k: k._domain_matches_record(record))

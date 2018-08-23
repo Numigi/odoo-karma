@@ -3,7 +3,7 @@
 
 import sys
 
-from odoo import _
+from odoo import models, _
 from odoo.tools import pycompat
 from ..safe_eval import restricted_safe_eval
 
@@ -24,8 +24,8 @@ class ConditionKarmaComputer:
     """This class defines how Ad Hoc Karma scores are computed."""
 
     def __init__(self, karma):
-        self._karma = karma
-        self._env = karma.env
+        self._karma = karma.sudo()
+        self._env = self._karma.env
         self._condition_cache = ScoreConditionCache(self._env)
 
     def compute(self, record):
@@ -34,6 +34,7 @@ class ConditionKarmaComputer:
         :param record: the record to process
         :return: a `karma.score.condition` record
         """
+        record = record.sudo()
         score_line = self._env['karma.score'].create({
             'karma_id': self._karma.id,
             'res_id': record.id,
@@ -68,13 +69,15 @@ class ConditionKarmaComputer:
 
         self._env['karma.score.condition.detail'].create({
             'score_id': parent_score.id,
+            'field_value': self._format_field_value(value),
             'condition_id': condition.id,
             'condition_fulfilled': condition_fulfilled,
             'score': score,
             'result': score * karma_line.weighting,
         })
 
-    def _get_field_value(self, karma_line, record):
+    @staticmethod
+    def _get_field_value(karma_line, record):
         """Get the value of the field for the given record.
 
         For some types of field, an alternative value is returned when the
@@ -104,7 +107,19 @@ class ConditionKarmaComputer:
 
         return value
 
-    def _eval_expression(self, expression, value):
+    @staticmethod
+    def _format_field_value(value):
+        """Format a field value for displaying in the details of a karma score.
+
+        :param value: the value to format
+        """
+        if isinstance(value, models.Model):
+            return ', '.join(value.mapped('display_name'))
+        else:
+            return value
+
+    @staticmethod
+    def _eval_expression(expression, value):
         """Evaluate an expression for a given value.
 
         In case of an error in the execution in the evaluation of the expression,

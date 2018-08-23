@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="view_karma_score_list" model="ir.ui.view">
-        <field name="name">Karma Score List View</field>
+    <record id="view_karma_error_log_list" model="ir.ui.view">
+        <field name="name">Karma Error Log List View</field>
         <field name="model">karma.score</field>
         <field name="arch" type="xml">
-            <tree string="Karma Scores" create="0" delete="0" duplicate="0" edit="0">
+            <tree string="Karma Error Logs" create="0" delete="0" duplicate="0" edit="0">
                 <field name="create_date"/>
                 <field name="karma_id"/>
-                <field name="record_display_name"/>
-                <field name="score" widget="karma_score_drilldown" class="karma-score__link"/>
-                <field name="karma_type" invisible="1"/>
             </tree>
         </field>
     </record>
 
-    <record id="view_karma_score_search" model="ir.ui.view">
-        <field name="name">Karma Score Search View</field>
+    <record id="view_karma_error_log_search" model="ir.ui.view">
+        <field name="name">Karma Error Log Search View</field>
         <field name="model">karma.score</field>
         <field name="arch" type="xml">
-            <search string="Karma Scores">
+            <search string="Karma Error Logs">
                 <field name="karma_id" string="Karma"/>
                 <group expand="0" string="Group By">
                     <filter name="group_by_karma_id" string="Karma" context="{'group_by': 'karma_id'}"/>
@@ -29,8 +26,8 @@
         </field>
     </record>
 
-    <record id="action_karma_score" model="ir.actions.act_window">
-        <field name="name">Karma Scores</field>
+    <record id="action_karma_error_log" model="ir.actions.act_window">
+        <field name="name">Karma Error Logs</field>
         <field name="res_model">karma.score</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree</field>

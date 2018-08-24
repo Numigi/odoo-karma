@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem
+        id="menu_date_range"
+        name="Custom Date Ranges"
+        action="action_date_range"
+        parent="base.next_id_9"
+        sequence="20"
+        />
+
+    <menuitem
+        id="menu_field_template"
+        name="Computed Date Range Fields"
+        action="action_field_template"
+        parent="base.next_id_9"
+        sequence="21"
+        />
+
+</odoo>

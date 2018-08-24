@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_date_range_form" model="ir.ui.view">
+        <field name="name">Date Range Form View</field>
+        <field name="model">computed.field.date.range</field>
+        <field name="arch" type="xml">
+            <form string="Date Range">
+                <sheet>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <field name="reference"/>
+                        <field name="active"/>
+                    </group>
+                    <group col="6">
+                        <group col="1">
+                            <label string=""/>
+                            <label string="Start"/>
+                            <label string="End"/>
+                        </group>
+                        <group col="1">
+                            <label string=""/>
+                            <field name="enable_date_min" nolabel="1"/>
+                            <field name="enable_date_max" nolabel="1"/>
+                        </group>
+                        <group col="1">
+                            <label string="Years"/>
+                            <field name="year_min" nolabel="1"/>
+                            <field name="year_max" nolabel="1"/>
+                        </group>
+                        <group col="1">
+                            <label string="Months"/>
+                            <field name="month_min" nolabel="1"/>
+                            <field name="month_max" nolabel="1"/>
+                        </group>
+                        <group col="1">
+                            <label string="Weeks"/>
+                            <field name="week_min" nolabel="1"/>
+                            <field name="week_max" nolabel="1"/>
+                        </group>
+                        <group col="1">
+                            <label string="Days"/>
+                            <field name="day_min" nolabel="1"/>
+                            <field name="day_max" nolabel="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="week_start"/>
+                        <field name="week_end"/>
+                        <field name="month_start"/>
+                        <field name="month_end"/>
+                        <field name="year_start"/>
+                        <field name="year_end"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_date_range_list" model="ir.ui.view">
+        <field name="name">Date Range List View</field>
+        <field name="model">computed.field.date.range</field>
+        <field name="arch" type="xml">
+            <tree string="Date Ranges">
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_date_range_search" model="ir.ui.view">
+        <field name="name">Date Range Search View</field>
+        <field name="model">computed.field.date.range</field>
+        <field name="arch" type="xml">
+            <search string="Date Ranges">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_date_range" model="ir.actions.act_window">
+        <field name="name">Date Ranges</field>
+        <field name="res_model">computed.field.date.range</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

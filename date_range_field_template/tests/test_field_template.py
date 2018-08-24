@@ -11,55 +11,49 @@ from odoo import fields, models
 from odoo.tests import common
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
-from ..field_template import FieldTemplate
+
+def compute_badge_count(records, field_name, date_from, date_to):
+    utc_date_from = date_from.astimezone(pytz.utc)
+    utc_date_to = date_to.astimezone(pytz.utc)
+
+    badges = records.env['gamification.badge.user'].search([
+        ('create_date', '>=', fields.Datetime.to_string(utc_date_from)),
+        ('create_date', '<=', fields.Datetime.to_string(utc_date_to)),
+        ('user_id', 'in', records.ids),
+    ])
+
+    badge_count_by_user = defaultdict(int)
+
+    for badge in badges:
+        badge_count_by_user[badge.user_id] += 1
+
+    for user in records:
+        user[field_name] = badge_count_by_user[user]
 
 
-class GamificationBadgeCount(FieldTemplate):
+def compute_reached_goal_ratio(records, field_name, date_from, date_to):
+    reached_count = _get_reached_goal_count(records, 'reached', date_from, date_to)
+    failed_count = _get_reached_goal_count(records, 'failed', date_from, date_to)
 
-    def compute(self, records, field_name, date_from, date_to):
-        utc_date_from = date_from.astimezone(pytz.utc)
-        utc_date_to = date_to.astimezone(pytz.utc)
-
-        badges = records.env['gamification.badge.user'].search([
-            ('create_date', '>=', fields.Datetime.to_string(utc_date_from)),
-            ('create_date', '<=', fields.Datetime.to_string(utc_date_to)),
-            ('user_id', 'in', records.ids),
-        ])
-
-        badge_count_by_user = defaultdict(int)
-
-        for badge in badges:
-            badge_count_by_user[badge.user_id] += 1
-
-        for user in records:
-            user[field_name] = badge_count_by_user[user]
+    for user in records:
+        total = reached_count[user] + failed_count[user]
+        user[field_name] = reached_count[user] / total if total else 0
 
 
-class ReachedGoalRatio(FieldTemplate):
+def _get_reached_goal_count(users, state, date_from, date_to):
+    goals = users.env['gamification.goal'].search([
+        ('start_date', '>=', fields.Date.to_string(date_from)),
+        ('start_date', '<=', fields.Date.to_string(date_to)),
+        ('user_id', 'in', users.ids),
+        ('state', '=', state),
+    ])
 
-    def compute(self, records, field_name, date_from, date_to):
-        reached_count = self._get_goal_count(records, 'reached', date_from, date_to)
-        failed_count = self._get_goal_count(records, 'failed', date_from, date_to)
+    goal_count = defaultdict(int)
 
-        for user in records:
-            total = reached_count[user] + failed_count[user]
-            user[field_name] = reached_count[user] / total if total else 0
+    for goal in goals:
+        goal_count[goal.user_id] += 1
 
-    @staticmethod
-    def _get_goal_count(users, state, date_from, date_to):
-        goals = users.env['gamification.goal'].search([
-            ('start_date', '>=', fields.Date.to_string(date_from)),
-            ('start_date', '<=', fields.Date.to_string(date_to)),
-            ('user_id', 'in', users.ids),
-            ('state', '=', state),
-        ])
-
-        goal_count = defaultdict(int)
-
-        for goal in goals:
-            goal_count[goal.user_id] += 1
-
-        return goal_count
+    return goal_count
 
 
 class ResUsersWithBadgeCount(models.Model):
@@ -68,8 +62,8 @@ class ResUsersWithBadgeCount(models.Model):
 
     def _register_hook(self):
         super()._register_hook()
-        self._register_date_range_field('gamification_badge_count', GamificationBadgeCount())
-        self._register_date_range_field('gamification_goal_ratio', ReachedGoalRatio())
+        self._register_date_range_field('gamification_badge_count', compute_badge_count)
+        self._register_date_range_field('gamification_goal_ratio', compute_reached_goal_ratio)
 
 
 class TestFieldTemplate(common.SavepointCase):

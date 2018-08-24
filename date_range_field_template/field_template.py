@@ -1,31 +1,10 @@
 # © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-import abc
-
 from datetime import date
 from odoo import api, fields, models
 from odoo.addons.base.ir.ir_model import FIELD_TYPES
 from typing import Iterable
-
-
-class FieldTemplate(metaclass=abc.ABCMeta):
-
-    @abc.abstractmethod
-    def compute(
-        self, records: Iterable[object], field_name: str, date_from: date, date_to: date
-    ):
-        """Compute the field value for the given records and date range.
-
-        The given date_from and date_to parameters are expected to be UTC dates
-        expressed in the user's timezone.
-
-        :param records: the records for which to compute the field
-        :param field_name: the name of the attribute that will contain the field value
-        :param date_form: the minimum date of the range
-        :param date_to: the maximum date of the range
-        """
-        raise NotImplementedError()
 
 
 class ComputedFieldTemplate(models.Model):

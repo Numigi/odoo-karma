@@ -10,12 +10,12 @@ from odoo.tests.common import TransactionCase
 from ..date_range import (
     get_day_start,
     get_day_end,
-    get_week_start,
-    get_week_end,
-    get_month_start,
-    get_month_end,
-    get_year_start,
-    get_year_end,
+    get_first_day_of_week,
+    get_last_day_of_week,
+    get_first_day_of_month,
+    get_last_day_of_month,
+    get_first_day_of_year,
+    get_last_day_of_year,
 )
 
 
@@ -31,23 +31,23 @@ class TestBasicDateConversionCases:
     def test_get_day_end(self):
         assert get_day_end(self.now) == datetime(2018, 5, 10, 23, 59, 59, 999999)
 
-    def test_get_week_start(self):
-        assert get_week_start(self.today) == datetime(2018, 5, 6)
+    def test_get_first_day_of_week(self):
+        assert get_first_day_of_week(self.today) == datetime(2018, 5, 6)
 
-    def test_get_week_end(self):
-        assert get_week_end(self.today) == datetime(2018, 5, 12, 23, 59, 59, 999999)
+    def test_get_last_day_of_week(self):
+        assert get_last_day_of_week(self.today) == datetime(2018, 5, 12)
 
-    def test_get_month_start(self):
-        assert get_month_start(self.today) == datetime(2018, 5, 1)
+    def test_get_first_day_of_month(self):
+        assert get_first_day_of_month(self.today) == datetime(2018, 5, 1)
 
-    def test_get_month_end(self):
-        assert get_month_end(self.today) == datetime(2018, 5, 31, 23, 59, 59, 999999)
+    def test_get_last_day_of_month(self):
+        assert get_last_day_of_month(self.today) == datetime(2018, 5, 31)
 
-    def test_get_year_start(self):
-        assert get_year_start(self.today) == datetime(2018, 1, 1)
+    def test_get_first_day_of_year(self):
+        assert get_first_day_of_year(self.today) == datetime(2018, 1, 1)
 
-    def test_get_year_end(self):
-        assert get_year_end(self.today) == datetime(2018, 12, 31, 23, 59, 59, 999999)
+    def test_get_last_day_of_year(self):
+        assert get_last_day_of_year(self.today) == datetime(2018, 12, 31)
 
 
 class TestComputedFieldDateRange(TransactionCase):

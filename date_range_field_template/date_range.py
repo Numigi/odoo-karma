@@ -87,6 +87,9 @@ class ComputedFieldDateRange(models.Model):
         if self.week_start:
             date_min = get_first_day_of_week(date_min)
 
+        if self.day_min:
+            date_min += timedelta(self.day_min)
+
         return get_day_start(date_min)
 
     @api.multi
@@ -114,6 +117,9 @@ class ComputedFieldDateRange(models.Model):
 
         if self.week_end:
             date_max = get_last_day_of_week(date_max)
+
+        if self.day_max:
+            date_max += timedelta(self.day_max)
 
         return get_day_end(date_max)
 

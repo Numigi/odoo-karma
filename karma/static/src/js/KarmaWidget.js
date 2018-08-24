@@ -72,7 +72,7 @@ var KarmaWidget = Widget.extend({
      */
     getKarmaFromEvent(event){
         var target = $(event.target);
-        var karmaId = parseInt(target.closest('.o_karma_widget__item').attr('karma'));
+        var karmaId = parseInt(target.closest(".o_karma_widget__item").attr("karma"));
         return this.karmas.filter((k) => k.id === karmaId)[0];
     },
     /**

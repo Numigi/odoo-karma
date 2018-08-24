@@ -1,7 +1,6 @@
 # © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-import ast
 import functools
 import logging
 import uuid
@@ -40,6 +39,8 @@ class KarmaWithScoreComputingJob(models.Model):
             'number_of_records': len(records),
         })
 
+        scores = self.env['karma.score']
+
         for record in records:
             compute_func = functools.partial(computer.compute, record)
             context_managers = [
@@ -50,16 +51,17 @@ class KarmaWithScoreComputingJob(models.Model):
             if not raise_:
                 context_managers.insert(0, IgnoreConditionEvaluationContextManager())
 
-            call_with_context_managers(compute_func, context_managers)
+            score = call_with_context_managers(compute_func, context_managers)
+            if score is not None:
+                scores |= score
+
+        scores.write({'session_id': session.id})
 
         session.end_time = datetime.now()
         self.write({
             'last_cron_date': datetime.now().date(),
             'force_next_cron_date': False,
         })
-
-    def _get_domain(self):
-        return ast.literal_eval(self.domain) if self.domain else []
 
     def _get_targeted_records(self):
         domain = self._get_domain()
@@ -93,7 +95,7 @@ def call_with_context_managers(func, managers):
 
     next_manager = managers[0]
     with next_manager:
-        call_with_context_managers(func, managers[1:])
+        return call_with_context_managers(func, managers[1:])
 
 
 class SavepointContextManager:

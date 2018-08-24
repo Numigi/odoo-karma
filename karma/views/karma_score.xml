@@ -23,6 +23,7 @@
                 <field name="karma_id" string="Karma"/>
                 <group expand="0" string="Group By">
                     <filter name="group_by_karma_id" string="Karma" context="{'group_by': 'karma_id'}"/>
+                    <filter name="group_by_session_id" string="Karma Session" context="{'group_by': 'session_id'}"/>
                 </group>
             </search>
         </field>

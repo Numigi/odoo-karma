@@ -3,30 +3,34 @@
 
     <t t-name="KarmaWidget">
         <div class="o_karma_widget">
-            <div class="o_karma_widget__box">
-                <div class="o_karma_widget__box__top">
+            <t t-foreach="widget.karmas" t-as="karma">
+                <div class="o_karma_widget__item" t-att-karma="karma.id">
+                    <div class="o_karma_widget__box">
+                        <div class="o_karma_widget__box__top">
+                        </div>
+                        <div class="o_karma_widget__box__middle">
+                            <t t-call="KarmaWidgetScore"/>
+                        </div>
+                        <div class="o_karma_widget__box__bottom">
+                            <t t-call="KarmaWidgetLabel"/>
+                            <t t-call="KarmaWidgetRefresh"/>
+                        </div>
+                    </div>
+                    <t t-call="KarmaWidgetHistory"/>
                 </div>
-                <div class="o_karma_widget__box__middle">
-                    <t t-call="KarmaWidgetScore"/>
-                </div>
-                <div class="o_karma_widget__box__bottom">
-                    <t t-call="KarmaWidgetLabel"/>
-                    <t t-call="KarmaWidgetRefresh"/>
-                </div>
-            </div>
-            <t t-call="KarmaWidgetHistory"/>
+            </t>
         </div>
     </t>
 
     <t t-name="KarmaWidgetLabel">
         <div class="o_karma_widget__label">
-            <t t-raw="widget.karma &amp;&amp; widget.karma.label"/>
+            <t t-raw="karma.label"/>
         </div>
     </t>
 
     <t t-name="KarmaWidgetScore">
         <div class="o_karma_widget__score">
-            <a><t t-if="widget.score" t-raw="widget.score.score"/></a>
+            <a><t t-if="karma.score" t-raw="karma.score.score"/></a>
         </div>
     </t>
 
@@ -37,7 +41,7 @@
     </t>
 
     <t t-name="KarmaWidgetRefresh">
-        <div class="o_karma_widget__refresh" t-if="widget.karma &amp;&amp; widget.karma.authorize_anticipate_computation">
+        <div class="o_karma_widget__refresh" t-if="karma.authorize_anticipate_computation">
             <a><i class="fa fa-refresh"></i></a>
         </div>
     </t>

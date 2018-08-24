@@ -207,3 +207,10 @@ class TestComputeAllScores(ComputedKarmaCase):
         assert log.res_id == self.partner.id
         assert log.res_model == 'res.partner'
         assert 'division by zero' in log.error_message
+
+        assert len(session.score_ids) == 1
+
+    def test_ifRecordSucceeds_thenScoreIsBoundToSession(self):
+        self.karma.compute_all_scores()
+        session = self.env['karma.session'].search([('karma_id', '=', self.karma.id)])
+        assert len(session.score_ids) == 2

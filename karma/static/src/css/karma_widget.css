@@ -1,5 +1,9 @@
 .o_karma_widget {
-    display: inline-block;
+    display: flex;
+}
+
+.o_karma_widget__item {
+    margin-left: 8px;
 }
 
 .o_karma_widget__box {

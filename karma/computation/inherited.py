@@ -6,8 +6,8 @@ class InheritedKarmaComputer:
     """This class defines how Inherited Karma scores are computed."""
 
     def __init__(self, karma):
-        self._karma = karma
-        self._env = karma.env
+        self._karma = karma.sudo()
+        self._env = self._karma.env
         self._total_weight = sum(l.weighting for l in karma.line_ids)
 
     def compute(self, record):
@@ -16,6 +16,8 @@ class InheritedKarmaComputer:
         :param record: the record to process.
         :return: a `karma.score.inherited` record.
         """
+        record = record.sudo()
+
         score_line = self._env['karma.score'].create({
             'karma_id': self._karma.id,
             'res_id': record.id,

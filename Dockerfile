@@ -15,6 +15,9 @@ USER odoo
 
 COPY date_range_field_template /mnt/extra-addons/date_range_field_template
 COPY karma /mnt/extra-addons/karma
+COPY karma /mnt/extra-addons/karma_crm
+COPY karma /mnt/extra-addons/karma_partner
+COPY karma /mnt/extra-addons/karma_product
 
 COPY .docker_files/main /mnt/extra-addons/main
 COPY .docker_files/odoo.conf /etc/odoo

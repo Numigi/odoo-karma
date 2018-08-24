@@ -17,6 +17,9 @@
 
         'date_range_field_template',
         'karma',
+        'karma_crm',
+        'karma_partner',
+        'karma_product',
     ],
     'installable': True,
 }

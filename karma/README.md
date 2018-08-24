@@ -22,6 +22,10 @@ Contributors
 ------------
 * Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 
+The Karma app logo was taken from font-awesome and adapted:
+
+https://fontawesome.com/icons/crown
+
 More information
 ----------------
 * Meet us at https://bit.ly/numigi-com

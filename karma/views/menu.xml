@@ -21,10 +21,24 @@
         sequence="10"/>
 
     <menuitem
+        id="menu_karma_session"
+        name="Sessions"
+        parent="menu_karma_settings"
+        action="action_karma_session"
+        sequence="20"/>
+
+    <menuitem
         id="menu_karma_score"
         name="Scores"
         parent="menu_karma_settings"
         action="action_karma_score"
-        sequence="20"/>
+        sequence="30"/>
+
+    <menuitem
+        id="menu_karma_error_log"
+        name="Error Logs"
+        parent="menu_karma_settings"
+        action="action_karma_error_log"
+        sequence="40"/>
 
 </odoo>

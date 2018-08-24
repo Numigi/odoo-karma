@@ -20,6 +20,8 @@
         'views/assets.xml',
         'views/karma_score.xml',
         'views/karma_score_detail.xml',
+        'views/karma_error_log.xml',
+        'views/karma_session.xml',
         'views/karma.xml',
         'views/menu.xml',
     ],

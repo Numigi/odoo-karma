@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
+    <record id="action_karma_score_from_session" model="ir.actions.act_window">
+        <field name="name">Karma Scores</field>
+        <field name="res_model">karma.score</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('session_id', '=', context.get('active_id'))]</field>
+    </record>
+
+    <record id="action_karma_error_log_from_session" model="ir.actions.act_window">
+        <field name="name">Karma Error Logs</field>
+        <field name="res_model">karma.error.log</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('session_id', '=', context.get('active_id'))]</field>
+    </record>
+
     <record id="view_karma_session_form" model="ir.ui.view">
         <field name="name">Karma Session Form View</field>
         <field name="model">karma.session</field>
@@ -9,15 +25,15 @@
                 <sheet>
                     <field name="id" invisible="1"/>
                     <div class="oe_button_box" name="button_box">
-                        <button name="%(action_karma_score)d"
-                                context="{'search_default_session_id': id}"
+                        <button name="%(action_karma_score_from_session)d"
+                                context="{'active_id': id}"
                                 type="action"
                                 icon="fa-star"
                                 class="oe_stat_button">
                             <field string="Scores" name="score_count" widget="statinfo"/>
                         </button>
-                        <button name="%(action_karma_error_logs)d"
-                                context="{'search_default_session_id': id}"
+                        <button name="%(action_karma_error_log_from_session)d"
+                                context="{'active_id': id}"
                                 attrs="{'invisible': [('error_count', '=', False)]}"
                                 type="action"
                                 icon="fa-exclamation-triangle"

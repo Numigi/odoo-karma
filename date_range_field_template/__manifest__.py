@@ -13,6 +13,10 @@
     'depends': ['base'],
     'data': [
         'data/date_range.xml',
+        'views/date_range.xml',
+        'views/field_template.xml',
+        'views/menu.xml',
+        'security/ir.model.access.csv',
     ],
     'installable': True,
 }

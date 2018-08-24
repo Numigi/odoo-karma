@@ -7,5 +7,3 @@ from . import (
     field_computing,
     field_template,
 )
-
-FieldTemplate = field_template.FieldTemplate

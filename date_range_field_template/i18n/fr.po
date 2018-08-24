@@ -1,0 +1,445 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* date_range_field_template
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-08-24 16:41-0400\n"
+"PO-Revision-Date: 2018-08-24 16:53-0400\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Language: fr\n"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_active
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_active
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_template_active
+msgid "Active"
+msgstr "Actif"
+
+#. module: date_range_field_template
+#: model:ir.ui.menu,name:date_range_field_template.menu_field_template
+msgid "Computed Date Range Fields"
+msgstr "Champs calculés Intervalle date"
+
+#. module: date_range_field_template
+#: model:ir.model,name:date_range_field_template.model_computed_field
+msgid "Computed Field"
+msgstr "Champ calculé"
+
+#. module: date_range_field_template
+#: model:ir.model,name:date_range_field_template.model_computed_field_template
+msgid "Computed Field Template"
+msgstr "Modèle champ calculé"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_create_uid
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_create_uid
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_template_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_create_date
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_create_date
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_template_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: date_range_field_template
+#: model:computed.field.date.range,name:date_range_field_template.range_current_month
+msgid "Current Month"
+msgstr "Mois en cours"
+
+#. module: date_range_field_template
+#: model:computed.field.date.range,name:date_range_field_template.range_current_week
+msgid "Current Week"
+msgstr "Semaine en cours"
+
+#. module: date_range_field_template
+#: model:computed.field.date.range,name:date_range_field_template.range_current_year
+msgid "Current Year"
+msgstr "Année en cours"
+
+#. module: date_range_field_template
+#: model:ir.ui.menu,name:date_range_field_template.menu_date_range
+msgid "Custom Date Ranges"
+msgstr "Intervalles date personnalisés"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_range_id
+#: model:ir.ui.view,arch_db:date_range_field_template.view_date_range_form
+msgid "Date Range"
+msgstr "Intervalle de date"
+
+#. module: date_range_field_template
+#: model:ir.model,name:date_range_field_template.model_computed_field_date_range
+msgid "Date Range For Computed Fields"
+msgstr "Intervalle de date pour champ calculé"
+
+#. module: date_range_field_template
+#: model:ir.actions.act_window,name:date_range_field_template.action_date_range
+#: model:ir.ui.view,arch_db:date_range_field_template.view_date_range_list
+#: model:ir.ui.view,arch_db:date_range_field_template.view_date_range_search
+msgid "Date Ranges"
+msgstr "Intervalles de dates"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_day_max
+msgid "Day Max"
+msgstr "Jour max"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_day_min
+msgid "Day Min"
+msgstr "Jour min"
+
+#. module: date_range_field_template
+#: model:ir.ui.view,arch_db:date_range_field_template.view_date_range_form
+msgid "Days"
+msgstr "Jours"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_display_name
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_display_name
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_template_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_enable_date_max
+msgid "Enable Date Max"
+msgstr "Permettre jour max"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_enable_date_min
+msgid "Enable Date Min"
+msgstr "Permettre jour min"
+
+#. module: date_range_field_template
+#: model:ir.ui.view,arch_db:date_range_field_template.view_date_range_form
+msgid "End"
+msgstr "Fin"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_year_end
+msgid "End on December 31th"
+msgstr "Fin le 31 décembre"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_month_end
+msgid "End on last day of month"
+msgstr "Fin le dernier jour du mois"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_week_end
+msgid "End on the following Saturday"
+msgstr "Fin le samedi"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_field_id
+msgid "Field"
+msgstr "Champ"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_name
+msgid "Field Label"
+msgstr "Libellé du champ"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_template_id
+#: model:ir.ui.view,arch_db:date_range_field_template.view_field_template_form
+msgid "Field Template"
+msgstr "Modèle de champ"
+
+#. module: date_range_field_template
+#: model:ir.actions.act_window,name:date_range_field_template.action_field_template
+#: model:ir.ui.view,arch_db:date_range_field_template.view_field_template_list
+#: model:ir.ui.view,arch_db:date_range_field_template.view_field_template_search
+msgid "Field Templates"
+msgstr "Modèles de champs"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_template_field_type
+msgid "Field Type"
+msgstr "Type de champ"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_template_field_ids
+msgid "Fields"
+msgstr "Champs"
+
+#. module: date_range_field_template
+#: model:ir.ui.view,arch_db:date_range_field_template.view_field_template_search
+msgid "Group By"
+msgstr "Grouper par"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_id
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_id
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_template_id_3984
+msgid "ID"
+msgstr "ID"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field___last_update
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range___last_update
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_template___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_write_uid
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_template_write_uid
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_write_date
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_template_write_date
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_template_model_id
+#: model:ir.ui.view,arch_db:date_range_field_template.view_field_template_search
+msgid "Model"
+msgstr "Modèle"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_month_max
+msgid "Month Max"
+msgstr "Mois max"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_month_min
+msgid "Month Min"
+msgstr "Mois min"
+
+#. module: date_range_field_template
+#: model:ir.ui.view,arch_db:date_range_field_template.view_date_range_form
+msgid "Months"
+msgstr "Mois"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_name
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_template_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: date_range_field_template
+#: model:computed.field.date.range,name:date_range_field_template.range_next_month
+msgid "Next Month"
+msgstr "Mois prochain"
+
+#. module: date_range_field_template
+#: model:computed.field.date.range,name:date_range_field_template.range_next_week
+msgid "Next Week"
+msgstr "Semaine prochaine"
+
+#. module: date_range_field_template
+#: model:computed.field.date.range,name:date_range_field_template.range_next_year
+msgid "Next Year"
+msgstr "Année prochaine"
+
+#. module: date_range_field_template
+#: code:addons/date_range_field_template/field_computing.py:49
+#, python-format
+msgid "No date range found with the reference {reference}."
+msgstr "Aucun intervalle de date trouvé avec la référence {reference}."
+
+#. module: date_range_field_template
+#: code:addons/date_range_field_template/field_computing.py:37
+#, python-format
+msgid "No field template function found with the reference {reference}."
+msgstr "Aucune fonction de modèle de champ trouvé avec la référence {reference}."
+
+#. module: date_range_field_template
+#: sql_constraint:computed.field:0
+msgid "Only one field can be created per field template and date range type."
+msgstr "Un seul champ peut être créé par modèle de champ et intervalle de date."
+
+#. module: date_range_field_template
+#: model:computed.field.date.range,name:date_range_field_template.range_previous_month
+msgid "Previous Month"
+msgstr "Mois précédent"
+
+#. module: date_range_field_template
+#: model:computed.field.date.range,name:date_range_field_template.range_previous_week
+msgid "Previous Week"
+msgstr "Semaine précédente"
+
+#. module: date_range_field_template
+#: model:computed.field.date.range,name:date_range_field_template.range_previous_year
+msgid "Previous Year"
+msgstr "Année précédente"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_reference
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_template_reference
+msgid "Reference"
+msgstr "Référence"
+
+#. module: date_range_field_template
+#: model:ir.ui.view,arch_db:date_range_field_template.view_date_range_form
+msgid "Start"
+msgstr "Début"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_year_start
+msgid "Start on January 1rst"
+msgstr "Début au 1er janvier"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_month_start
+msgid "Start on first day of month"
+msgstr "Début le 1er du mois"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_week_start
+msgid "Start on previous Sunday"
+msgstr "Début le dimanche"
+
+#. module: date_range_field_template
+#: sql_constraint:computed.field.date.range:0
+msgid "The reference of a date range must be unique."
+msgstr "La référence d'intervalle de date doit être unique"
+
+#. module: date_range_field_template
+#: sql_constraint:computed.field.template:0
+msgid "The reference of a field template must be unique per model."
+msgstr "La référence de champ calculé doit être unique par modèle."
+
+#. module: date_range_field_template
+#: model:computed.field.date.range,name:date_range_field_template.range_today
+msgid "Today"
+msgstr "Aujourd'hui"
+
+#. module: date_range_field_template
+#: model:ir.ui.view,arch_db:date_range_field_template.view_field_template_search
+msgid "Type"
+msgstr "Type"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_week_max
+msgid "Week Max"
+msgstr "Semaine max"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_week_min
+msgid "Week Min"
+msgstr "Semaine min"
+
+#. module: date_range_field_template
+#: model:ir.ui.view,arch_db:date_range_field_template.view_date_range_form
+msgid "Weeks"
+msgstr "Semaines"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_year_max
+msgid "Year Max"
+msgstr "Année max"
+
+#. module: date_range_field_template
+#: model:ir.model.fields,field_description:date_range_field_template.field_computed_field_date_range_year_min
+msgid "Year Min"
+msgstr "Année min"
+
+#. module: date_range_field_template
+#: model:ir.ui.view,arch_db:date_range_field_template.view_date_range_form
+msgid "Years"
+msgstr "Années"
+
+#. module: date_range_field_template
+#: model:computed.field.date.range,name:date_range_field_template.range_yesterday
+msgid "Yesterday"
+msgstr "Hier"
+
+#. module: date_range_field_template
+#: model:ir.model,name:date_range_field_template.model_base
+msgid "base"
+msgstr ""
+
+#. module: date_range_field_template
+#: selection:computed.field.template,field_type:0
+msgid "binary"
+msgstr ""
+
+#. module: date_range_field_template
+#: selection:computed.field.template,field_type:0
+msgid "boolean"
+msgstr ""
+
+#. module: date_range_field_template
+#: selection:computed.field.template,field_type:0
+msgid "char"
+msgstr ""
+
+#. module: date_range_field_template
+#: selection:computed.field.template,field_type:0
+msgid "date"
+msgstr ""
+
+#. module: date_range_field_template
+#: selection:computed.field.template,field_type:0
+msgid "datetime"
+msgstr ""
+
+#. module: date_range_field_template
+#: selection:computed.field.template,field_type:0
+msgid "float"
+msgstr ""
+
+#. module: date_range_field_template
+#: selection:computed.field.template,field_type:0
+msgid "html"
+msgstr ""
+
+#. module: date_range_field_template
+#: selection:computed.field.template,field_type:0
+msgid "integer"
+msgstr ""
+
+#. module: date_range_field_template
+#: selection:computed.field.template,field_type:0
+msgid "many2many"
+msgstr ""
+
+#. module: date_range_field_template
+#: selection:computed.field.template,field_type:0
+msgid "many2one"
+msgstr ""
+
+#. module: date_range_field_template
+#: selection:computed.field.template,field_type:0
+msgid "monetary"
+msgstr ""
+
+#. module: date_range_field_template
+#: selection:computed.field.template,field_type:0
+msgid "one2many"
+msgstr ""
+
+#. module: date_range_field_template
+#: selection:computed.field.template,field_type:0
+msgid "reference"
+msgstr ""
+
+#. module: date_range_field_template
+#: selection:computed.field.template,field_type:0
+msgid "selection"
+msgstr ""
+
+#. module: date_range_field_template
+#: selection:computed.field.template,field_type:0
+msgid "text"
+msgstr ""

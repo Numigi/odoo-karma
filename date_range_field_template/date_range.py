@@ -36,6 +36,9 @@ class ComputedFieldDateRange(models.Model):
     reference = fields.Char(required=True)
     active = fields.Boolean(default=True)
 
+    enable_date_min = fields.Boolean(default=True)
+    enable_date_max = fields.Boolean(default=True)
+
     day_min = fields.Integer()
     week_min = fields.Integer()
     month_min = fields.Integer()
@@ -61,48 +64,58 @@ class ComputedFieldDateRange(models.Model):
     @api.multi
     def get_date_min(self) -> datetime:
         """Get the minimum date of the range relative to the current time."""
-        now = self._get_current_datetime()
+        if not self.enable_date_min:
+            return None
 
-        date_min = now + relativedelta(
-            years=self.year_min,
-            months=self.month_min,
-            weeks=self.week_min,
-            days=self.day_min,
-        )
+        date_min = self._get_current_datetime()
+
+        if self.year_min:
+            date_min += relativedelta(years=self.year_min)
+
+        if self.year_start:
+            date_min = get_first_day_of_year(date_min)
+
+        if self.month_min:
+            date_min += relativedelta(months=self.month_min)
+
+        if self.month_start:
+            date_min = get_first_day_of_month(date_min)
+
+        if self.week_min:
+            date_min += relativedelta(weeks=self.week_min)
 
         if self.week_start:
-            date_min = get_week_start(date_min)
-        elif self.month_start:
-            date_min = get_month_start(date_min)
-        elif self.year_start:
-            date_min = get_year_start(date_min)
-        else:
-            date_min = get_day_start(date_min)
+            date_min = get_first_day_of_week(date_min)
 
-        return date_min
+        return get_day_start(date_min)
 
     @api.multi
     def get_date_max(self) -> datetime:
         """Get the maximum date of the range relative to the current time."""
-        now = self._get_current_datetime()
+        if not self.enable_date_max:
+            return None
 
-        date_max = now + relativedelta(
-            years=self.year_max,
-            months=self.month_max,
-            weeks=self.week_max,
-            days=self.day_max,
-        )
+        date_max = self._get_current_datetime()
+
+        if self.year_max:
+            date_max += relativedelta(years=self.year_max)
+
+        if self.year_end:
+            date_max = get_last_day_of_year(date_max)
+
+        if self.month_max:
+            date_max += relativedelta(months=self.month_max)
+
+        if self.month_end:
+            date_max = get_last_day_of_month(date_max)
+
+        if self.week_max:
+            date_max += relativedelta(weeks=self.week_max)
 
         if self.week_end:
-            date_max = get_week_end(date_max)
-        elif self.month_end:
-            date_max = get_month_end(date_max)
-        elif self.year_end:
-            date_max = get_year_end(date_max)
-        else:
-            date_max = get_day_end(date_max)
+            date_max = get_last_day_of_week(date_max)
 
-        return date_max
+        return get_day_end(date_max)
 
     def _get_current_datetime(self):
         tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
@@ -131,42 +144,36 @@ def get_day_end(datetime_: datetime) -> datetime:
     return datetime_ - relativedelta(microseconds=1)
 
 
-def get_week_start(datetime_: datetime) -> datetime:
+def get_first_day_of_week(datetime_: datetime) -> datetime:
     """Get the start of the week relative to a given datetime."""
-    first_day = datetime_ - timedelta(datetime_.isoweekday())
-    return get_day_start(first_day)
+    return datetime_ - timedelta(datetime_.isoweekday())
 
 
-def get_week_end(datetime_: datetime) -> datetime:
+def get_last_day_of_week(datetime_: datetime) -> datetime:
     """Get the start of the week relative to a given datetime."""
-    last_day = datetime_ + timedelta(6 - datetime_.isoweekday())
-    return get_day_end(last_day)
+    return datetime_ + timedelta(6 - datetime_.isoweekday())
 
 
-def get_month_start(datetime_: datetime) -> datetime:
+def get_first_day_of_month(datetime_: datetime) -> datetime:
     """Get the start of the month relative to a given datetime."""
-    first_day = datetime_ - timedelta(datetime_.day - 1)
-    return get_day_start(first_day)
+    return datetime_ - timedelta(datetime_.day - 1)
 
 
-def get_month_end(datetime_: datetime) -> datetime:
+def get_last_day_of_month(datetime_: datetime) -> datetime:
     """Get the start of the month relative to a given datetime."""
     datetime_ -= timedelta(datetime_.day - 1)
     datetime_ += relativedelta(months=1)
-    last_day = datetime_ - timedelta(1)
-    return get_day_end(last_day)
+    return datetime_ - timedelta(1)
 
 
-def get_year_start(datetime_: datetime) -> datetime:
+def get_first_day_of_year(datetime_: datetime) -> datetime:
     """Get the start of the year relative to a given datetime."""
     datetime_ -= timedelta(datetime_.day - 1)
-    first_day = datetime_ - relativedelta(months=datetime_.month - 1)
-    return get_day_start(first_day)
+    return datetime_ - relativedelta(months=datetime_.month - 1)
 
 
-def get_year_end(datetime_: datetime) -> datetime:
+def get_last_day_of_year(datetime_: datetime) -> datetime:
     """Get the start of the year relative to a given datetime."""
     datetime_ -= timedelta(datetime_.day - 1)
     datetime_ += relativedelta(months=13 - datetime_.month)
-    last_day = datetime_ - timedelta(1)
-    return get_day_end(last_day)
+    return datetime_ - timedelta(1)

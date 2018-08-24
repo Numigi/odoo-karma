@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_field_template_form" model="ir.ui.view">
+        <field name="name">Field Template Form View</field>
+        <field name="model">computed.field.template</field>
+        <field name="arch" type="xml">
+            <form string="Field Template">
+                <sheet>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <field name="model_id"/>
+                        <field name="reference"/>
+                        <field name="field_type"/>
+                        <field name="active"/>
+                        <field name="field_ids" context="{'active_test': 0}">
+                            <tree editable="bottom">
+                                <field name="range_id"/>
+                                <field name="field_id" readonly="1"/>
+                                <field name="active"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_field_template_list" model="ir.ui.view">
+        <field name="name">Field Template List View</field>
+        <field name="model">computed.field.template</field>
+        <field name="arch" type="xml">
+            <tree string="Field Templates">
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="reference"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_field_template_search" model="ir.ui.view">
+        <field name="name">Field Template Search View</field>
+        <field name="model">computed.field.template</field>
+        <field name="arch" type="xml">
+            <search string="Field Templates">
+                <field name="name"/>
+                <field name="model_id"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_model_id" string="Model" context="{'group_by': 'model_id'}"/>
+                    <filter name="group_by_field_type" string="Type" context="{'group_by': 'field_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_field_template" model="ir.actions.act_window">
+        <field name="name">Field Templates</field>
+        <field name="res_model">computed.field.template</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

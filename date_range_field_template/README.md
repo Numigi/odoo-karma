@@ -23,20 +23,13 @@ Then you may combine the field template with date ranges:
 
 ## Defining a Field Template
 
-In your custom module, you must define a field template by inheriting FieldTemplate (which is an abstract class).
-This class will contain the logic for computing the field value.
+In your custom module, you must define a function to compute the field.
 
 ```python
-
-from odoo.addons.date_range_field_template import FieldTemplate
-
-
-class InvoicedAmount(FieldTemplate):
-
-    def compute(self, records, field_name, date_from, date_to):
-        for partner in records:
-            ...
-            partner[field_name] = ...
+def compute_invoiced_amount(records, field_name, date_from, date_to):
+    for partner in records:
+        ...
+        partner[field_name] = ...
 
 ```
 
@@ -52,8 +45,7 @@ class ResPartner(models.Model):
 
     def _register_hook(self):
         super()._register_hook()
-        self._register_date_range_field('invoiced_amount', InvoicedAmount())
-
+        self._register_date_range_field('invoiced_amount', compute_invoiced_amount)
 ```
 
 The last step is to define the field template in xml data.

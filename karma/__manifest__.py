@@ -8,7 +8,7 @@
     'maintainer': 'Numigi',
     'website': 'https://bit.ly/numigi-com',
     'license': 'LGPL-3',
-    'category': 'Other',
+    'category': 'Karma',
     'summary': 'Compute scores on all types of records.',
     'depends': [
         'decimal_precision',

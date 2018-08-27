@@ -101,8 +101,9 @@ class KarmaScoreCondition(models.Model):
     _name = 'karma.score.condition'
     _description = 'Karma Score Condition'
 
+    karma_id = fields.Many2one('karma', 'Karma', ondelete='cascade')
     field_id = fields.Many2one('ir.model.fields', 'Field', required=True, index=True)
-    condition_label = fields.Char(required=True)
+    condition_label = fields.Char(translate=True)
     condition = fields.Char(required=True)
     result_if_true = fields.Char(required=True)
     result_if_false = fields.Char(required=True)

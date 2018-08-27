@@ -13,7 +13,7 @@ class Karma(models.Model):
     _description = 'Karma'
 
     name = fields.Char(required=True)
-    label = fields.Char()
+    label = fields.Char(translate=True)
     description = fields.Text()
     model_id = fields.Many2one('ir.model', 'Model', required=True)
     model = fields.Char(related='model_id.model')
@@ -89,7 +89,7 @@ class KarmaConditionLine(models.Model):
     field_id = fields.Many2one(
         'ir.model.fields', 'Field', required=True,
         domain="[('model_id', '=', parent.model_id)]")
-    condition_label = fields.Char(required=True)
+    condition_label = fields.Char(required=True, translate=True)
     condition = fields.Char(required=True)
     result_if_true = fields.Char(required=True)
     result_if_false = fields.Char(required=True, default='0')

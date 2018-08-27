@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-17 16:11-0400\n"
-"PO-Revision-Date: 2018-08-17 16:22-0400\n"
+"POT-Creation-Date: 2018-08-27 13:00+0000\n"
+"PO-Revision-Date: 2018-08-27 09:08-0400\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 1.8.7.1\n"
-"Language: fr\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_active
@@ -63,6 +63,7 @@ msgstr "Calculer lors de la sauvegarde"
 #: model:ir.model.fields,field_description:karma.field_karma_score_condition_detail_condition
 #: model:ir.model.fields,field_description:karma.field_karma_score_condition_detail_condition_id
 #: model:ir.ui.view,arch_db:karma.view_karma_form
+#: model:ir.ui.view,arch_db:karma.view_karma_score_condition_detail_list
 msgid "Condition"
 msgstr "Condition"
 
@@ -120,13 +121,18 @@ msgid "Daily"
 msgstr "Journalier"
 
 #. module: karma
+#: model:ir.ui.view,arch_db:karma.view_karma_session_search
+msgid "Date"
+msgstr "Date"
+
+#. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_description
 msgid "Description"
 msgstr "Description"
 
 #. module: karma
 #. openerp-web
-#: code:addons/karma/static/src/js/KarmaScoreDrilldown.js:38
+#: code:addons/karma/static/src/js/KarmaScoreDrilldown.js:41
 #, python-format
 msgid "Details"
 msgstr "Détails"
@@ -146,6 +152,7 @@ msgstr "Détails (Hérité)"
 #: model:ir.model.fields,field_description:karma.field_karma_display_name
 #: model:ir.model.fields,field_description:karma.field_karma_error_log_display_name
 #: model:ir.model.fields,field_description:karma.field_karma_line_display_name
+#: model:ir.model.fields,field_description:karma.field_karma_related_record_info_display_name
 #: model:ir.model.fields,field_description:karma.field_karma_score_condition_detail_display_name
 #: model:ir.model.fields,field_description:karma.field_karma_score_condition_display_name
 #: model:ir.model.fields,field_description:karma.field_karma_score_display_name
@@ -165,12 +172,24 @@ msgid "Domain"
 msgstr "Domaine"
 
 #. module: karma
+#: code:addons/karma/computation/condition.py:117
+#, python-format
+msgid "Empty"
+msgstr "Vide"
+
+#. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_session_end_time
 msgid "End Time"
 msgstr "Fin"
 
 #. module: karma
+#: model:ir.model.fields,field_description:karma.field_karma_session_error_count
+msgid "Error Count"
+msgstr "Nombre d'erreurs"
+
+#. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_session_error_log_ids
+#: model:ir.ui.menu,name:karma.menu_karma_error_log
 msgid "Error Logs"
 msgstr "Log d'erreurs"
 
@@ -178,6 +197,11 @@ msgstr "Log d'erreurs"
 #: model:ir.model.fields,field_description:karma.field_karma_error_log_error_message
 msgid "Error Message"
 msgstr "Message d'erreur"
+
+#. module: karma
+#: model:ir.ui.view,arch_db:karma.view_karma_session_form
+msgid "Errors"
+msgstr "Erreurs"
 
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_condition_line_field_id
@@ -193,6 +217,12 @@ msgid "Field Value"
 msgstr "Valeur du champ"
 
 #. module: karma
+#: code:addons/karma/computation/condition.py:117
+#, python-format
+msgid "Filled"
+msgstr "Rempli"
+
+#. module: karma
 #: model:ir.ui.view,arch_db:karma.view_karma_form
 msgid "Filters"
 msgstr "Filtres"
@@ -203,16 +233,26 @@ msgid "Force Next Cron Date"
 msgstr "Forcer la prochaine date de calcul"
 
 #. module: karma
+#: model:ir.ui.view,arch_db:karma.view_karma_error_log_search
 #: model:ir.ui.view,arch_db:karma.view_karma_score_search
 #: model:ir.ui.view,arch_db:karma.view_karma_search
+#: model:ir.ui.view,arch_db:karma.view_karma_session_search
 msgid "Group By"
 msgstr "Grouper par"
+
+#. module: karma
+#. openerp-web
+#: code:addons/karma/static/src/xml/karma_widget.xml:39
+#, python-format
+msgid "History"
+msgstr "Historique"
 
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_condition_line_id
 #: model:ir.model.fields,field_description:karma.field_karma_error_log_id
 #: model:ir.model.fields,field_description:karma.field_karma_id
 #: model:ir.model.fields,field_description:karma.field_karma_line_id
+#: model:ir.model.fields,field_description:karma.field_karma_related_record_info_id
 #: model:ir.model.fields,field_description:karma.field_karma_score_condition_detail_id
 #: model:ir.model.fields,field_description:karma.field_karma_score_condition_id
 #: model:ir.model.fields,field_description:karma.field_karma_score_id
@@ -232,10 +272,14 @@ msgstr "Hérité"
 #: model:ir.model.fields,field_description:karma.field_karma_score_inherited_detail_karma_id
 #: model:ir.model.fields,field_description:karma.field_karma_score_karma_id
 #: model:ir.model.fields,field_description:karma.field_karma_session_karma_id
+#: model:ir.module.category,name:karma.module_category_karma
 #: model:ir.ui.menu,name:karma.menu_karma_root
+#: model:ir.ui.view,arch_db:karma.view_karma_error_log_search
 #: model:ir.ui.view,arch_db:karma.view_karma_form
 #: model:ir.ui.view,arch_db:karma.view_karma_score_search
 #: model:ir.ui.view,arch_db:karma.view_karma_search
+#: model:ir.ui.view,arch_db:karma.view_karma_session_form
+#: model:ir.ui.view,arch_db:karma.view_karma_session_search
 msgid "Karma"
 msgstr "Karma"
 
@@ -243,6 +287,15 @@ msgstr "Karma"
 #: model:ir.model,name:karma.model_karma_condition_line
 msgid "Karma Condition Line"
 msgstr "Ligne de condition Karma"
+
+#. module: karma
+#: model:ir.actions.act_window,name:karma.action_karma_error_log
+#: model:ir.actions.act_window,name:karma.action_karma_error_log_from_session
+#: model:ir.ui.view,arch_db:karma.view_karma_error_log_form
+#: model:ir.ui.view,arch_db:karma.view_karma_error_log_list
+#: model:ir.ui.view,arch_db:karma.view_karma_error_log_search
+msgid "Karma Error Logs"
+msgstr "Logs d'erreurs Karma"
 
 #. module: karma
 #: model:ir.model,name:karma.model_karma_line
@@ -261,10 +314,24 @@ msgstr "Condition Karma"
 
 #. module: karma
 #: model:ir.actions.act_window,name:karma.action_karma_score
+#: model:ir.actions.act_window,name:karma.action_karma_score_from_session
 #: model:ir.ui.view,arch_db:karma.view_karma_score_list
 #: model:ir.ui.view,arch_db:karma.view_karma_score_search
 msgid "Karma Scores"
 msgstr "Scores Karma"
+
+#. module: karma
+#: model:ir.ui.view,arch_db:karma.view_karma_error_log_search
+#: model:ir.ui.view,arch_db:karma.view_karma_score_search
+msgid "Karma Session"
+msgstr "Session Karma"
+
+#. module: karma
+#: model:ir.actions.act_window,name:karma.action_karma_session
+#: model:ir.ui.view,arch_db:karma.view_karma_session_list
+#: model:ir.ui.view,arch_db:karma.view_karma_session_search
+msgid "Karma Sessions"
+msgstr "Sessions Karma"
 
 #. module: karma
 #: model:ir.actions.act_window,name:karma.action_karma_hierarchy
@@ -284,6 +351,7 @@ msgstr "Libellé"
 #: model:ir.model.fields,field_description:karma.field_karma_condition_line___last_update
 #: model:ir.model.fields,field_description:karma.field_karma_error_log___last_update
 #: model:ir.model.fields,field_description:karma.field_karma_line___last_update
+#: model:ir.model.fields,field_description:karma.field_karma_related_record_info___last_update
 #: model:ir.model.fields,field_description:karma.field_karma_score___last_update
 #: model:ir.model.fields,field_description:karma.field_karma_score_condition___last_update
 #: model:ir.model.fields,field_description:karma.field_karma_score_condition_detail___last_update
@@ -319,6 +387,11 @@ msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: karma
+#: model:res.groups,name:karma.group_karma_manager
+msgid "Manager"
+msgstr "Responsable"
+
+#. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_line_model
 #: model:ir.model.fields,field_description:karma.field_karma_line_model_id
 #: model:ir.model.fields,field_description:karma.field_karma_model
@@ -334,6 +407,7 @@ msgstr "Mensuellement"
 
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_name
+#: model:ir.model.fields,field_description:karma.field_karma_session_name
 msgid "Name"
 msgstr "Nom"
 
@@ -344,6 +418,7 @@ msgstr "Nombre d'enregistrements"
 
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_error_log_res_id
+#: model:ir.model.fields,field_description:karma.field_karma_related_record_info_res_id
 #: model:ir.model.fields,field_description:karma.field_karma_score_inherited_detail_res_id
 #: model:ir.model.fields,field_description:karma.field_karma_score_res_id
 msgid "Object ID"
@@ -351,6 +426,7 @@ msgstr "ID de l'enregistrement"
 
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_error_log_res_model
+#: model:ir.model.fields,field_description:karma.field_karma_related_record_info_res_model
 #: model:ir.model.fields,field_description:karma.field_karma_score_inherited_detail_res_model
 #: model:ir.model.fields,field_description:karma.field_karma_score_res_model
 msgid "Object Model"
@@ -368,12 +444,24 @@ msgid "Previous Cron Date"
 msgstr "Dernière date de calcul"
 
 #. module: karma
+#: model:ir.ui.view,arch_db:karma.view_karma_error_log_form
+#: model:ir.ui.view,arch_db:karma.view_karma_error_log_list
+#: model:ir.ui.view,arch_db:karma.view_karma_score_inherited_defail_list
+#: model:ir.ui.view,arch_db:karma.view_karma_score_list
+msgid "Record"
+msgstr "Enregistrement"
+
+#. module: karma
+#: model:ir.model.fields,field_description:karma.field_karma_error_log_record_display_name
+#: model:ir.model.fields,field_description:karma.field_karma_related_record_info_record_display_name
 #: model:ir.model.fields,field_description:karma.field_karma_score_inherited_detail_record_display_name
 #: model:ir.model.fields,field_description:karma.field_karma_score_record_display_name
 msgid "Record Display Name"
 msgstr "Nom de l'enregistrement"
 
 #. module: karma
+#: model:ir.model.fields,field_description:karma.field_karma_error_log_record_reference
+#: model:ir.model.fields,field_description:karma.field_karma_related_record_info_record_reference
 #: model:ir.model.fields,field_description:karma.field_karma_score_inherited_detail_record_reference
 #: model:ir.model.fields,field_description:karma.field_karma_score_record_reference
 msgid "Record Reference"
@@ -415,6 +503,11 @@ msgid "Score"
 msgstr "Note"
 
 #. module: karma
+#: model:ir.model.fields,field_description:karma.field_karma_session_score_count
+msgid "Score Count"
+msgstr "Nombre de notes"
+
+#. module: karma
 #: model:ir.ui.view,arch_db:karma.view_karma_score_condition_detail_list
 msgid "Score Detail"
 msgstr "Détail de la note"
@@ -438,6 +531,7 @@ msgstr "Détails des notes"
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_session_score_ids
 #: model:ir.ui.menu,name:karma.menu_karma_score
+#: model:ir.ui.view,arch_db:karma.view_karma_session_form
 msgid "Scores"
 msgstr "Notes"
 
@@ -454,6 +548,11 @@ msgid "Session"
 msgstr "Session"
 
 #. module: karma
+#: model:ir.ui.menu,name:karma.menu_karma_session
+msgid "Sessions"
+msgstr "Sessions"
+
+#. module: karma
 #: model:ir.ui.menu,name:karma.menu_karma_settings
 msgid "Settings"
 msgstr "Configuration"
@@ -464,7 +563,7 @@ msgid "Start Time"
 msgstr "Début"
 
 #. module: karma
-#: code:addons/karma/computation/condition.py:120
+#: code:addons/karma/computation/condition.py:138
 #, python-format
 msgid ""
 "The following expression could not be evaluated with the value {value}. \n"
@@ -513,9 +612,28 @@ msgstr "Annuellement"
 #. module: karma
 #: model:ir.model,name:karma.model_karma_error_log
 msgid "karma.error.log"
-msgstr "v"
+msgstr ""
+
+#. module: karma
+#: model:ir.model,name:karma.model_karma_related_record_info
+msgid "karma.related.record.info"
+msgstr ""
 
 #. module: karma
 #: model:ir.model,name:karma.model_karma_session
 msgid "karma.session"
 msgstr "karma.session"
+
+#. module: karma
+#. openerp-web
+#: code:addons/karma/static/src/js/KarmaWidget.js:89
+#, python-format
+msgid "{karma_label} (details)"
+msgstr "{karma_label} (détails)"
+
+#. module: karma
+#. openerp-web
+#: code:addons/karma/static/src/js/KarmaWidget.js:103
+#, python-format
+msgid "{karma_label} (history)"
+msgstr "{karma_label} (historique)"

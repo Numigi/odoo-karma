@@ -69,7 +69,7 @@ class ConditionKarmaComputer:
 
         self._env['karma.score.condition.detail'].create({
             'score_id': parent_score.id,
-            'field_value': self._format_field_value(value),
+            'field_value': self._format_field_value(karma_line, value),
             'condition_id': condition.id,
             'condition_fulfilled': condition_fulfilled,
             'score': score,
@@ -108,11 +108,14 @@ class ConditionKarmaComputer:
         return value
 
     @staticmethod
-    def _format_field_value(value):
+    def _format_field_value(karma_line, value):
         """Format a field value for displaying in the details of a karma score.
 
         :param value: the value to format
         """
+        if karma_line.field_id.ttype == 'binary':
+            return _('Filled') if value else _('Empty')
+
         if isinstance(value, models.Model):
             return ', '.join(value.mapped('display_name'))
         else:
@@ -160,6 +163,7 @@ class ScoreConditionCache:
     def __init__(self, env):
         self._env = env
         self._conditions = {}
+        self._langs = self._env['res.lang'].search([])
 
     def get(self, karma_line):
         """Get a `karma.score.condition` record matching a `karma.condition.line`.
@@ -188,17 +192,27 @@ class ScoreConditionCache:
         return condition
 
     def _find_matching_score_condition(self, karma_line):
-        return self._env['karma.score.condition'].search([
-            ('condition_label', '=', karma_line.condition_label),
+        condition = self._env['karma.score.condition'].search([
+            ('karma_id', '=', karma_line.karma_id.id),
             ('field_id', '=', karma_line.field_id.id),
             ('condition', '=', karma_line.condition),
             ('result_if_true', '=', karma_line.result_if_true),
             ('result_if_false', '=', karma_line.result_if_false),
             ('weighting', '=', karma_line.weighting),
-        ], limit=1)
+        ], order='id desc', limit=1)
+
+        def karma_line_matches_condition_label(lang):
+            return (
+                condition.with_context(lang=lang.code).condition_label ==
+                karma_line.with_context(lang=lang.code).condition_label
+            )
+
+        matches_labels = all(karma_line_matches_condition_label(lang) for lang in self._langs)
+        return condition if matches_labels else None
 
     def _create_score_condition(self, karma_line):
-        return self._env['karma.score.condition'].create({
+        condition = self._env['karma.score.condition'].create({
+            'karma_id': karma_line.karma_id.id,
             'condition_label': karma_line.condition_label,
             'field_id': karma_line.field_id.id,
             'condition': karma_line.condition,
@@ -206,3 +220,11 @@ class ScoreConditionCache:
             'result_if_false': karma_line.result_if_false,
             'weighting': karma_line.weighting,
         })
+
+        # Translate the condition in every languages.
+        for lang in self._langs:
+            condition.with_context(lang=lang.code).write({
+                'condition_label': karma_line.with_context(lang=lang.code).condition_label,
+            })
+
+        return condition

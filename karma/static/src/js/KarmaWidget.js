@@ -31,6 +31,9 @@ var KarmaWidget = Widget.extend({
             model: "karma",
             method: "find_karmas_to_display_on_form_view",
             args: [form.state.model, form.state.res_id],
+            params: {
+                context: odoo.session_info.user_context,
+            },
         });
 
         var scoreDeferred = this.karmas.map(async (k) => {
@@ -57,6 +60,9 @@ var KarmaWidget = Widget.extend({
             ],
             limit: 1,
             order: "id desc",
+            params: {
+                context: odoo.session_info.user_context,
+            },
         });
         return scores.length ? scores[0] : null;
     },

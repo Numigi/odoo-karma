@@ -4,7 +4,7 @@
     <t t-name="KarmaWidget">
         <div class="o_karma_widget">
             <t t-foreach="widget.karmas" t-as="karma">
-                <div class="o_karma_widget__item" t-att-karma="karma.id">
+                <div class="o_karma_widget__item" t-att-karma="karma.id" t-att-title="karma.description || ''">
                     <div class="o_karma_widget__box">
                         <div class="o_karma_widget__box__top">
                         </div>

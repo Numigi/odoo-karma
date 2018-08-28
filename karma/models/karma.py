@@ -14,7 +14,7 @@ class Karma(models.Model):
 
     name = fields.Char(required=True)
     label = fields.Char(translate=True)
-    description = fields.Text()
+    description = fields.Text(translate=True)
     model_id = fields.Many2one('ir.model', 'Model', required=True)
     model = fields.Char(related='model_id.model')
     type_ = fields.Selection([

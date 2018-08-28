@@ -23,7 +23,7 @@ class KarmaWithScoreComputingJob(models.Model):
 
         for karma in karmas:
             computer = karma._get_score_computer()
-            computer.compute(record)
+            self._compute(computer, record)
 
     def _find_karmas_triggered_on_save(self, record):
         """Find karma objects that should be triggered on save for the given record."""

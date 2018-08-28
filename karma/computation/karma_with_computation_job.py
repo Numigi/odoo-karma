@@ -42,7 +42,7 @@ class KarmaWithScoreComputingJob(models.Model):
         scores = self.env['karma.score']
 
         for record in records:
-            compute_func = functools.partial(computer.compute, record)
+            compute_func = functools.partial(self._compute, computer, record)
             context_managers = [
                 KarmaErrorLogContextManager(session, record),
                 SavepointContextManager(self.env),

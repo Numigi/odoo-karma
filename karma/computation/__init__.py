@@ -5,6 +5,7 @@ from .condition import ConditionKarmaComputer
 from .inherited import InheritedKarmaComputer
 
 from . import (
+    karma_with_compute,
     karma_with_anticipate_computation,
     karma_with_computation_job,
     karma_with_computation_scheduling,

@@ -41,6 +41,24 @@ var KarmaWidget = Widget.extend({
         });
         await Promise.all(scoreDeferred);
         this.renderElement();
+        this.setupTooltip();
+    },
+    /**
+     * Setup the tooltip.
+     *
+     * The text to render in the tooltip is contained in the field description
+     * of the karma. It is passed to the DOM node through the qWeb template as the attribute `title`.
+     * (t-att-title="karma.description").
+     *
+     * The line breaks \n must be replaced with html line breaks <br/>.
+     */
+    setupTooltip(){
+        this.$(".o_karma_widget__item").each(function(){
+            var el = $(this);
+            var titleWithLineBreaks = (el.attr("title") || "").replace("\n", "<br/>");
+            el.attr("title", titleWithLineBreaks);
+            el.tooltip();
+        });
     },
     /**
      * Find the last computed score for the given karma object.

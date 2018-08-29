@@ -20,4 +20,4 @@ class KarmaWithScoreComputingJob(models.Model):
         """
         record = self.env[record_model].browse(record_id)
         computer = self._get_score_computer()
-        computer.compute(record)
+        self._compute(computer, record)

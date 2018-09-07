@@ -8,7 +8,7 @@
             <tree string="Score Details" create="0" duplicate="0" edit="0">
                 <field name="child_score_id" invisible="1"/>
                 <field name="child_score_karma_type" invisible="1"/>
-                <field name="karma_id"/>
+                <field name="karma_id" string="Name"/>
                 <field name="record_display_name" string="Record"/>
                 <field name="score" widget="karma_score_drilldown" class="karma-score__link"/>
                 <field name="weighting"/>
@@ -22,10 +22,11 @@
         <field name="model">karma.score.condition.detail</field>
         <field name="arch" type="xml">
             <tree string="Score Detail" create="0" duplicate="0" edit="0">
-                <field name="condition_label" string="Condition"/>
+                <field name="field_id" string="Description"/>
+                <field name="condition_label" string="Target"/>
                 <field name="field_value"/>
-                <field name="condition_fulfilled"/>
-                <field name="score"/>
+                <field name="condition_reached"/>
+                <field name="score" groups="karma.group_karma_manager"/>
                 <field name="result_if_true" groups="karma.group_karma_manager"/>
                 <field name="result_if_false" groups="karma.group_karma_manager"/>
                 <field name="weighting"/>

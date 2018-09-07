@@ -50,13 +50,14 @@ class KarmaScore(models.Model):
     _order = 'id desc'
 
     karma_id = fields.Many2one('karma', 'Karma', required=True, index=True)
+    model_id = fields.Many2one(related='karma_id.model_id', auto_join=True)
     karma_type = fields.Selection(related='karma_id.type_')
     score = fields.Float('Score', digits=dp.get_precision('Karma Score'))
     inherited_detail_ids = fields.One2many(
         'karma.score.inherited.detail', 'score_id', 'Details (Inherited)')
 
     condition_detail_ids = fields.One2many(
-        'karma.score.condition.detail', 'score_id', 'Details (Ad Hoc)')
+        'karma.score.condition.detail', 'score_id', 'Details (Simple)')
 
 
 class KarmaScoreInheritedDetail(models.Model):
@@ -79,12 +80,12 @@ class KarmaScoreInheritedDetail(models.Model):
 class KarmaScoreConditionDetail(models.Model):
 
     _name = 'karma.score.condition.detail'
-    _description = 'Score Detail of Ad Hoc Karma'
+    _description = 'Score Detail of Simple Karma'
 
     score_id = fields.Many2one('karma.score', 'Score', index=True, ondelete='cascade')
     condition_id = fields.Many2one('karma.score.condition', 'Condition', required=True)
     field_value = fields.Char()
-    condition_fulfilled = fields.Boolean('Condition Fullfiled')
+    condition_reached = fields.Boolean('Condition Reached')
     score = fields.Float('Score', digits=dp.get_precision('Karma Score'))
     result = fields.Float('Result', digits=dp.get_precision('Karma Score'))
 

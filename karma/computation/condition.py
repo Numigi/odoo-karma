@@ -21,7 +21,7 @@ FIELD_NULL_VALUES = {
 
 
 class ConditionKarmaComputer:
-    """This class defines how Ad Hoc Karma scores are computed."""
+    """This class defines how Simple Karma scores are computed."""
 
     def __init__(self, karma):
         self._karma = karma.sudo()
@@ -59,11 +59,11 @@ class ConditionKarmaComputer:
 
         value = self._get_field_value(karma_line, record)
 
-        condition_fulfilled = self._eval_expression(karma_line.condition, value)
+        condition_reached = self._eval_expression(karma_line.condition, value)
 
         result_expression = (
             karma_line.result_if_true
-            if condition_fulfilled else karma_line.result_if_false
+            if condition_reached else karma_line.result_if_false
         )
         score = self._eval_expression(result_expression, value)
 
@@ -71,7 +71,7 @@ class ConditionKarmaComputer:
             'score_id': parent_score.id,
             'field_value': self._format_field_value(karma_line, value),
             'condition_id': condition.id,
-            'condition_fulfilled': condition_fulfilled,
+            'condition_reached': condition_reached,
             'score': score,
             'result': score * karma_line.weighting,
         })

@@ -19,7 +19,7 @@ class Karma(models.Model):
     model = fields.Char(related='model_id.model')
     type_ = fields.Selection([
         ('inherited', 'Inherited'),
-        ('condition', 'Ad Hoc'),
+        ('condition', 'Simple'),
     ], required=True)
     active = fields.Boolean(default=True)
     line_ids = fields.One2many('karma.line', 'karma_id', 'Children Karmas')

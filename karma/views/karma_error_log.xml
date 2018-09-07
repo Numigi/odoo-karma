@@ -8,7 +8,7 @@
             <form string="Karma Error Logs" create="0" duplicate="0" edit="0">
                 <sheet>
                     <group>
-                        <field name="create_date"/>
+                        <field name="create_date" string="Date"/>
                         <field name="karma_id"/>
                         <field name="record_reference" widget="reference" string="Record"/>
                         <field name="error_message" nolabel="1" colspan="2"/>
@@ -23,7 +23,7 @@
         <field name="model">karma.error.log</field>
         <field name="arch" type="xml">
             <tree string="Karma Error Logs" create="0" duplicate="0" edit="0">
-                <field name="create_date"/>
+                <field name="create_date" string="Date"/>
                 <field name="karma_id"/>
                 <field name="record_display_name" string="Record"/>
             </tree>

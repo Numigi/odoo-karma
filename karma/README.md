@@ -13,9 +13,9 @@ Karmas are recursive, meaning that a Karma can be composed of children Karmas.
 An `Inherited Karma` is a Karma composed of children Karmas.
 The score of this type of Karma is a weighting of the score of each child karma.
 
-### Ad Hoc Karma
+### Simple Karma
 
-An `Ad Hoc Karma` is a Karma computed based on formulas (we call these formulas `Conditions`).
+An `Simple Karma` is a Karma computed based on formulas (we call these formulas `Conditions`).
 Each of these karmas are leaf nodes in the tree of karma inheritance.
 
 ## Extending Karma

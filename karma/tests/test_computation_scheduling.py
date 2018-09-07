@@ -140,7 +140,7 @@ class TestKarmaSchedulingWithLoopInHierarchy(BasicKarmaHierarchyCase):
 
     Therefore, the expected execution order is:
 
-     * K3, K5, K6, K8 (Ad Hoc Karmas)
+     * K3, K5, K6, K8 (Simple Karmas)
      * K2, K4, K7
      * K1
 

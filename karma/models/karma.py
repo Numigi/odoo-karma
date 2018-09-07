@@ -16,10 +16,10 @@ class Karma(models.Model):
     label = fields.Char(translate=True)
     description = fields.Text(translate=True)
     model_id = fields.Many2one('ir.model', 'Model', required=True)
-    model = fields.Char(related='model_id.model')
+    model = fields.Char(related='model_id.model', readonly=True)
     type_ = fields.Selection([
         ('inherited', 'Inherited'),
-        ('condition', 'Ad Hoc'),
+        ('condition', 'Simple'),
     ], required=True)
     active = fields.Boolean(default=True)
     line_ids = fields.One2many('karma.line', 'karma_id', 'Children Karmas')
@@ -77,6 +77,12 @@ class KarmaWithReference(models.Model):
 
     ref = fields.Char(readonly=True)
 
+    @api.model
+    def create(self, vals):
+        """Automatically set the reference number when creating the karma."""
+        vals['ref'] = self.env['ir.sequence'].next_by_code('karma')
+        return super().create(vals)
+
 
 class KarmaConditionLine(models.Model):
 
@@ -106,8 +112,8 @@ class KarmaLine(models.Model):
     karma_id = fields.Many2one(
         'karma', 'Parent Karma', index=True, ondelete='cascade', required=True)
     child_karma_id = fields.Many2one('karma', 'Child Karma', index=True, required=True)
-    model_id = fields.Many2one(related='child_karma_id.model_id')
-    model = fields.Char(related='child_karma_id.model_id.model')
+    model_id = fields.Many2one(related='child_karma_id.model_id', readonly=True)
+    model = fields.Char(related='child_karma_id.model_id.model', readonly=True)
     field_id = fields.Many2one(
         'ir.model.fields', 'Field',
         domain="[('model_id', '=', parent.model_id), ('ttype', '=', 'many2one'),"

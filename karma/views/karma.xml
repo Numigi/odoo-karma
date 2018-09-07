@@ -62,8 +62,8 @@
                             <field name="condition_line_ids" nolabel="1">
                                 <tree editable="bottom">
                                     <field name="sequence" widget="handle"/>
-                                    <field name="field_id"/>
-                                    <field name="condition_label"/>
+                                    <field name="field_id" string="Description"/>
+                                    <field name="condition_label" string="Target"/>
                                     <field name="condition"/>
                                     <field name="result_if_true"/>
                                     <field name="result_if_false"/>

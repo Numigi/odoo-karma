@@ -24,6 +24,8 @@
         'views/karma_session.xml',
         'views/karma.xml',
         'views/menu.xml',
+        'data/ir_cron.xml',
+        'data/ir_sequence.xml',
     ],
     'qweb': [
         'static/src/xml/karma_widget.xml',

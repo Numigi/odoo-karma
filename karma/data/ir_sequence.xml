@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+
+    <record id="karma_sequence" model="ir.sequence">
+        <field name="name">Karma Sequence</field>
+        <field name="code">karma</field>
+        <field name="prefix">KA</field>
+        <field name="number_next" eval="1"/>
+        <field name="number_increment" eval="1"/>
+        <field name="company_id" eval="False"/>
+        <field name="padding">4</field>
+    </record>
+
+</odoo>

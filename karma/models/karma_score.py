@@ -50,8 +50,8 @@ class KarmaScore(models.Model):
     _order = 'id desc'
 
     karma_id = fields.Many2one('karma', 'Karma', required=True, index=True)
-    model_id = fields.Many2one(related='karma_id.model_id', auto_join=True)
-    karma_type = fields.Selection(related='karma_id.type_')
+    model_id = fields.Many2one(related='karma_id.model_id', auto_join=True, readonly=True)
+    karma_type = fields.Selection(related='karma_id.type_', readonly=True)
     score = fields.Float('Score', digits=dp.get_precision('Karma Score'))
     inherited_detail_ids = fields.One2many(
         'karma.score.inherited.detail', 'score_id', 'Details (Inherited)')
@@ -68,9 +68,9 @@ class KarmaScoreInheritedDetail(models.Model):
 
     score_id = fields.Many2one('karma.score', 'Score', index=True, ondelete='cascade')
     child_score_id = fields.Many2one('karma.score', 'Score', ondelete='restrict')
-    child_score_karma_type = fields.Selection(related="child_score_id.karma_type")
+    child_score_karma_type = fields.Selection(related="child_score_id.karma_type", readonly=True)
 
-    karma_id = fields.Many2one(related='child_score_id.karma_id')
+    karma_id = fields.Many2one(related='child_score_id.karma_id', readonly=True)
     score = fields.Float('Score', digits=dp.get_precision('Karma Score'))
 
     weighting = fields.Float('Weighting', digits=dp.get_precision('Karma Weighting'))
@@ -89,12 +89,12 @@ class KarmaScoreConditionDetail(models.Model):
     score = fields.Float('Score', digits=dp.get_precision('Karma Score'))
     result = fields.Float('Result', digits=dp.get_precision('Karma Score'))
 
-    field_id = fields.Many2one(related='condition_id.field_id')
-    condition_label = fields.Char(related='condition_id.condition_label')
-    condition = fields.Char(related='condition_id.condition')
-    result_if_true = fields.Char(related='condition_id.result_if_true')
-    result_if_false = fields.Char(related='condition_id.result_if_false')
-    weighting = fields.Float(related='condition_id.weighting')
+    field_id = fields.Many2one(related='condition_id.field_id', readonly=True)
+    condition_label = fields.Char(related='condition_id.condition_label', readonly=True)
+    condition = fields.Char(related='condition_id.condition', readonly=True)
+    result_if_true = fields.Char(related='condition_id.result_if_true', readonly=True)
+    result_if_false = fields.Char(related='condition_id.result_if_false', readonly=True)
+    weighting = fields.Float(related='condition_id.weighting', readonly=True)
 
 
 class KarmaScoreCondition(models.Model):

@@ -37,6 +37,18 @@ class TestBasicDateConversionCases:
     def test_get_last_day_of_week(self):
         assert get_last_day_of_week(self.today) == datetime(2018, 5, 12)
 
+    def test_get_first_day_of_week_from_sunday(self):
+        assert get_first_day_of_week(datetime(2018, 5, 13)) == datetime(2018, 5, 13)
+
+    def test_get_last_day_of_week_from_sunday(self):
+        assert get_last_day_of_week(datetime(2018, 5, 13)) == datetime(2018, 5, 19)
+
+    def test_get_first_day_of_week_from_saturday(self):
+        assert get_first_day_of_week(datetime(2018, 5, 12)) == datetime(2018, 5, 6)
+
+    def test_get_last_day_of_week_from_saturday(self):
+        assert get_last_day_of_week(datetime(2018, 5, 12)) == datetime(2018, 5, 12)
+
     def test_get_first_day_of_month(self):
         assert get_first_day_of_month(self.today) == datetime(2018, 5, 1)
 

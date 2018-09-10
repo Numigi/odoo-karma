@@ -152,12 +152,12 @@ def get_day_end(datetime_: datetime) -> datetime:
 
 def get_first_day_of_week(datetime_: datetime) -> datetime:
     """Get the start of the week relative to a given datetime."""
-    return datetime_ - timedelta(datetime_.isoweekday())
+    return datetime_ - timedelta(datetime_.isoweekday() % 7)
 
 
 def get_last_day_of_week(datetime_: datetime) -> datetime:
     """Get the start of the week relative to a given datetime."""
-    return datetime_ + timedelta(6 - datetime_.isoweekday())
+    return datetime_ + timedelta(6 - (datetime_.isoweekday() % 7))
 
 
 def get_first_day_of_month(datetime_: datetime) -> datetime:

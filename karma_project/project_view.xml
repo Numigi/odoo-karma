@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="project_task_form_view_with_karma_widget" model="ir.ui.view">
+        <field name="name">Project Task Form View: Add Karma Widget</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <field name="kanban_state" position="after">
+                <div style="float: right; margin-right: 16px">
+                    <widget name="karma"/>
+                </div>
+            </field>
+        </field>
+    </record>
+
+</odoo>

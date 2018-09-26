@@ -22,6 +22,10 @@
     justify-content: space-between;
 }
 
+.o_karma_widget__box__bottom {
+    align-items: flex-end;
+}
+
 .o_karma_widget__box__middle,
 .o_karma_widget__history {
     display: flex;

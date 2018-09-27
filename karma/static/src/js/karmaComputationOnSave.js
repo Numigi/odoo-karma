@@ -5,7 +5,9 @@ odoo.define("karma.computationOnSave", function(require){
  */
 require("web.FormController").include({
     saveRecord(){
-        return this._super.apply(this, arguments).then(() => this.triggerKarmaScoreComputation());
+        var deferred = this._super.apply(this, arguments);
+        deferred.then(() => this.triggerKarmaScoreComputation())
+        return deferred;
     },
     triggerKarmaScoreComputation(){
         var recordModel = this.renderer.state.model;

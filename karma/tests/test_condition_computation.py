@@ -13,6 +13,16 @@ class ComputedKarmaCase(SavepointCase):
     def setUpClass(cls):
         super().setUpClass()
 
+        cls.karma_manager = cls.env['res.users'].create({
+            'name': 'Karma Manager',
+            'login': 'karma_manager',
+            'email': 'karma_manager@example.com',
+            'groups_id': [
+                (4, cls.env.ref('karma.group_karma_manager').id),
+                (4, cls.env.ref('sales_team.group_sale_manager').id),
+            ],
+        })
+
         cls.karma = cls.env['karma'].create({
             'name': 'Partner Information',
             'type_': 'condition',
@@ -164,8 +174,11 @@ class TestComputeAllScores(ComputedKarmaCase):
         cls.expected_partner_1_score = 10
         cls.expected_partner_2_score = 7.5  # 3 * 5 / 2
 
+    def _compute(self, raise_=False):
+        return self.karma.sudo(self.karma_manager).compute_all_scores(raise_=raise_)
+
     def test_compute_all_scores(self):
-        self.karma.compute_all_scores(raise_=True)
+        self._compute(raise_=True)
 
         score = self._find_last_score(self.partner)
         assert score.score == self.expected_partner_1_score
@@ -176,7 +189,7 @@ class TestComputeAllScores(ComputedKarmaCase):
     def test_ifFirstRecordFails_thenSecondRecordIsNotImpacted(self):
         self.line_1.result_if_true = "1 / 0"  # Only executed with self.partner
 
-        self.karma.compute_all_scores()
+        self._compute()
 
         score = self._find_last_score(self.partner)
         assert not score
@@ -187,7 +200,7 @@ class TestComputeAllScores(ComputedKarmaCase):
     def test_ifSecondRecordFails_thenFirstRecordIsNotImpacted(self):
         self.line_2.result_if_true = "1 / 0"  # Only executed with self.partner_2
 
-        self.karma.compute_all_scores()
+        self._compute()
 
         score = self._find_last_score(self.partner)
         assert score.score == self.expected_partner_1_score
@@ -198,7 +211,7 @@ class TestComputeAllScores(ComputedKarmaCase):
     def test_ifRecordFails_thenKarmaErrorIsLogged(self):
         self.line_1.result_if_true = "1 / 0"  # Only executed with self.partner
 
-        self.karma.compute_all_scores()
+        self._compute()
 
         session = self.env['karma.session'].search([('karma_id', '=', self.karma.id)])
         assert len(session.error_log_ids) == 1
@@ -211,6 +224,6 @@ class TestComputeAllScores(ComputedKarmaCase):
         assert len(session.score_ids) == 1
 
     def test_ifRecordSucceeds_thenScoreIsBoundToSession(self):
-        self.karma.compute_all_scores()
+        self._compute()
         session = self.env['karma.session'].search([('karma_id', '=', self.karma.id)])
         assert len(session.score_ids) == 2

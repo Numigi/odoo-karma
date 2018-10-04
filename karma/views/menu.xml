@@ -41,4 +41,11 @@
         action="action_karma_error_log"
         sequence="40"/>
 
+    <menuitem
+        id="menu_karma_computed_fields"
+        name="Custom Computed Fields"
+        parent="menu_karma_settings"
+        action="date_range_field_template.action_field_template"
+        sequence="50"/>
+
 </odoo>

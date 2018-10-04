@@ -16,7 +16,6 @@ class ComputedFieldTemplate(models.Model):
     name = fields.Char(required=True, translate=True)
     model_id = fields.Many2one('ir.model', 'Model', required=True, ondelete='restrict')
     reference = fields.Char(required=True)
-    active = fields.Boolean(default=True)
     field_type = fields.Selection(FIELD_TYPES, 'Field Type', required=True)
     field_ids = fields.One2many('computed.field', 'template_id', 'Fields')
 

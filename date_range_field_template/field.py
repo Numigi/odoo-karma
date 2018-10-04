@@ -16,7 +16,6 @@ class ComputedField(models.Model):
     range_id = fields.Many2one(
         'computed.field.date.range', 'Date Range', required=True, ondelete='restrict')
     field_id = fields.Many2one('ir.model.fields', 'Field', ondelete='restrict')
-    active = fields.Boolean(default=True)
 
     _sql_constraints = [
         ('unique_reference', 'unique(template_id, range_id)',
@@ -35,14 +34,21 @@ class ComputedField(models.Model):
         self._update_related_field()
         return True
 
+    @api.multi
+    def unlink(self):
+        fields = self.mapped('field_id')
+        super().unlink()
+        fields.sudo().unlink()
+        return True
+
     def _create_related_field(self):
         initial_values = self._get_field_values()
         initial_values['field_description'] = self._get_field_label()
-        self.field_id = self.env['ir.model.fields'].create(initial_values)
+        self.field_id = self.env['ir.model.fields'].sudo().create(initial_values)
 
     def _update_related_field(self):
         for record in self:
-            record.field_id.write(record._get_field_values())
+            record.field_id.sudo().write(record._get_field_values())
 
     def _get_field_values(self):
         """Get the values to propagate to the ir.model.fields record.
@@ -90,4 +96,4 @@ class ComputedField(models.Model):
     def _update_related_field_label(self):
         for lang in self.env['res.lang'].search([]):
             for record in self.with_context(lang=lang.code):
-                record.field_id.field_description = record._get_field_label()
+                record.field_id.sudo().field_description = record._get_field_label()

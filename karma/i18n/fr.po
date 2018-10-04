@@ -6,8 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2018-09-27 14:04-0400\n"
 "PO-Revision-Date: 2018-09-27 14:10-0400\n"
+=======
+"POT-Creation-Date: 2018-10-04 10:51-0400\n"
+"PO-Revision-Date: 2018-10-04 10:53-0400\n"
+>>>>>>> 4ad37b8... Make custom date fields editable by karma manager.
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -108,6 +113,11 @@ msgstr "Créé le"
 #: model:ir.model.fields,field_description:karma.field_karma_cron_schedule
 msgid "Cron Schedule"
 msgstr "Planification du calcul"
+
+#. module: karma
+#: model:ir.ui.menu,name:karma.menu_karma_computed_fields
+msgid "Custom Computed Fields"
+msgstr "Champs calculés personnalisés"
 
 #. module: karma
 #: selection:karma,cron_schedule:0

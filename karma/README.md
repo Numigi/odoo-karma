@@ -107,6 +107,23 @@ The condition above means:
 * Then he gets a score of 1.
 * Otherwise he gets a score of -10.
 
+#### Standard Python Function
+
+Here is a list of standard python functions available for the expressions:
+
+* abs
+* all
+* any
+* len
+* max
+* min
+* round
+* sum
+
+These functions are documented here:
+
+https://docs.python.org/3.5/library/functions.html
+
 ### Ponderation
 
 The `Ponderation` column contains a factor by which to multiply the value obtained

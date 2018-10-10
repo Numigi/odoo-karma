@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-06 23:04-0400\n"
-"PO-Revision-Date: 2018-09-06 23:08-0400\n"
+"POT-Creation-Date: 2018-09-27 14:04-0400\n"
+"PO-Revision-Date: 2018-09-27 14:10-0400\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -26,6 +26,11 @@ msgstr "Actif"
 #: model:ir.model.fields,field_description:karma.field_karma_authorize_anticipate_computation
 msgid "Authorize Anticipate Computation"
 msgstr "Autoriser calcul anticipé"
+
+#. module: karma
+#: model:ir.model.fields,field_description:karma.field_karma_line_child_karma_id
+msgid "Child Karma"
+msgstr "Karma enfant"
 
 #. module: karma
 #: model:ir.ui.view,arch_db:karma.view_karma_form
@@ -57,6 +62,7 @@ msgid "Condition"
 msgstr "Condition"
 
 #. module: karma
+#: model:ir.model.fields,field_description:karma.field_karma_condition_line_condition_label
 #: model:ir.model.fields,field_description:karma.field_karma_score_condition_condition_label
 #: model:ir.model.fields,field_description:karma.field_karma_score_condition_detail_condition_label
 msgid "Condition Label"
@@ -109,12 +115,14 @@ msgid "Daily"
 msgstr "Journalier"
 
 #. module: karma
+#: model:ir.ui.view,arch_db:karma.view_karma_error_log_form
+#: model:ir.ui.view,arch_db:karma.view_karma_error_log_list
+#: model:ir.ui.view,arch_db:karma.view_karma_score_list
 #: model:ir.ui.view,arch_db:karma.view_karma_session_search
 msgid "Date"
 msgstr "Date"
 
 #. module: karma
-#: model:ir.model.fields,field_description:karma.field_karma_condition_line_field_id
 #: model:ir.model.fields,field_description:karma.field_karma_description
 #: model:ir.ui.view,arch_db:karma.view_karma_form
 #: model:ir.ui.view,arch_db:karma.view_karma_score_condition_detail_list
@@ -151,6 +159,11 @@ msgstr "Détails (Simple)"
 #: model:ir.model.fields,field_description:karma.field_karma_session_display_name
 msgid "Display Name"
 msgstr "Nom affiché"
+
+#. module: karma
+#: model:ir.model.fields,field_description:karma.field_karma_display_on_form_view
+msgid "Display On Form View"
+msgstr "Afficher sur vue formulaire"
 
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_domain
@@ -190,6 +203,8 @@ msgid "Errors"
 msgstr "Erreurs"
 
 #. module: karma
+#: model:ir.model.fields,field_description:karma.field_karma_condition_line_field_id
+#: model:ir.model.fields,field_description:karma.field_karma_line_field_id
 #: model:ir.model.fields,field_description:karma.field_karma_score_condition_detail_field_id
 #: model:ir.model.fields,field_description:karma.field_karma_score_condition_field_id
 msgid "Field"
@@ -286,6 +301,13 @@ msgstr "Logs d'erreurs Karma"
 #: model:ir.model,name:karma.model_karma_line
 msgid "Karma Line"
 msgstr "Ligne de Karma"
+
+#. module: karma
+#: model:ir.actions.server,name:karma.karma_schedule_cron_ir_actions_server
+#: model:ir.cron,cron_name:karma.karma_schedule_cron
+#: model:ir.cron,name:karma.karma_schedule_cron
+msgid "Karma Schedule"
+msgstr "Planification Karma"
 
 #. module: karma
 #: model:ir.model,name:karma.model_karma_score
@@ -556,7 +578,6 @@ msgid "Start Time"
 msgstr "Début"
 
 #. module: karma
-#: model:ir.model.fields,field_description:karma.field_karma_condition_line_condition_label
 #: model:ir.ui.view,arch_db:karma.view_karma_form
 #: model:ir.ui.view,arch_db:karma.view_karma_score_condition_detail_list
 msgid "Target"

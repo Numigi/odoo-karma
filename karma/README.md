@@ -233,6 +233,16 @@ on a `daily / weekly / monthly` schedule.
 
 To activate the cron for a given karma object, the only thing to do is select a value in the `Cron Schedule` field.
 
+### Queue Jobs
+
+Karma uses the [Queue Jobs module](https://github.com/OCA/queue) to execute the computation of scores.
+For queue jobs to work, you need to add the following line to your odoo.conf file:
+
+```
+[options]
+server_wide_modules = web,queue_job
+```
+
 ## Compute On Save
 
 When checking `Compute On Save` on the karma settings, the score is recomputed for a record when

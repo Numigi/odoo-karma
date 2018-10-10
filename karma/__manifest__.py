@@ -12,6 +12,7 @@
     'summary': 'Compute scores on all types of records.',
     'depends': [
         'decimal_precision',
+        'date_range_field_template',
         'queue_job',
     ],
     'data': [

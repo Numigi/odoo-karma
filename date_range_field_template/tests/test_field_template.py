@@ -229,3 +229,13 @@ class TestFieldTemplate(common.SavepointCase):
 
         with freeze_time(self.today + relativedelta(hours=28)):
             self.assertEqual(self.user.with_context(tz=tz).x__gamification_badge_count__today, 0)
+
+    def test_whenUnlinkComputedFieldEntry_thenRelatedFieldIsUnlinked(self):
+        field_entry = self.env['computed.field'].create({
+            'template_id': self.template.id,
+            'range_id': self.env.ref('date_range_field_template.range_yesterday').id,
+        })
+        field = field_entry.field_id
+        self.assertTrue(field.exists())
+        field_entry.unlink()
+        self.assertFalse(field.exists())

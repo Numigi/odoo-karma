@@ -36,6 +36,15 @@ class ComputedField(models.Model):
 
     @api.multi
     def unlink(self):
+        """Unlink the related field if the computed field is unlinked.
+
+        The reason is that a computed field entry should only be deletable
+        if the related field is deletable. Otherwise, we end up with a field
+        that still exists in the system but does not appear in the list of computed
+        fields.
+
+        In other words, we accept deleting an unused computed field.
+        """
         fields = self.mapped('field_id')
         super().unlink()
         fields.sudo().unlink()

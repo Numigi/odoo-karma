@@ -1,0 +1,100 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* karma_grade
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-11 11:22-0400\n"
+"PO-Revision-Date: 2018-10-11 11:22-0400\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: karma_grade
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: karma_grade
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: karma_grade
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: karma_grade
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_grade
+#: model:ir.model.fields,field_description:karma_grade.field_karma_score_grade
+msgid "Grade"
+msgstr "Grade"
+
+#. module: karma_grade
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_line_ids
+msgid "Grade Ranges"
+msgstr "Intervalle Grade"
+
+#. module: karma_grade
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_id
+msgid "ID"
+msgstr ""
+
+#. module: karma_grade
+#: model:ir.model,name:karma_grade.model_karma
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_karma_id
+msgid "Karma"
+msgstr ""
+
+#. module: karma_grade
+#: model:ir.model,name:karma_grade.model_karma_grade_range
+msgid "Karma Grade Range"
+msgstr "Intervalle Grade Karma"
+
+#. module: karma_grade
+#: model:ir.model,name:karma_grade.model_karma_score
+msgid "Karma Score"
+msgstr "Score Karma"
+
+#. module: karma_grade
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: karma_grade
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: karma_grade
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: karma_grade
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_min_score
+msgid "Lower Boundary"
+msgstr "Borne inférieure"
+
+#. module: karma_grade
+#: model:ir.ui.view,arch_db:karma_grade.view_karma_form_with_grades
+msgid "Results"
+msgstr "Résultats"
+
+#. module: karma_grade
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_sequence
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: karma_grade
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_max_score
+msgid "Upper Boundary"
+msgstr "Borne supérieure"

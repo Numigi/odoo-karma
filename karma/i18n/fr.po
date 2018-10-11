@@ -6,13 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2018-09-27 14:04-0400\n"
-"PO-Revision-Date: 2018-09-27 14:10-0400\n"
-=======
-"POT-Creation-Date: 2018-10-04 10:51-0400\n"
-"PO-Revision-Date: 2018-10-04 10:53-0400\n"
->>>>>>> 4ad37b8... Make custom date fields editable by karma manager.
+"POT-Creation-Date: 2018-10-11 11:20-0400\n"
+"PO-Revision-Date: 2018-10-11 11:21-0400\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -251,7 +246,7 @@ msgstr "Grouper par"
 
 #. module: karma
 #. openerp-web
-#: code:addons/karma/static/src/xml/karma_widget.xml:39
+#: code:addons/karma/static/src/xml/karma_widget.xml:53
 #, python-format
 msgid "History"
 msgstr "Historique"
@@ -432,6 +427,11 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: karma
+#: model:ir.model.fields,field_description:karma.field_karma_score_number_evaluated_lines
+msgid "Number Evaluated Lines"
+msgstr "Nombre lignes évaluées"
+
+#. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_session_number_of_records
 msgid "Number Of Records"
 msgstr "Nombre d'enregistrements"
@@ -491,6 +491,11 @@ msgstr "Référence de l'objet"
 #: model:ir.model.fields,field_description:karma.field_karma_ref
 msgid "Ref"
 msgstr "Référence"
+
+#. module: karma
+#: model:ir.model.fields,field_description:karma.field_karma_score_reliability
+msgid "Reliability"
+msgstr "Fiabilité"
 
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_score_condition_detail_result
@@ -608,6 +613,11 @@ msgstr ""
 "{expression}\n"
 "\n"
 "{err}"
+
+#. module: karma
+#: model:ir.model.fields,field_description:karma.field_karma_score_total_number_lines
+msgid "Total Number Lines"
+msgstr "Nombre total lignes"
 
 #. module: karma
 #: model:ir.ui.view,arch_db:karma.view_karma_search

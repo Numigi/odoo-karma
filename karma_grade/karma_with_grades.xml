@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_karma_form_with_grades" model="ir.ui.view">
+        <field name="name">Karma With Grades</field>
+        <field name="model">karma</field>
+        <field name="inherit_id" ref="karma.view_karma_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="results" string="Results">
+                    <field name="grade_line_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="min_score"/>
+                            <field name="max_score"/>
+                            <field name="grade"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="view_karma_score_list_with_grade" model="ir.ui.view">
+        <field name="name">Karma Score List View</field>
+        <field name="model">karma.score</field>
+        <field name="inherit_id" ref="karma.view_karma_score_list"/>
+        <field name="arch" type="xml">
+            <field name="score" position="after">
+                <field name="grade"/>
+                <field name="reliability"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

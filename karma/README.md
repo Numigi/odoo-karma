@@ -224,6 +224,18 @@ When clicking on `History`, the complete history of scores computed for the reco
 
 Then, when clicking on the score of a row, the details for that row will be displayed.
 
+### Number of Evaluated Lines
+
+When computing a score, whether on a `Simple` or `Inherited`, a set of lines are evaluated.
+
+For an `Simple` Karma, these lines are the fulfilled conditions.
+For an `Inherited` Karma, these lines are those for which a child score was found.
+
+The number of lines evaluated over the total number of lines is the reliability of the score.
+The more lines are evaluated, the more reliable the score is.
+
+![Score Reliability](static/description/score_reliability.png?raw=true)
+
 ## Cron Schedule
 
 One important feature of karma is to periodically recompute the score for all targeted records based

@@ -18,6 +18,7 @@
         'date_range_field_template',
         'karma',
         'karma_crm',
+        'karma_grade',
         'karma_partner',
         'karma_product',
     ],

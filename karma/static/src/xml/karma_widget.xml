@@ -7,13 +7,27 @@
                 <div class="o_karma_widget__item" t-att-karma="karma.id" t-att-title="karma.description || ''">
                     <div class="o_karma_widget__box">
                         <div class="o_karma_widget__box__top">
+                            <div class="o_karma_widget__box__top-left">
+                                <t t-call="KarmaNumberEvaluatedLines"/>
+                            </div>
+                            <div class="o_karma_widget__box__top-center"/>
+                            <div class="o_karma_widget__box__top-right"/>
                         </div>
                         <div class="o_karma_widget__box__middle">
-                            <t t-call="KarmaWidgetScore"/>
+                            <div class="o_karma_widget__box__middle-left"/>
+                            <div class="o_karma_widget__box__middle-center">
+                                <t t-call="KarmaWidgetScore"/>
+                            </div>
+                            <div class="o_karma_widget__box__middle-right"/>
                         </div>
                         <div class="o_karma_widget__box__bottom">
-                            <t t-call="KarmaWidgetLabel"/>
-                            <t t-call="KarmaWidgetRefresh"/>
+                            <div class="o_karma_widget__box__bottom-left">
+                                <t t-call="KarmaWidgetLabel"/>
+                            </div>
+                            <div class="o_karma_widget__box__bottom-center"/>
+                            <div class="o_karma_widget__box__bottom-right">
+                                <t t-call="KarmaWidgetRefresh"/>
+                            </div>
                         </div>
                     </div>
                     <t t-call="KarmaWidgetHistory"/>
@@ -43,6 +57,12 @@
     <t t-name="KarmaWidgetRefresh">
         <div class="o_karma_widget__refresh" t-if="karma.authorize_anticipate_computation">
             <a><i class="fa fa-refresh"></i></a>
+        </div>
+    </t>
+
+    <t t-name="KarmaNumberEvaluatedLines">
+        <div class="o_karma_widget__evaluated_lines" t-if="karma.score">
+            <t t-raw="karma.score.number_evaluated_lines"/>/<t t-raw="karma.score.total_number_lines"/>
         </div>
     </t>
 

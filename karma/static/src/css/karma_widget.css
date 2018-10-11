@@ -20,42 +20,70 @@
 .o_karma_widget__box__bottom
 {
     display: flex;
+    flex: 1;
     justify-content: space-between;
 }
 
-.o_karma_widget__box__middle-top,
+/**
+* The karma widget is seperated into 9 boxes.
+*
+* The middle-center contains the score itself.
+* That box is centered horizontally and vertically.
+*
+* Other boxes are aligned from the nearest horizontal and vertical border.
+*/
+.o_karma_widget__box__top-left,
+.o_karma_widget__box__top-center,
+.o_karma_widget__box__top-right,
+.o_karma_widget__box__middle-left,
 .o_karma_widget__box__middle-center,
-.o_karma_widget__box__middle-bottom {
-    height: 100%;
+.o_karma_widget__box__middle-right,
+.o_karma_widget__box__bottom-left,
+.o_karma_widget__box__bottom-center,
+.o_karma_widget__box__bottom-right {
+    display: flex;
+    flex-direction: column;
+}
+
+.o_karma_widget__box__top-left,
+.o_karma_widget__box__top-center,
+.o_karma_widget__box__top-right {
+    justify-content: flex-start;
+}
+
+.o_karma_widget__box__middle-left,
+.o_karma_widget__box__middle-center,
+.o_karma_widget__box__middle-right {
+    justify-content: space-around;
+}
+
+.o_karma_widget__box__bottom-left,
+.o_karma_widget__box__bottom-center,
+.o_karma_widget__box__bottom-right {
+    justify-content: flex-end;
 }
 
 .o_karma_widget__box__top-left,
 .o_karma_widget__box__middle-left,
 .o_karma_widget__box__bottom-left {
-    align-items: flex-start;
+    align-items: left;
+}
+
+.o_karma_widget__box__top-center,
+.o_karma_widget__box__middle-center,
+.o_karma_widget__box__bottom-center {
+    align-items: center;
 }
 
 .o_karma_widget__box__top-right,
 .o_karma_widget__box__middle-right,
 .o_karma_widget__box__bottom-right {
-    align-items: flex-end;
-}
-
-.o_karma_widget__box__top-center,
-.o_karma_widget__box__middle-center,
-.o_karma_widget__box__bottom-center,
-.o_karma_widget__history {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.o_karma_widget__box__middle {
-    flex: 1;
+    align-items: right;
 }
 
 .o_karma_widget__history {
     margin: 0.5em 0;
+    text-align: center;
 }
 
 .o_karma_widget__score {

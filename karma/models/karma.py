@@ -75,7 +75,7 @@ class KarmaWithReference(models.Model):
 
     _inherit = 'karma'
 
-    ref = fields.Char(readonly=True)
+    ref = fields.Char(readonly=True, copy=False)
 
     @api.model
     def create(self, vals):

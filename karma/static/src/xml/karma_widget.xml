@@ -10,7 +10,6 @@
                             <div class="o_karma_widget__box__top-left">
                                 <t t-call="KarmaNumberEvaluatedLines"/>
                             </div>
-                            <div class="o_karma_widget__box__top-center"/>
                             <div class="o_karma_widget__box__top-right"/>
                         </div>
                         <div class="o_karma_widget__box__middle">
@@ -18,19 +17,20 @@
                             <div class="o_karma_widget__box__middle-center">
                                 <t t-call="KarmaWidgetScore"/>
                             </div>
-                            <div class="o_karma_widget__box__middle-right"/>
+                            <div class="o_karma_widget__box__middle-right">
+                                <t t-call="KarmaWidgetRefresh"/>
+                            </div>
                         </div>
                         <div class="o_karma_widget__box__bottom">
                             <div class="o_karma_widget__box__bottom-left">
                                 <t t-call="KarmaWidgetLabel"/>
                             </div>
-                            <div class="o_karma_widget__box__bottom-center"/>
                             <div class="o_karma_widget__box__bottom-right">
-                                <t t-call="KarmaWidgetRefresh"/>
+                                <t t-call="KarmaWidgetHistory"/>
                             </div>
                         </div>
                     </div>
-                    <t t-call="KarmaWidgetHistory"/>
+                    
                 </div>
             </t>
         </div>
@@ -50,7 +50,7 @@
 
     <t t-name="KarmaWidgetHistory">
         <div class="o_karma_widget__history">
-            <a>History</a>
+            <a><i class="fa fa-history"></i></a>
         </div>
     </t>
 

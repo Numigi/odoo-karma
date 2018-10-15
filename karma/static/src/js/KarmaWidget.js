@@ -38,10 +38,36 @@ var KarmaWidget = Widget.extend({
 
         var scoreDeferred = this.karmas.map(async (k) => {
             k.score = await this.findLastKarmaScore(k);
+            k.score.score = this.formatKarmaScore(k.score.score);
         });
         await Promise.all(scoreDeferred);
         this.renderElement();
         this.setupTooltip();
+    },
+    /**
+     * Format the score to display on the karma widget.
+     *
+     * The decimals are displayed only if the amount is lower than 100.
+     *
+     * @param score {Number} - the score to format
+     * @returns {String} the formatted number
+     */
+    formatKarmaScore(score){
+        if(score === null){
+            return score;
+        }
+        if(score >= 100){
+            return score.toFixed();
+        }
+
+        var scoreWith2Decimals = score.toFixed(2);
+
+        // Remove non-relevant 0 digits
+        // 12.34 -> 12.34
+        // 12.30 -> 12.3
+        // 12.00 -> 12
+        // https://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-only-if-necessary/17141819
+        return String(parseFloat(scoreWith2Decimals));
     },
     /**
      * Setup the tooltip.

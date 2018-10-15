@@ -16,7 +16,7 @@
 }
 
 .o_karma_widget__box__top,
-.o_karma_widget__box__center,
+.o_karma_widget__box__middle,
 .o_karma_widget__box__bottom
 {
     display: flex;
@@ -33,20 +33,17 @@
 * Other boxes are aligned from the nearest horizontal and vertical border.
 */
 .o_karma_widget__box__top-left,
-.o_karma_widget__box__top-center,
 .o_karma_widget__box__top-right,
 .o_karma_widget__box__middle-left,
 .o_karma_widget__box__middle-center,
 .o_karma_widget__box__middle-right,
 .o_karma_widget__box__bottom-left,
-.o_karma_widget__box__bottom-center,
 .o_karma_widget__box__bottom-right {
     display: flex;
     flex-direction: column;
 }
 
 .o_karma_widget__box__top-left,
-.o_karma_widget__box__top-center,
 .o_karma_widget__box__top-right {
     justify-content: flex-start;
 }
@@ -55,10 +52,10 @@
 .o_karma_widget__box__middle-center,
 .o_karma_widget__box__middle-right {
     justify-content: space-around;
+    flex: 1;
 }
 
 .o_karma_widget__box__bottom-left,
-.o_karma_widget__box__bottom-center,
 .o_karma_widget__box__bottom-right {
     justify-content: flex-end;
 }
@@ -66,28 +63,18 @@
 .o_karma_widget__box__top-left,
 .o_karma_widget__box__middle-left,
 .o_karma_widget__box__bottom-left {
-    align-items: left;
-}
-
-.o_karma_widget__box__top-center,
-.o_karma_widget__box__middle-center,
-.o_karma_widget__box__bottom-center {
-    align-items: center;
+    align-items: flex-start;
 }
 
 .o_karma_widget__box__top-right,
 .o_karma_widget__box__middle-right,
 .o_karma_widget__box__bottom-right {
-    align-items: right;
-}
-
-.o_karma_widget__history {
-    margin: 0.5em 0;
-    text-align: center;
+    align-items: flex-end;
 }
 
 .o_karma_widget__score {
     font-size: 2em;
+    text-align: center;
 }
 
 .o_karma_widget__score,

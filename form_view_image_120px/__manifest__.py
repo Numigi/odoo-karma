@@ -2,21 +2,17 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 {
-    'name': 'Date Range Field Template',
+    'name': 'Form View Image 120px',
     'version': '1.0.0',
     'author': 'Numigi',
     'maintainer': 'Numigi',
     'website': 'https://bit.ly/numigi-com',
     'license': 'LGPL-3',
     'category': 'Karma',
-    'summary': 'Enable generating computed fields from templates based on date ranges.',
-    'depends': ['base'],
+    'summary': 'Make the avatar image in form views 120px.',
+    'depends': ['web'],
     'data': [
-        'data/date_range.xml',
-        'views/date_range.xml',
-        'views/field_template.xml',
-        'views/menu.xml',
-        'security/ir.model.access.csv',
+        'assets.xml',
     ],
     'installable': True,
 }

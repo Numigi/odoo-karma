@@ -1,4 +1,4 @@
-odoo.define('form_view_image_120px', function (require) {
+odoo.define("form_view_image_120px", function (require) {
 "use strict";
 
 /**
@@ -10,7 +10,7 @@ require("web.basic_fields").FieldBinaryImage.include({
         var nodeClass = this.attrs.class;
         var hasAvatarClass = nodeClass && nodeClass.split(" ").indexOf("oe_avatar") !== -1;
         if(hasAvatarClass){
-        	this.nodeOptions.size = [120, 120];
+            this.nodeOptions.size = [120, 120];
         }
     },
 });

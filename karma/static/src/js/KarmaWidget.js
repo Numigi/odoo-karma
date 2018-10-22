@@ -38,7 +38,9 @@ var KarmaWidget = Widget.extend({
 
         var scoreDeferred = this.karmas.map(async (k) => {
             k.score = await this.findLastKarmaScore(k);
-            k.score.score = this.formatKarmaScore(k.score.score);
+            if(k.score){
+                k.score.score = this.formatKarmaScore(k.score.score);
+            }
         });
         await Promise.all(scoreDeferred);
         this.renderElement();

@@ -1,0 +1,4 @@
+.o-karma-required,
+.o-karma-required-page > a {
+    border-bottom: rgb(12, 124, 186) 3px solid !important;
+}

@@ -22,7 +22,7 @@ def compute_message_sent_count(records, field_name, date_from, date_to, related_
         ], count=True)
 
 
-class ResUsersWithBadgeCount(models.Model):
+class ResUsersWithMessageCount(models.Model):
 
     _inherit = 'res.users'
 

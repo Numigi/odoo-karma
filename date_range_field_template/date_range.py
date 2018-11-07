@@ -124,8 +124,12 @@ class ComputedFieldDateRange(models.Model):
         return get_day_end(date_max)
 
     def _get_current_datetime(self):
+        """Get the current datetime in the timezone of the context.
+
+        :rtype: datetime.datetime
+        """
         tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
-        return datetime.now(tz)
+        return datetime.now(pytz.utc).astimezone(tz)
 
 
 def get_day_start(datetime_: datetime) -> datetime:

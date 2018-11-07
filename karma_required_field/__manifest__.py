@@ -14,8 +14,11 @@
         'karma',
     ],
     'data': [
+        'data/field_template.xml',
         'views/assets.xml',
         'views/karma_required_field.xml',
+        'views/karma_required_field_log.xml',
+        'security/ir.model.access.csv',
     ],
     'demo': [
         'demo/required_fields.xml',

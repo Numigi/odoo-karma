@@ -20,6 +20,7 @@ COPY karma_grade /mnt/extra-addons/karma_grade
 COPY karma_partner /mnt/extra-addons/karma_partner
 COPY karma_product /mnt/extra-addons/karma_product
 COPY karma_project /mnt/extra-addons/karma_project
+COPY karma_required_field /mnt/extra-addons/karma_required_field
 
 COPY .docker_files/main /mnt/extra-addons/main
 COPY .docker_files/odoo.conf /etc/odoo

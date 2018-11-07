@@ -5,6 +5,7 @@
         <xpath expr="." position="inside">
             <script type="text/javascript" src="/karma_required_field/static/src/js/requiredFields.js"></script>
             <script type="text/javascript" src="/karma_required_field/static/src/js/colorize.js"></script>
+            <script type="text/javascript" src="/karma_required_field/static/src/js/logKarmaRequiredFieldsOnSave.js"></script>
             <link rel="stylesheet" type="text/css" href="/karma_required_field/static/src/css/requiredField.css"/>
         </xpath>
     </template>

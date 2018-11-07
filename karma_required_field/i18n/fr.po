@@ -1,0 +1,190 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* karma_required_field
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-05 20:56+0000\n"
+"PO-Revision-Date: 2018-11-05 16:02-0500\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: karma_required_field
+#: sql_constraint:karma.required.field:0
+msgid "A record with the same field already exists."
+msgstr "Un enregistrement avec le même champ existe déjà."
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_active
+msgid "Active"
+msgstr "Actif"
+
+#. module: karma_required_field
+#: model:ir.model,name:karma_required_field.model_res_partner
+msgid "Contact"
+msgstr "Contact"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_create_uid
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_log_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_create_date
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_log_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: karma_required_field
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_log_form
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_log_list
+msgid "Date"
+msgstr "Date"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_display_name
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_log_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_log_emptied_fields
+msgid "Emptied Fields"
+msgstr "Champs vidés"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_log_empty_fields_after
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_log_list
+msgid "Empty Fields After"
+msgstr "Champs vides après"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_log_empty_fields_before
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_log_list
+msgid "Empty Fields Before"
+msgstr "Champs vides avant"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_field_id
+msgid "Field"
+msgstr "Champ"
+
+#. module: karma_required_field
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_log_list
+msgid "Fields Emptied"
+msgstr "Champs vidés"
+
+#. module: karma_required_field
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_log_list
+msgid "Fields Filled"
+msgstr "Champs remplis"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_log_filled_fields
+msgid "Filled Fields"
+msgstr "Champs remplis"
+
+#. module: karma_required_field
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_log_search
+msgid "Group By"
+msgstr "Grouper par"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_id
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_log_id
+msgid "ID"
+msgstr "ID"
+
+#. module: karma_required_field
+#: model:ir.actions.act_window,name:karma_required_field.action_karma_required_field_log
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_log_form
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_log_list
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_log_search
+msgid "Karma Field Logs"
+msgstr "Journaux champs Karma"
+
+#. module: karma_required_field
+#: model:ir.actions.act_window,name:karma_required_field.action_karma_required_field
+#: model:ir.ui.menu,name:karma_required_field.menu_karma_required_field
+#: model:ir.ui.menu,name:karma_required_field.menu_karma_required_field_log
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_list
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_search
+msgid "Karma Fields"
+msgstr "Champs Karma"
+
+#. module: karma_required_field
+#: model:ir.model,name:karma_required_field.model_karma_required_field
+msgid "Karma Required Field"
+msgstr "Champ Karma Obligatoire"
+
+#. module: karma_required_field
+#: model:ir.model,name:karma_required_field.model_karma_required_field_log
+msgid "Karma Required Field Log"
+msgstr "Journaux champ Karma obligatoires"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field___last_update
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_log___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_log_write_uid
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_write_uid
+msgid "Last Updated by"
+msgstr "Dernière msie à jour par"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_log_write_date
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_log_model_id
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_model_id
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_log_search
+msgid "Model"
+msgstr "Modèle"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_log_number_empty_fields_after
+msgid "Number Empty Fields After"
+msgstr "Nb champs vides après"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_log_number_empty_fields_before
+msgid "Number Empty Fields Before"
+msgstr "Nb champs vides avant"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_log_number_fields_emptied
+msgid "Number Fields Emptied"
+msgstr "Nb champs vidés"
+
+#. module: karma_required_field
+#: model:ir.model.fields,field_description:karma_required_field.field_karma_required_field_log_number_fields_filled
+msgid "Number Fields Filled"
+msgstr "Nb champs remplis"
+
+#. module: karma_required_field
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_log_form
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_log_list
+msgid "Record"
+msgstr "Enregistrement"
+
+#. module: karma_required_field
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_log_form
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_log_list
+#: model:ir.ui.view,arch_db:karma_required_field.view_karma_required_field_log_search
+msgid "User"
+msgstr "Utilisateur"

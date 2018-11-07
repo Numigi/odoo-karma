@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="karma_field_avg_template" model="computed.field.template">
+        <field name="name">Karma Field Average</field>
+        <field name="reference">karma_field_avg</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="field_type">float</field>
+        <field name="related_model_argument" eval="True"/>
+    </record>
+
+</odoo>

@@ -57,7 +57,7 @@ var requiredFieldRegistry = new KarmaRequiredFieldRegistry();
 return {
     isFieldRequired(model, fieldName){
         return requiredFieldRegistry.isFieldRequired(model, fieldName)
-    }
+    },
 }
 
 });

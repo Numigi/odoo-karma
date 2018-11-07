@@ -21,6 +21,8 @@
         'karma_grade',
         'karma_partner',
         'karma_product',
+        'karma_project',
+        'karma_required_field',
     ],
     'installable': True,
 }

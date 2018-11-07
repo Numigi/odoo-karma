@@ -24,8 +24,8 @@ msgstr "Actif"
 
 #. module: date_range_field_template
 #: model:ir.ui.menu,name:date_range_field_template.menu_field_template
-msgid "Computed Date Range Fields"
-msgstr "Champs calculés Intervalle date"
+msgid "Computed Fields"
+msgstr "Champs calculés"
 
 #. module: date_range_field_template
 #: model:ir.model,name:date_range_field_template.model_computed_field

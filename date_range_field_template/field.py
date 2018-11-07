@@ -16,11 +16,7 @@ class ComputedField(models.Model):
     range_id = fields.Many2one(
         'computed.field.date.range', 'Date Range', required=True, ondelete='restrict')
     field_id = fields.Many2one('ir.model.fields', 'Field', ondelete='restrict')
-
-    _sql_constraints = [
-        ('unique_reference', 'unique(template_id, range_id)',
-         'Only one field can be created per field template and date range type.'),
-    ]
+    related_model_id = fields.Many2one('ir.model', 'Related Model')
 
     @api.model
     def create(self, vals):
@@ -59,13 +55,21 @@ class ComputedField(models.Model):
         for record in self:
             record.field_id.sudo().write(record._get_field_values())
 
+    def _get_related_model_name(self):
+        """Get the name of the model related to the field."""
+        return (
+            self.related_model_id.model if self.template_id.related_model_argument
+            else None
+        )
+
     def _get_field_values(self):
         """Get the values to propagate to the ir.model.fields record.
 
         :return: a dictionary containing the ir.model.fields values
         """
         technical_name = get_technical_field_name(
-            self.template_id.reference, self.range_id.reference)
+            self.template_id.reference, self.range_id.reference,
+            related_model=self._get_related_model_name())
         return {
             'column1': False,
             'column2': False,
@@ -95,12 +99,28 @@ class ComputedField(models.Model):
         }
 
     def _get_field_label(self):
-        return '{template} ({range})'.format(
-            template=self.template_id.name, range=self.range_id.name)
+        template = self.template_id.name
+        range_ = self.range_id.name
+        if self.template_id.related_model_argument:
+            return '{template} ({model} / {range})'.format(
+                template=template, range=range_, model=self.related_model_id.name)
+        else:
+            return '{template} ({range})'.format(
+                template=template, range=range_)
 
     def _get_compute_script(self):
-        return "self.compute_date_range_field('{template}', '{range}')".format(
-            template=self.template_id.reference, range=self.range_id.reference)
+        template = self.template_id.reference
+        range_ = self.range_id.reference
+
+        if self.template_id.related_model_argument:
+            return (
+                "self.compute_date_range_field"
+                "('{template}', '{range}', related_model='{model}')").format(
+                template=template, range=range_,
+                model=self._get_related_model_name())
+        else:
+            return "self.compute_date_range_field('{template}', '{range}')".format(
+                template=template, range=range_)
 
     def _update_related_field_label(self):
         for lang in self.env['res.lang'].search([]):

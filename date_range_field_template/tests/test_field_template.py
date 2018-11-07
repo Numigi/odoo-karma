@@ -96,11 +96,11 @@ class TestFieldTemplate(common.SavepointCase):
         cls.one_week_ago = datetime.now() - relativedelta(days=7)
         cls.now = datetime.now()
         cls.today = datetime(cls.now.year, cls.now.month, cls.now.day)
-        cls.today_4_oclock = cls.today + relativedelta(hours=4)
+        cls.today_5_oclock = cls.today + relativedelta(hours=5)
 
         cls._assign_badge_at_previous_date(cls.env, cls.one_month_ago, cls.badge_1, cls.user)
         cls._assign_badge_at_previous_date(cls.env, cls.one_week_ago, cls.badge_2, cls.user)
-        cls._assign_badge_at_previous_date(cls.env, cls.today_4_oclock, cls.badge_3, cls.user)
+        cls._assign_badge_at_previous_date(cls.env, cls.today_5_oclock, cls.badge_3, cls.user)
 
         cls.definition_1 = cls.env.ref('gamification.definition_base_timezone')
         cls.definition_2 = cls.env.ref('gamification.definition_base_company_data')
@@ -190,44 +190,44 @@ class TestFieldTemplate(common.SavepointCase):
         with freeze_time(self.today):
             self.assertEqual(self.user.x__gamification_badge_count__today, 1)
 
-    def test_number_of_badges_today_with_canada_eastern_tz_plus_3_hours(self):
+    def test_number_of_badges_today_with_canada_eastern_tz_plus_4_hours(self):
         """Test that a badge is excluded if created yesterday in the user's perspective.
 
-        When evaluating a field with the Canada/Eastern timezone,
-        the time is 4 hours before utc.
+        When evaluating a field with the EST timezone,
+        the time is 5 hours before utc.
 
-        Suppose the current time is 2018-07-30 23:00:00-04:00.
+        Suppose the current time is 2018-07-30 23:00:00-05:00.
 
         Then, the current day in the user's perspective is:
-            from 2018-07-30 00:00:00-04:00 to 2018-07-30 23:59:99-04:00
+            from 2018-07-30 00:00:00-05:00 to 2018-07-30 23:59:99-05:00
 
         Thus, the current day converted in UTC is:
-            from 2018-07-30 04:00:00 to 2018-07-31 03:59:99
+            from 2018-07-30 05:00:00 to 2018-07-31 04:59:99
 
-        Thus, a badge created on 2018-07-30 03:59:59 UTC, was created yesterday in the
+        Thus, a badge created on 2018-07-30 04:59:59 UTC, was created yesterday in the
         user's perspective.
         """
-        tz = 'Canada/Eastern'
+        tz = 'EST'
 
-        with freeze_time(self.today + relativedelta(hours=3, minutes=59, seconds=59)):
+        with freeze_time(self.today + relativedelta(hours=4, minutes=59, seconds=59)):
             self.assertEqual(self.user.with_context(tz=tz).x__gamification_badge_count__today, 0)
 
-    def test_number_of_badges_today_with_canada_eastern_tz_plus_4_hours(self):
-        tz = 'Canada/Eastern'
+    def test_number_of_badges_today_with_canada_eastern_tz_plus_5_hours(self):
+        tz = 'EST'
 
-        with freeze_time(self.today + relativedelta(hours=4)):
+        with freeze_time(self.today + relativedelta(hours=5)):
             self.assertEqual(self.user.with_context(tz=tz).x__gamification_badge_count__today, 1)
 
-    def test_number_of_badges_today_with_canada_eastern_tz_plus_27_hours(self):
-        tz = 'Canada/Eastern'
+    def test_number_of_badges_today_with_canada_eastern_tz_plus_28_hours(self):
+        tz = 'EST'
 
-        with freeze_time(self.today + relativedelta(hours=27, minutes=59, seconds=59)):
+        with freeze_time(self.today + relativedelta(hours=28, minutes=59, seconds=59)):
             self.assertEqual(self.user.with_context(tz=tz).x__gamification_badge_count__today, 1)
 
-    def test_number_of_badges_today_with_canada_eastern_tz_more_then_28_hours(self):
-        tz = 'Canada/Eastern'
+    def test_number_of_badges_today_with_canada_eastern_tz_more_then_29_hours(self):
+        tz = 'EST'
 
-        with freeze_time(self.today + relativedelta(hours=28)):
+        with freeze_time(self.today + relativedelta(hours=29)):
             self.assertEqual(self.user.with_context(tz=tz).x__gamification_badge_count__today, 0)
 
     def test_whenUnlinkComputedFieldEntry_thenRelatedFieldIsUnlinked(self):

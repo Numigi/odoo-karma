@@ -3,6 +3,7 @@
 
 import pytz
 from datetime import datetime
+from functools import partial
 
 from odoo import api, fields, models, _
 from odoo.addons.base.ir.ir_model import FIELD_TYPES
@@ -16,21 +17,26 @@ class BaseWithRangeFieldComputing(models.AbstractModel):
     _inherit = 'base'
 
     @api.multi
-    def compute_date_range_field(self, field_reference, range_reference):
+    def compute_date_range_field(
+        self, field_reference, range_reference, related_model=None,
+    ):
         """Compute a field given a field template reference and a date range reference.
 
         :param field_reference: the reference of the field template
         :param range_reference: the date range reference (i.e. last_30_days)
+        :param str related_model: the name of the related model
         """
         func = self.__get_date_range_computing_function(field_reference)
 
-        field_name = get_technical_field_name(field_reference, range_reference)
+        field_name = get_technical_field_name(
+            field_reference, range_reference, related_model=related_model)
 
         range_ = self.__get_range(range_reference)
         date_from = range_.get_date_min()
         date_to = range_.get_date_max()
 
-        return func(self, field_name, date_from, date_to)
+        partial_func = partial(func, self, field_name, date_from, date_to)
+        return partial_func(related_model) if related_model else partial_func()
 
     def __get_date_range_computing_function(self, field_reference):
         if field_reference not in self._date_range_fields:

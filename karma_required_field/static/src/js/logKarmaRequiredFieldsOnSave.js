@@ -20,11 +20,11 @@ function isEmptyFieldValue(value){
 }
 
 function isRequiredFieldWidget(widget){
-    return widget.$el.find('.o-karma-required').length || widget.$el.hasClass('o-karma-required');
+    return widget.$el.find(".o-karma-required").length || widget.$el.hasClass("o-karma-required");
 }
 
 function isInvisibleFieldWidget(widget){
-    return widget.$el.parents('.o_invisible_modifier').length || widget.$el.hasClass('o_invisible_modifier');
+    return widget.$el.parents(".o_invisible_modifier").length || widget.$el.hasClass("o_invisible_modifier");
 }
 
 /**

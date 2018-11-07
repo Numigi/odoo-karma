@@ -2,7 +2,7 @@ odoo.define("karma_required_field.colorize", function(require){
 
 var isFieldRequired = require("karma_required_field.requiredFields").isFieldRequired;
 
-var targetElements = ["input", "select", "textarea", ".o_field_many2manytags"].join(',')
+var targetElements = ["input", "select", "textarea", ".o_field_many2manytags"].join(",");
 
 /**
  * Colorize the given field element.
@@ -102,15 +102,15 @@ require("web.FormRenderer").include({
      * @param {String} pageId - the DOM id of the page to update
      */
     _updateSingleTabHeaderKarmaColors(tabHeaderElement, pageId){
-        var pageElement = this.$el.find('.tab-pane#' + pageId);
+        var pageElement = this.$el.find(".tab-pane#" + pageId);
 
         function elementHasNoInvisibleParent(){
-            var invisibleParents = $(this).parents('.o_invisible_modifier');
+            var invisibleParents = $(this).parents(".o_invisible_modifier");
             return !invisibleParents.length;
         }
 
         var mustBeColorized = Boolean(
-            pageElement.find('.o-karma-required:not(.o_invisible_modifier)')
+            pageElement.find(".o-karma-required:not(.o_invisible_modifier)")
             .filter(elementHasNoInvisibleParent).length
         );
         if(mustBeColorized){

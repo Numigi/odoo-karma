@@ -18,7 +18,7 @@ var KarmaRequiredFieldRegistry = Class.extend({
     isFieldRequired(model, fieldName){
         var self = this;
 
-        var index = model + ',' + fieldName;
+        var index = model + "," + fieldName;
 
         if(!this._fieldsFetched){
             this._fetchfields().then(function(){
@@ -46,7 +46,7 @@ var KarmaRequiredFieldRegistry = Class.extend({
             kwargs: {},
         }).then(function(result){
             result.forEach(function(values){
-                self._requiredFields.add(values.model + ',' + values.field);
+                self._requiredFields.add(values.model + "," + values.field);
             });
         });
     },
@@ -56,8 +56,8 @@ var requiredFieldRegistry = new KarmaRequiredFieldRegistry();
 
 return {
     isFieldRequired(model, fieldName){
-        return requiredFieldRegistry.isFieldRequired(model, fieldName)
+        return requiredFieldRegistry.isFieldRequired(model, fieldName);
     },
-}
+};
 
 });

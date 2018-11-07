@@ -1,15 +1,8 @@
 # © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-import pytz
-
-from collections import defaultdict
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
-from freezegun import freeze_time
 from odoo import fields, models
 from odoo.tests import common
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
 def compute_message_sent_count(records, field_name, date_from, date_to, related_model):

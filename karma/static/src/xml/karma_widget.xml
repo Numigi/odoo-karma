@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
+    <t t-name="FormViewKarmaWidget">
+        <div class="o_form_karma_widget"></div>
+    </t>
+
     <t t-name="KarmaWidget">
-        <div class="o_karma_widget">
-            <t t-foreach="widget.karmas" t-as="karma">
-                <div class="o_karma_widget__item" t-att-karma="karma.id" t-att-title="karma.description || ''">
-                    <div class="o_karma_widget__box">
-                        <div class="o_karma_widget__box__top">
-                            <div class="o_karma_widget__box__top-left">
-                                <t t-call="KarmaNumberEvaluatedLines"/>
-                            </div>
-                            <div class="o_karma_widget__box__top-right"/>
-                        </div>
-                        <div class="o_karma_widget__box__middle">
-                            <div class="o_karma_widget__box__middle-left"/>
-                            <div class="o_karma_widget__box__middle-center">
-                                <t t-call="KarmaWidgetScore"/>
-                            </div>
-                            <div class="o_karma_widget__box__middle-right">
-                                <t t-call="KarmaWidgetRefresh"/>
-                            </div>
-                        </div>
-                        <div class="o_karma_widget__box__bottom">
-                            <div class="o_karma_widget__box__bottom-left">
-                                <t t-call="KarmaWidgetLabel"/>
-                            </div>
-                            <div class="o_karma_widget__box__bottom-right">
-                                <t t-call="KarmaWidgetHistory"/>
-                            </div>
-                        </div>
+        <t t-set="karma" t-value="widget.karma"/>
+        <t t-set="score" t-value="widget.score"/>
+        <div class="o_karma_widget" t-att-title="karma.description || ''">
+            <div class="o_karma_widget__box">
+                <div class="o_karma_widget__box__top">
+                    <div class="o_karma_widget__box__top-left">
+                        <t t-call="KarmaNumberEvaluatedLines"/>
                     </div>
-                    
+                    <div class="o_karma_widget__box__top-right"/>
                 </div>
-            </t>
+                <div class="o_karma_widget__box__middle">
+                    <div class="o_karma_widget__box__middle-left"/>
+                    <div class="o_karma_widget__box__middle-center">
+                        <t t-call="KarmaWidgetScore"/>
+                    </div>
+                    <div class="o_karma_widget__box__middle-right">
+                        <t t-call="KarmaWidgetRefresh"/>
+                    </div>
+                </div>
+                <div class="o_karma_widget__box__bottom">
+                    <div class="o_karma_widget__box__bottom-left">
+                        <t t-call="KarmaWidgetLabel"/>
+                    </div>
+                    <div class="o_karma_widget__box__bottom-right">
+                        <t t-call="KarmaWidgetHistory"/>
+                    </div>
+                </div>
+            </div>
         </div>
     </t>
 
@@ -44,7 +45,7 @@
 
     <t t-name="KarmaWidgetScore">
         <div class="o_karma_widget__score">
-            <a><t t-if="karma.score" t-raw="karma.score.score"/></a>
+            <a><t t-if="score" t-raw="score.score"/></a>
         </div>
     </t>
 
@@ -61,8 +62,8 @@
     </t>
 
     <t t-name="KarmaNumberEvaluatedLines">
-        <div class="o_karma_widget__evaluated_lines" t-if="karma.score">
-            <t t-raw="karma.score.number_evaluated_lines"/>/<t t-raw="karma.score.total_number_lines"/>
+        <div class="o_karma_widget__evaluated_lines" t-if="score">
+            <t t-raw="score.number_evaluated_lines"/>/<t t-raw="score.total_number_lines"/>
         </div>
     </t>
 

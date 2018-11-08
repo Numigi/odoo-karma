@@ -1,0 +1,61 @@
+.o_karma_user_dashboard__item {
+    background: #ffffff;
+    padding: 16px;
+}
+
+/**
+ * The parent karma is aligned vertically with its children.
+ */
+.o_karma_user_dashboard__item {
+    display: flex;
+    align-items: center;
+}
+
+/*
+ * A gray border separates each set of parent/children karmas.
+ */
+.o_karma_user_dashboard__item {
+    border-bottom: 1px solid #CBCBCB;
+}
+
+/*
+ * The parent karma widget is bigger then the children karmas.
+ */
+.o_karma_user_dashboard__parent-karma .o_karma_widget__box {
+    width: 180px;
+    height: 180px;
+    font-size: 1.2em;
+    padding: 12px;
+}
+
+/*
+ * The children karmas are displayed inline and wrap if required.
+ */
+.o_karma_user_dashboard__children-karmas {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+/*
+ * When wrapping, a space is added between the 2 lines of widgets.
+ */
+.o_karma_user_dashboard__children-karmas .o_karma_widget {
+    margin-bottom: 8px;
+}
+
+/**
+ * For mobile displays, the children karmas are displayed below their parent.
+ */
+@media only screen and (max-width: 600px) {
+    .o_karma_user_dashboard__item {
+        flex-flow: column;
+    }
+    .o_karma_user_dashboard__parent-karma {
+        justify-content: center;
+        margin-bottom: 16px;
+    }
+    .o_karma_user_dashboard__children-karmas {
+        justify-content: center;
+    }
+}

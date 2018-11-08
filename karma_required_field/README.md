@@ -104,3 +104,11 @@ The completion of `Leads` have an higher weighting than `Contacts`, thus will ha
 * Drilldown to see the details of the Karma score.
 
 ![Karma Score Details](static/description/karma_score_details.png?raw=true)
+
+Contributors
+------------
+* Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+
+More information
+----------------
+* Meet us at https://bit.ly/numigi-com

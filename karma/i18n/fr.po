@@ -111,8 +111,8 @@ msgstr "Planification du calcul"
 
 #. module: karma
 #: model:ir.ui.menu,name:karma.menu_karma_computed_fields
-msgid "Custom Computed Fields"
-msgstr "Champs calculés personnalisés"
+msgid "Computed Fields"
+msgstr "Champs calculés"
 
 #. module: karma
 #: selection:karma,cron_schedule:0

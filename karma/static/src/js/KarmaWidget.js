@@ -195,7 +195,7 @@ var FormViewKarmaWidget = Widget.extend({
     /**
      * After rendering the element, the karma widgets related to the record are rendered.
      */
-    renderElement($el){
+    renderElement(){
         this._super();
         var $el = this.$el;
         this.findRelatedKarmaObjects().then((karmas) => {

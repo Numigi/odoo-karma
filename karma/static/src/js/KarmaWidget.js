@@ -6,6 +6,15 @@ var widgetRegistry = require("web.widget_registry");
 var core = require("web.core");
 var _t = core._t;
 
+/**
+ * The main Karma widget.
+ *
+ * This widget displays the last score of a given record for a single karma.
+ * The karma object, the record ID and and the record model are given at the initialization.
+ *
+ * Once initialized, the widget is autonomous.
+ * The widget can however be refreshed from a parent component using the method `refreshScore`.
+ */
 var KarmaWidget = Widget.extend({
     template: "KarmaWidget",
     events: {
@@ -13,46 +22,74 @@ var KarmaWidget = Widget.extend({
         "click .o_karma_widget__refresh": "computeScore",
         "click .o_karma_widget__history": "openHistory",
     },
-    init(){
-        this._super.apply(this, arguments);
-        this.karmas = [];
-
-        var form = this.getParent();
-        if(form.state.res_id){
-            this.refreshData();
-        }
+    /**
+     * Initialize the widget.
+     *
+     * @param recordModel {String} the database ID of the record
+     * @param recordId {Number} the database ID of the record
+     * @param karma {Object} the data of the related karma object
+     */
+    init(parent, recordModel, recordId, karma){
+        this._super(parent);
+        this.recordModel = recordModel;
+        this.recordId = recordId;
+        this.karma = karma;
+        this.score = null;
     },
     /**
-     * Fetch the data from the server and refresh the widget.
+     * Setup the tooltip.
+     *
+     * The text to render in the tooltip is contained in the field description
+     * of the karma. It is passed to the DOM node through the qWeb template as the attribute `title`.
+     * (t-att-title="karma.description").
+     *
+     * The line breaks \n must be replaced with html line breaks <br/>.
      */
-    async refreshData(){
-        var form = this.getParent();
-        this.karmas = await this._rpc({
-            model: "karma",
-            method: "find_karmas_to_display_on_form_view",
-            args: [form.state.model, form.state.res_id],
+    _setupTooltip(){
+        var titleWithLineBreaks = (this.$el.attr("title") || "").replace("\n", "<br/>");
+        this.$el.attr("title", titleWithLineBreaks);
+        this.$el.tooltip();
+    },
+    renderElement(){
+        this._super();
+        this._setupTooltip();
+    },
+    /**
+     * Find the last computed score for the given karma object.
+     *
+     * @param {Object} karma - the karma object
+     * @returns {Object} the score object.
+     */
+    async findLastKarmaScore(){
+        var scores = await this._rpc({
+            model: "karma.score",
+            method: "search_read",
+            domain: [
+                ["karma_id", "=", this.karma.id],
+                ["res_id", "=", this.recordId],
+                ["res_model", "=", this.recordModel],
+            ],
+            limit: 1,
+            order: "id desc",
             params: {
                 context: odoo.session_info.user_context,
             },
         });
-
-        var scoreDeferred = this.karmas.map(async (k) => {
-            k.score = await this.findLastKarmaScore(k);
-            if(k.score){
-                k.score.score = this.formatKarmaScore(k.score.score);
-            }
-        });
-        await Promise.all(scoreDeferred);
-        this.renderElement();
-        this.setupTooltip();
+        return scores.length ? scores[0] : null;
     },
     /**
-     * Format the score to display on the karma widget.
+     * Fetch the karma data from the server and render the widget.
+     */
+    async refreshScore(){
+        this.score = await this.findLastKarmaScore();
+        if(this.score){
+            this.score.score = this.formatKarmaScore(this.score.score);
+        }
+        this.renderElement();
+    },
+    /**
+     * Get the database ID of the record bound to the score to display.
      *
-     * The decimals are displayed only if the amount is lower than 100.
-     *
-     * @param score {Number} - the score to format
-     * @returns {String} the formatted number
      */
     formatKarmaScore(score){
         if(score === null){
@@ -72,113 +109,105 @@ var KarmaWidget = Widget.extend({
         return String(parseFloat(scoreWith2Decimals));
     },
     /**
-     * Setup the tooltip.
-     *
-     * The text to render in the tooltip is contained in the field description
-     * of the karma. It is passed to the DOM node through the qWeb template as the attribute `title`.
-     * (t-att-title="karma.description").
-     *
-     * The line breaks \n must be replaced with html line breaks <br/>.
-     */
-    setupTooltip(){
-        this.$(".o_karma_widget__item").each(function(){
-            var el = $(this);
-            var titleWithLineBreaks = (el.attr("title") || "").replace("\n", "<br/>");
-            el.attr("title", titleWithLineBreaks);
-            el.tooltip();
-        });
-    },
-    /**
-     * Find the last computed score for the given karma object.
-     *
-     * @param {Object} karma - the karma object
-     * @returns {Object} the score object.
-     */
-    async findLastKarmaScore(karma){
-        var form = this.getParent();
-        var scores = await this._rpc({
-            model: "karma.score",
-            method: "search_read",
-            domain: [
-                ["karma_id", "=", karma.id],
-                ["res_id", "=", form.state.res_id],
-                ["res_model", "=", form.state.model],
-            ],
-            limit: 1,
-            order: "id desc",
-            params: {
-                context: odoo.session_info.user_context,
-            },
-        });
-        return scores.length ? scores[0] : null;
-    },
-    /**
-     * Get the Karma related to the given click event.
-     *
-     * More than one Karma may theoritically appear in the widget.
-     * The if of the karma related to the click can be found using the attribute `karma`
-     * on the target's parent `.o_karma_widget__item` node.
-     *
-     * @param {jQuery.Event} event - the click event
-     * @returns {Object} the karma object.
-     */
-    getKarmaFromEvent(event){
-        var target = $(event.target);
-        var karmaId = parseInt(target.closest(".o_karma_widget__item").attr("karma"));
-        return this.karmas.filter((k) => k.id === karmaId)[0];
-    },
-    /**
      * Display the details that compose the score.
      */
-    scoreDrilldown(event){
-        var karma = this.getKarmaFromEvent(event);
+    scoreDrilldown(){
         var actionModel = (
-            karma.type_ === "inherited" ?
+            this.karma.type_ === "inherited" ?
             "karma.score.inherited.detail" : "karma.score.condition.detail"
         );
         this.do_action({
             res_model: actionModel,
-            name: _t("{karma_label} (details)").replace("{karma_label}", karma.label),
+            name: _t("{karma_label} (details)").replace("{karma_label}", this.karma.label),
             views: [[false, "list"]],
             type: "ir.actions.act_window",
-            domain: [["score_id", "=", karma.score.id]],
+            domain: [["score_id", "=", this.score.id]],
         });
     },
     /**
      * Open the scores history for the current record.
      */
-    openHistory(event){
-        var karma = this.getKarmaFromEvent(event);
-        var form = this.getParent();
+    openHistory(){
         this.do_action({
             res_model: "karma.score",
-            name: _t("{karma_label} (history)").replace("{karma_label}", karma.label),
+            name: _t("{karma_label} (history)").replace("{karma_label}", this.karma.label),
             views: [[false, "list"]],
             type: "ir.actions.act_window",
             domain: [
-                ["res_id", "=", form.state.res_id],
-                ["res_model", "=", form.state.model],
+                ["res_id", "=", this.recordId],
+                ["res_model", "=", this.recordModel],
             ],
             context: {
-                "search_default_karma_id": karma.id,
+                "search_default_karma_id": this.karma.id,
             },
         });
     },
     /**
      * Compute (refresh) the score for the current record.
      */
-    async computeScore(event){
-        var karma = this.getKarmaFromEvent(event);
-        var form = this.getParent();
+    async computeScore(){
         await this._rpc({
             model: "karma",
             method: "run_anticipate_computation",
-            args: [[karma.id], form.state.model, form.state.res_id],
+            args: [[this.karma.id], this.recordModel, this.recordId],
         });
-        this.refreshData();
+        this.refreshScore();
     },
 });
 
-widgetRegistry.add("karma", KarmaWidget);
+/**
+ * A karma widget bound to a form view.
+ */
+var FormViewKarmaWidget = Widget.extend({
+    template: "FormViewKarmaWidget",
+    /**
+     * Find karmas related to the record from the server.
+     */
+    async findRelatedKarmaObjects(){
+        var recordId = this.getParent().state.res_id;
+        var recordModel = this.getParent().state.model;
+        if(!recordId){
+            return [];
+        }
+        return await this._rpc({
+            model: "karma",
+            method: "find_karmas_to_display_on_form_view",
+            args: [recordModel, recordId],
+            params: {
+                context: odoo.session_info.user_context,
+            },
+        });
+    },
+    /**
+     * Render the karma widget.
+     *
+     * The karma widget is separated in another widget so that it can be used
+     * outside the context of a form view.
+     */
+    _renderKarmaWidget(karma){
+        var recordId = this.getParent().state.res_id;
+        var recordModel = this.getParent().state.model;
+        var widget = new KarmaWidget(this, recordModel, recordId, karma);
+        widget.refreshScore();
+        widget.renderElement();
+        return widget.$el;
+    },
+    /**
+     * After rendering the element, the karma widgets related to the record are rendered.
+     */
+    renderElement(){
+        this._super();
+        var $el = this.$el;
+        this.findRelatedKarmaObjects().then((karmas) => {
+            karmas.forEach((karma) => {
+                $el.append(this._renderKarmaWidget(karma));
+            });
+        });
+    },
+});
+
+widgetRegistry.add("karma", FormViewKarmaWidget);
+
+return KarmaWidget;
 
 });

@@ -11,7 +11,7 @@
 
     <menuitem
         id="menu_field_template"
-        name="Computed Date Range Fields"
+        name="Computed Fields"
         action="action_field_template"
         parent="base.next_id_9"
         sequence="21"

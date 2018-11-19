@@ -14,6 +14,7 @@
         # Modules used to test karma addons
         'gamification',
         'sale',
+        'stock',
 
         'date_range_field_template',
         'karma',

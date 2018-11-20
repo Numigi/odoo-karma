@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_karma_form_with_display_on_user_dashboard" model="ir.ui.view">
+        <field name="name">Karma Form: Add Field Display On User Dashboard</field>
+        <field name="model">karma</field>
+        <field name="inherit_id" ref="karma.view_karma_form"/>
+        <field name="arch" type="xml">
+            <field name="display_on_form_view" position="after">
+                <field name="display_on_user_dashboard" attrs="{'invisible': [('model', '!=', 'res.users')]}"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

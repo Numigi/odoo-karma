@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_karma_required_field_admin,access_karma_required_field_admin,model_karma_required_field,karma.group_karma_manager,1,1,1,1
+access_karma_required_field_log_admin,access_karma_required_field_log_admin,model_karma_required_field_log,karma.group_karma_manager,1,1,1,1
+access_karma_required_field_log_user,access_karma_required_field_log_user,model_karma_required_field_log,base.group_user,1,0,1,0

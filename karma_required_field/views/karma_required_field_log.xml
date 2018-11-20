@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_karma_required_field_log_form" model="ir.ui.view">
+        <field name="name">Karma Field Log List View</field>
+        <field name="model">karma.required.field.log</field>
+        <field name="arch" type="xml">
+            <form string="Karma Field Logs" create="0" delete="0" duplicate="0" edit="0">
+                <sheet>
+                    <group>
+                        <field name="model_id"/>
+                        <field name="create_date" string="Date"/>
+                        <field name="create_uid" string="User"/>
+                        <field name="record_reference" widget="reference" string="Record"/>
+                        <field name="empty_fields_before"/>
+                        <field name="filled_fields"/>
+                        <field name="emptied_fields"/>
+                        <field name="empty_fields_after"/>
+                        <field name="number_empty_fields_before"/>
+                        <field name="number_fields_filled"/>
+                        <field name="number_fields_emptied"/>
+                        <field name="number_empty_fields_after"/>
+                        <field name="score"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_karma_required_field_log_list" model="ir.ui.view">
+        <field name="name">Karma Field Log List View</field>
+        <field name="model">karma.required.field.log</field>
+        <field name="arch" type="xml">
+            <tree string="Karma Field Logs" create="0" delete="0" duplicate="0" edit="0">
+                <field name="model_id"/>
+                <field name="create_date" string="Date"/>
+                <field name="create_uid" string="User"/>
+                <field name="record_display_name" string="Record"/>
+                <field name="number_empty_fields_before" string="Empty Fields Before"/>
+                <field name="number_fields_filled" string="Fields Filled"/>
+                <field name="number_fields_emptied" string="Fields Emptied"/>
+                <field name="number_empty_fields_after" string="Empty Fields After"/>
+                <field name="score"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_karma_required_field_log_search" model="ir.ui.view">
+        <field name="name">Karma Field Log Search View</field>
+        <field name="model">karma.required.field.log</field>
+        <field name="arch" type="xml">
+            <search string="Karma Field Logs">
+                <field name="model_id" string="Model"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_model_id" string="Model" context="{'group_by': 'model_id'}"/>
+                    <filter name="group_by_create_uid" string="User" context="{'group_by': 'create_uid'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_karma_required_field_log" model="ir.actions.act_window">
+        <field name="name">Karma Field Logs</field>
+        <field name="res_model">karma.required.field.log</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_karma_required_field_log"
+        name="Karma Fields"
+        parent="karma.menu_karma_logs"
+        action="action_karma_required_field_log"
+        sequence="20"/>
+
+</odoo>

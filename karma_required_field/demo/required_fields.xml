@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="required_field_partner_email" model="karma.required.field">
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="field_id" ref="base.field_res_partner_email"/>
+    </record>
+
+    <record id="required_field_partner_street" model="karma.required.field">
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="field_id" ref="base.field_res_partner_street"/>
+    </record>
+
+    <record id="required_field_partner_city" model="karma.required.field">
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="field_id" ref="base.field_res_partner_city"/>
+    </record>
+
+    <record id="required_field_partner_country_id" model="karma.required.field">
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="field_id" ref="base.field_res_partner_country_id"/>
+    </record>
+
+    <record id="required_field_partner_zip" model="karma.required.field">
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="field_id" ref="base.field_res_partner_zip"/>
+    </record>
+
+    <record id="required_field_partner_phone" model="karma.required.field">
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="field_id" ref="base.field_res_partner_phone"/>
+    </record>
+
+    <record id="required_field_partner_lang" model="karma.required.field">
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="field_id" ref="base.field_res_partner_lang"/>
+    </record>
+
+    <record id="required_field_partner_category_id" model="karma.required.field">
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="field_id" ref="base.field_res_partner_category_id"/>
+    </record>
+
+    <record id="required_field_partner_comment" model="karma.required.field">
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="field_id" ref="base.field_res_partner_comment"/>
+    </record>
+
+</odoo>

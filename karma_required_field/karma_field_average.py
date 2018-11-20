@@ -2,10 +2,17 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import pytz
+from datetime import datetime
 from odoo import fields, models
 
 
-def compute_karma_field_average(records, field_name, date_from, date_to, related_model):
+def compute_karma_field_average(
+    records: models.BaseModel,
+    field_name: str,
+    date_from: datetime,
+    date_to: datetime,
+    related_model_name: str,
+):
     """Compute the average score of a user for filling karma fields."""
     utc_date_from = date_from.astimezone(pytz.utc)
     utc_date_to = date_to.astimezone(pytz.utc)
@@ -23,7 +30,7 @@ def compute_karma_field_average(records, field_name, date_from, date_to, related
             'user_ids': tuple(records.ids),
             'date_from': fields.Datetime.to_string(utc_date_from),
             'date_to': fields.Datetime.to_string(utc_date_to),
-            'model_id': records.env['ir.model']._get_id(related_model),
+            'model_id': records.env['ir.model']._get_id(related_model_name),
         })
 
     result = {r[0]: r[1] for r in records.env.cr.fetchall()}

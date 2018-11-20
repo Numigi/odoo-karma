@@ -69,7 +69,7 @@ class ComputedField(models.Model):
         """
         technical_name = get_technical_field_name(
             self.template_id.reference, self.range_id.reference,
-            related_model=self._get_related_model_name())
+            related_model_name=self._get_related_model_name())
         return {
             'column1': False,
             'column2': False,
@@ -115,7 +115,7 @@ class ComputedField(models.Model):
         if self.template_id.related_model_argument:
             return (
                 "self.compute_date_range_field"
-                "('{template}', '{range}', related_model='{model}')").format(
+                "('{template}', '{range}', related_model_name='{model}')").format(
                 template=template, range=range_,
                 model=self._get_related_model_name())
         else:

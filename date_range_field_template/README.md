@@ -7,18 +7,18 @@ Each generate field is computed with a distinct date range.
 
 For example, you could define a field template for a partner's invoiced amount over a period of time.
 
-| Label | Model | Technical Reference | Active |
-|-------|-------|---------------------|--------|
-| Invoiced Amount | Partner | customer_invoiced_amount | [ x ] |
+| Name | Model | Technical Reference |
+|------|-------|---------------------|
+| Invoiced Amount | Partner | customer_invoiced_amount |
 
 Then you may combine the field template with date ranges:
 
-| Field Template | Date Range | Active |
-|----------------|------------|--------|
-| Partner - Invoiced Amount | Current Month | [ x ] |
-| Partner - Invoiced Amount | Year-To-Date | [ x ] |
-| Partner - Invoiced Amount | Previous Month | [ x ] |
-| Partner - Invoiced Amount | Previous Year | [ x ] |
+| Date Range | Field |
+|------------|----------------|
+|Current Month | Invoiced Amount (Current Month) |
+|Year-To-Date | Invoiced Amount (Year-To-Date) |
+|Previous Month | Invoiced Amount (Previous Month) |
+|Previous Year | Invoiced Amount (Previous Year) |
 
 
 ## Defining a Field Template
@@ -65,6 +65,49 @@ The last step is to define the field template in xml data.
 ```
 
 The bottom line is that the field you just defined is now reusable with any range type.
+
+## Related Model
+
+Field templates can accept an extra argument `related_model` which expects an `ir.model` record.
+
+Here is an example for the number of messages sent by a user.
+
+```python
+def compute_number_messages_sent(records, field_name, date_from, date_to, related_model):
+    for user in records:
+        messages = user.env['mail.message'].search([
+            ...
+            ('model', '=', related_model.model),
+        ], count=True)
+        ...
+        users[field_name] = ...
+
+```
+
+In the XML of the field template, `related_model_argument` must be enabled.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="number_messages_sent_template" model="computed.field.template">
+        <field name="name">Number Messages Sent</field>
+        <field name="reference">number_messages_sent</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="field_type">integer</field>
+        <field name="related_model_argument" eval="True"/>
+    </record>
+
+</odoo>
+```
+
+Then, in the form view of the field template, an extra column will be added
+to specify the model:
+
+| Date Range | Related Model | Field |
+|------------|---------------|-------|
+|Current Month | Customer Invoice | Number Messages Sent (Customer Invoice / Current Month) |
+|Current Month | CRM Lead | Invoiced Amount (CRM Lead / Current Month) |
 
 Contributors
 ------------

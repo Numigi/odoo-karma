@@ -29,6 +29,7 @@
                             <field name="label" attrs="{'required': [('display_on_form_view', '=', True)]}"/>
                             <field name="model_id"/>
                             <field name="model" invisible="1"/>
+                            <field name="url"/>
                             <field name="type_"/>
                         </group>
                     </group>

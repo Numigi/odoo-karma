@@ -39,7 +39,14 @@
 
     <t t-name="KarmaWidgetLabel">
         <div class="o_karma_widget__label">
-            <t t-raw="karma.label"/>
+            <t t-if="karma.url">
+                <a t-att-href="karma.url" target="_blank">
+                    <t t-raw="karma.label"/>
+                </a>
+            </t>
+            <t t-else="">
+                <t t-raw="karma.label"/>
+            </t>
         </div>
     </t>
 

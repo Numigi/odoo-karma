@@ -15,6 +15,10 @@ class Karma(models.Model):
     name = fields.Char(required=True)
     label = fields.Char(translate=True)
     description = fields.Text(translate=True)
+    url = fields.Char(
+        "Related Url",
+        help="On the Karma widget, a clickable link is added to the karma name."
+    )
     model_id = fields.Many2one('ir.model', 'Model', required=True)
     model = fields.Char(related='model_id.model', readonly=True)
     type_ = fields.Selection([

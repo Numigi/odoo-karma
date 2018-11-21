@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 11:20-0400\n"
-"PO-Revision-Date: 2018-10-11 11:21-0400\n"
+"POT-Creation-Date: 2018-11-21 14:32+0000\n"
+"PO-Revision-Date: 2018-11-21 09:34-0500\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -51,6 +51,11 @@ msgstr "Calculer"
 #: model:ir.model.fields,field_description:karma.field_karma_compute_on_save
 msgid "Compute On Save"
 msgstr "Calculer à la sauvegarde"
+
+#. module: karma
+#: model:ir.ui.menu,name:karma.menu_karma_computed_fields
+msgid "Computed Fields"
+msgstr "Champs calculés"
 
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_condition_line_condition
@@ -108,11 +113,6 @@ msgstr "Créé le"
 #: model:ir.model.fields,field_description:karma.field_karma_cron_schedule
 msgid "Cron Schedule"
 msgstr "Planification du calcul"
-
-#. module: karma
-#: model:ir.ui.menu,name:karma.menu_karma_computed_fields
-msgid "Computed Fields"
-msgstr "Champs calculés"
 
 #. module: karma
 #: selection:karma,cron_schedule:0
@@ -243,13 +243,6 @@ msgstr "Forcer la prochaine date de calcul"
 #: model:ir.ui.view,arch_db:karma.view_karma_session_search
 msgid "Group By"
 msgstr "Grouper par"
-
-#. module: karma
-#. openerp-web
-#: code:addons/karma/static/src/xml/karma_widget.xml:53
-#, python-format
-msgid "History"
-msgstr "Historique"
 
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_condition_line_id
@@ -399,6 +392,11 @@ msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: karma
+#: model:ir.ui.menu,name:karma.menu_karma_logs
+msgid "Logs"
+msgstr ""
+
+#. module: karma
 #: model:res.groups,name:karma.group_karma_manager
 msgid "Manager"
 msgstr "Responsable"
@@ -439,6 +437,7 @@ msgstr "Nombre d'enregistrements"
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_error_log_res_id
 #: model:ir.model.fields,field_description:karma.field_karma_related_record_info_res_id
+#: model:ir.model.fields,field_description:karma.field_karma_required_field_log_res_id
 #: model:ir.model.fields,field_description:karma.field_karma_score_inherited_detail_res_id
 #: model:ir.model.fields,field_description:karma.field_karma_score_res_id
 msgid "Object ID"
@@ -447,10 +446,16 @@ msgstr "ID de l'enregistrement"
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_error_log_res_model
 #: model:ir.model.fields,field_description:karma.field_karma_related_record_info_res_model
+#: model:ir.model.fields,field_description:karma.field_karma_required_field_log_res_model
 #: model:ir.model.fields,field_description:karma.field_karma_score_inherited_detail_res_model
 #: model:ir.model.fields,field_description:karma.field_karma_score_res_model
 msgid "Object Model"
 msgstr "Modèle de l'enregistrement"
+
+#. module: karma
+#: model:ir.model.fields,help:karma.field_karma_url
+msgid "On the Karma widget, a clickable link is added to the karma name."
+msgstr "Sur le widget Karma, un lien cliquable est ajouté sur le nom du karma."
 
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_condition_line_karma_id
@@ -474,6 +479,7 @@ msgstr "Enregistrement"
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_error_log_record_display_name
 #: model:ir.model.fields,field_description:karma.field_karma_related_record_info_record_display_name
+#: model:ir.model.fields,field_description:karma.field_karma_required_field_log_record_display_name
 #: model:ir.model.fields,field_description:karma.field_karma_score_inherited_detail_record_display_name
 #: model:ir.model.fields,field_description:karma.field_karma_score_record_display_name
 msgid "Record Display Name"
@@ -482,6 +488,7 @@ msgstr "Nom de l'enregistrement"
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_error_log_record_reference
 #: model:ir.model.fields,field_description:karma.field_karma_related_record_info_record_reference
+#: model:ir.model.fields,field_description:karma.field_karma_required_field_log_record_reference
 #: model:ir.model.fields,field_description:karma.field_karma_score_inherited_detail_record_reference
 #: model:ir.model.fields,field_description:karma.field_karma_score_record_reference
 msgid "Record Reference"
@@ -491,6 +498,11 @@ msgstr "Référence de l'objet"
 #: model:ir.model.fields,field_description:karma.field_karma_ref
 msgid "Ref"
 msgstr "Référence"
+
+#. module: karma
+#: model:ir.model.fields,field_description:karma.field_karma_url
+msgid "Related Url"
+msgstr "Url associée"
 
 #. module: karma
 #: model:ir.model.fields,field_description:karma.field_karma_score_reliability
@@ -667,14 +679,14 @@ msgstr "karma.session"
 
 #. module: karma
 #. openerp-web
-#: code:addons/karma/static/src/js/KarmaWidget.js:113
+#: code:addons/karma/static/src/js/KarmaWidget.js:121
 #, python-format
 msgid "{karma_label} (details)"
 msgstr "{karma_label} (détails)"
 
 #. module: karma
 #. openerp-web
-#: code:addons/karma/static/src/js/KarmaWidget.js:127
+#: code:addons/karma/static/src/js/KarmaWidget.js:133
 #, python-format
 msgid "{karma_label} (history)"
 msgstr "{karma_label} (historique)"

@@ -76,7 +76,7 @@ var Dashboard = Widget.extend({
 core.action_registry.add("karma_user_dashboard", Dashboard);
 
 return {
-    Dashboard: Dashboard,
+    Dashboard,
 };
 
 });

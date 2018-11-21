@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="KarmaUserDashboard">
+        <div class="container-fluid o-karma-dashboard"></div>
+    </t>
+
+    <t t-name="KarmaUserDashboardItem">
+        <div class="row o_karma_user_dashboard__item">
+            <div class="o_karma_user_dashboard__parent-karma"/>
+            <div class="o_karma_user_dashboard__children-karmas"/>
+        </div>
+    </t>
+
+</templates>

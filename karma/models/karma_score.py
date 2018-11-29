@@ -11,8 +11,8 @@ class RelatedRecordInfoMixin(models.AbstractModel):
 
     _name = 'karma.related.record.info'
 
-    res_id = fields.Integer('Object ID', required=True, index=True)
-    res_model = fields.Char('Object Model', required=True)
+    res_id = fields.Integer('Object ID', index=True)
+    res_model = fields.Char('Object Model')
 
     record_reference = fields.Char(compute='_compute_record_reference')
 

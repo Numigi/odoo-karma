@@ -34,6 +34,7 @@ class KarmaRequiredFieldLog(models.Model):
     _name = 'karma.required.field.log'
     _description = 'Karma Required Field Log'
     _inherit = 'karma.related.record.info'
+    _order = 'id desc'
 
     model_id = fields.Many2one('ir.model', 'Model', index=True)
     empty_fields_before = fields.Char()

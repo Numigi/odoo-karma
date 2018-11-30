@@ -58,6 +58,18 @@ require("web.FormController").include({
         return this._super.apply(this, arguments);
     },
     /**
+     * Get the field values stored in the form.
+     *
+     * See method createRecord of odoo/addons/web/static/src/js/views/form/form_controller.js
+     * This is how Odoo gets the field values when creating a new record.
+     *
+     * @returns {Object} the field values
+     */
+    _getCurrentRecordValues(){
+        var record = this.model.get(this.handle, {raw: true});
+        return record.data;
+    },
+    /**
      * When a record is saved, log the karma required fields that changed.
      */
     saveRecord(){
@@ -66,7 +78,7 @@ require("web.FormController").include({
         var initialValues = this._initialValues[this.renderer.state.id];
         var initialEmptyFields = karmaFields.filter((f) => isEmptyFieldValue(initialValues[f.name]));
 
-        var finalValues = this.renderer.state.data;
+        var finalValues = this._getCurrentRecordValues();
         var finalEmptyFields = karmaFields.filter((f) => isEmptyFieldValue(finalValues[f.name]));
 
         var deferred = this._super.apply(this, arguments);

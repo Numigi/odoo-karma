@@ -7,7 +7,7 @@ from odoo.tests.common import SavepointCase
 from ..computation import InheritedKarmaComputer, ConditionKarmaComputer
 
 
-class TestComputedKarmaComputation(SavepointCase):
+class TestInheritedKarmaComputation(SavepointCase):
 
     @classmethod
     def setUpClass(cls):
@@ -127,3 +127,68 @@ class TestComputedKarmaComputation(SavepointCase):
 
         score_line = self.computer.compute(self.order)
         assert score_line.score == 10 * partner_weighting + 20 * order_weighting
+
+
+class TestInheritedKarmaComputationWithNullableRelation(SavepointCase):
+    """Test the cases where the child karma is bound by a nullable relation.
+
+    The case scenario is the following:
+        * the parent karma is based on res.partner.
+        * the child karma is based on res.users.
+        * the relation is the field user_id of res.partner (a nullable field).
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.user_karma = cls.env['karma'].create({
+            'name': 'User Information',
+            'type_': 'condition',
+            'model_id': cls.env.ref('base.model_res_users').id,
+            'condition_line_ids': [(0, 0, {
+                'field_id': cls.env['ir.model.fields'].search([
+                    ('model', '=', 'res.users'),
+                    ('name', '=', 'email'),
+                ]).id,
+                'condition_label': 'Email contains @',
+                'condition': "'@' in value",
+                'result_if_true': "1",
+                'result_if_false': "0",
+                'weighting': 10,
+            })]
+        })
+
+        cls.partner_karma = cls.env['karma'].create({
+            'name': 'Partner Inherited Karma',
+            'type_': 'inherited',
+            'model_id': cls.env.ref('base.model_res_partner').id,
+            'line_ids': [(0, 0, {
+                'child_karma_id': cls.user_karma.id,
+                'field_id': cls.env['ir.model.fields'].search([
+                    ('model', '=', 'res.partner'),
+                    ('name', '=', 'user_id'),
+                ]).id,
+                'weighting': 20,
+            })]
+        })
+
+        cls.partner = cls.env['res.partner'].create({
+            'name': 'Customer',
+            'email': 'karma_test@test.com',
+        })
+
+    def setUp(self):
+        super().setUp()
+        ConditionKarmaComputer(self.user_karma).compute(self.env.user)
+        self.computer = InheritedKarmaComputer(self.partner_karma)
+
+    def test_ifNoRelatedRecord_thenKarmaLineIsNotEvaluated(self):
+        score_line = self.computer.compute(self.partner)
+        assert len(score_line.inherited_detail_ids) == 1
+        assert not score_line.inherited_detail_ids[0].child_score_id
+
+    def test_ifHasRelatedRecord_thenKarmaLineIsEvaluated(self):
+        self.partner.user_id = self.env.user
+        score_line = self.computer.compute(self.partner)
+        assert len(score_line.inherited_detail_ids) == 1
+        assert score_line.inherited_detail_ids[0].child_score_id

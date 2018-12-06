@@ -76,6 +76,8 @@ class KarmaScoreInheritedDetail(models.Model):
     weighting = fields.Float('Weighting', digits=dp.get_precision('Karma Weighting'))
     result = fields.Float('Result', digits=dp.get_precision('Karma Score'))
 
+    url = fields.Char('Related Url', related='karma_id.url')
+
 
 class KarmaScoreConditionDetail(models.Model):
 

@@ -28,7 +28,7 @@ class KarmaGradeRange(models.Model):
     sequence = fields.Integer()
     min_score = fields.Float('Lower Boundary', digits=dp.get_precision('Karma Score'))
     max_score = fields.Float('Upper Boundary', digits=dp.get_precision('Karma Score'))
-    grade = fields.Char(required=True)
+    grade = fields.Char(required=True, translate=True)
 
 
 class KarmaScoreWithGrade(models.Model):

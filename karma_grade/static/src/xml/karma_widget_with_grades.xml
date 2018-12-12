@@ -8,8 +8,8 @@
     </t>
 
     <t t-name="KarmaGrade">
-        <div class="o_karma_widget__grade" t-if="karma.score">
-            <t t-raw="karma.score.grade || ''"/>
+        <div class="o_karma_widget__grade" t-if="score">
+            <t t-raw="score.grade || ''"/>
         </div>
     </t>
 

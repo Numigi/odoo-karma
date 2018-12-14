@@ -12,7 +12,7 @@ class Karma(models.Model):
     _name = 'karma'
     _description = 'Karma'
 
-    name = fields.Char(required=True)
+    name = fields.Char(required=True, translate=True)
     label = fields.Char(translate=True)
     description = fields.Text(translate=True)
     url = fields.Char(

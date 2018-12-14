@@ -9,6 +9,7 @@
                 <field name="child_score_id" invisible="1"/>
                 <field name="child_score_karma_type" invisible="1"/>
                 <field name="karma_id" string="Name"/>
+                <field name="url" string="Url" widget="url"/>
                 <field name="record_display_name" string="Record"/>
                 <field name="score" widget="karma_score_drilldown" class="karma-score__link"/>
                 <field name="weighting"/>

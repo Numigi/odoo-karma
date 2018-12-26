@@ -12,6 +12,7 @@
     'summary': 'Score users based on form view fields.',
     'depends': [
         'karma',
+        'date_range_field_template',  # TA#7472 TA#7659  needs compute.field.template
     ],
     'data': [
         'data/field_template.xml',

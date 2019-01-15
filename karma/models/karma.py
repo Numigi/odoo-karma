@@ -11,6 +11,7 @@ class Karma(models.Model):
 
     _name = 'karma'
     _description = 'Karma'
+    _order = 'sequence'
 
     name = fields.Char(required=True, translate=True)
     label = fields.Char(translate=True)
@@ -25,6 +26,7 @@ class Karma(models.Model):
         ('inherited', 'Inherited'),
         ('condition', 'Simple'),
     ], required=True)
+    sequence = fields.Integer()
     active = fields.Boolean(default=True)
     line_ids = fields.One2many('karma.line', 'karma_id', 'Children Karmas')
     condition_line_ids = fields.One2many('karma.condition.line', 'karma_id', 'Conditions')

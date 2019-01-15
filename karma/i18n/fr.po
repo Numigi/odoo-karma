@@ -573,6 +573,7 @@ msgid "Scores"
 msgstr "Notes"
 
 #. module: karma
+#: model:ir.model.fields,field_description:karma.field_karma_sequence
 #: model:ir.model.fields,field_description:karma.field_karma_condition_line_sequence
 #: model:ir.model.fields,field_description:karma.field_karma_line_sequence
 msgid "Sequence"

@@ -44,6 +44,7 @@
                         </group>
                     </group>
                     <group>
+                        <field name="sequence"/>
                         <field name="description"/>
                     </group>
                     <notebook>
@@ -88,6 +89,7 @@
         <field name="model">karma</field>
         <field name="arch" type="xml">
             <tree string="Karmas">
+                <field name="sequence" widget="handle"/>
                 <field name="ref"/>
                 <field name="name"/>
                 <field name="model_id"/>

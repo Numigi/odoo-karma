@@ -92,6 +92,7 @@
                 <field name="sequence" widget="handle"/>
                 <field name="ref"/>
                 <field name="name"/>
+                <field name="type_"/>
                 <field name="model_id"/>
             </tree>
         </field>

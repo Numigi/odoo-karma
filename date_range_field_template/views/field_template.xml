@@ -25,6 +25,7 @@
                                 <field name="field_id" readonly="1"/>
                             </tree>
                         </field>
+                        <field name="description"/>
                     </group>
                 </sheet>
             </form>

@@ -19,6 +19,7 @@ class ComputedFieldTemplate(models.Model):
     field_type = fields.Selection(FIELD_TYPES, 'Field Type', required=True)
     field_ids = fields.One2many('computed.field', 'template_id', 'Fields')
     related_model_argument = fields.Boolean('Enable Related Model')
+    description = fields.Text()
 
     _sql_constraints = [
         ('unique_reference', 'unique(reference, model_id)',

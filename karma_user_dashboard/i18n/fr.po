@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-08 21:14+0000\n"
-"PO-Revision-Date: 2018-11-08 16:16-0500\n"
+"POT-Creation-Date: 2019-01-22 21:45+0000\n"
+"PO-Revision-Date: 2019-01-22 16:51-0500\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: fr\n"
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: karma_user_dashboard
@@ -24,7 +24,7 @@ msgid "Dashboard"
 msgstr "Tableau de bord"
 
 #. module: karma_user_dashboard
-#: model:ir.model.fields,field_description:karma_user_dashboard.field_karma_display_on_user_dashboard
+#: model:ir.model.fields,field_description:karma_user_dashboard.field_karma__display_on_user_dashboard
 msgid "Display On User Dashboard"
 msgstr "Afficher sur tableau de bord"
 

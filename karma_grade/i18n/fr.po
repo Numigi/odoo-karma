@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 11:22-0400\n"
-"PO-Revision-Date: 2018-10-11 11:22-0400\n"
+"POT-Creation-Date: 2019-01-22 21:45+0000\n"
+"PO-Revision-Date: 2019-01-22 16:50-0500\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -18,39 +18,39 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: karma_grade
-#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_create_uid
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: karma_grade
-#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_create_date
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: karma_grade
-#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_display_name
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: karma_grade
-#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_grade
-#: model:ir.model.fields,field_description:karma_grade.field_karma_score_grade
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range__grade
+#: model:ir.model.fields,field_description:karma_grade.field_karma_score__grade
 msgid "Grade"
 msgstr "Grade"
 
 #. module: karma_grade
-#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_line_ids
+#: model:ir.model.fields,field_description:karma_grade.field_karma__grade_line_ids
 msgid "Grade Ranges"
 msgstr "Intervalle Grade"
 
 #. module: karma_grade
-#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_id
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range__id
 msgid "ID"
 msgstr ""
 
 #. module: karma_grade
 #: model:ir.model,name:karma_grade.model_karma
-#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_karma_id
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range__karma_id
 msgid "Karma"
 msgstr ""
 
@@ -65,36 +65,36 @@ msgid "Karma Score"
 msgstr "Score Karma"
 
 #. module: karma_grade
-#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range___last_update
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: karma_grade
-#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_write_uid
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: karma_grade
-#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_write_date
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range__write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: karma_grade
-#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_min_score
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range__min_score
 msgid "Lower Boundary"
 msgstr "Borne inférieure"
 
 #. module: karma_grade
-#: model:ir.ui.view,arch_db:karma_grade.view_karma_form_with_grades
+#: model_terms:ir.ui.view,arch_db:karma_grade.view_karma_form_with_grades
 msgid "Results"
 msgstr "Résultats"
 
 #. module: karma_grade
-#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_sequence
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range__sequence
 msgid "Sequence"
 msgstr "Séquence"
 
 #. module: karma_grade
-#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range_max_score
+#: model:ir.model.fields,field_description:karma_grade.field_karma_grade_range__max_score
 msgid "Upper Boundary"
 msgstr "Borne supérieure"

@@ -4,7 +4,6 @@ odoo.define("karma_user_dashboard.dashboard", function (require) {
 var core = require("web.core");
 var rpc = require("web.rpc");
 var Widget = require("web.Widget");
-var AbstractAction = require("web.AbstractAction");
 
 var KarmaWidget = require("karma.KarmaWidget");
 
@@ -47,7 +46,7 @@ var DashboardItem = Widget.extend({
 /**
  * The user dashboard of the Karma application.
  */
-var Dashboard = AbstractAction.extend({
+var Dashboard = Widget.extend({
     template: "KarmaUserDashboard",
     /**
      * Find karmas related to the user dashboard from the server.

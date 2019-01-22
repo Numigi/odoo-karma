@@ -16,32 +16,32 @@
                     </group>
                     <group col="6">
                         <group col="1">
-                            <div style="height: 19px;"></div>
-                            <span>Start</span>
-                            <span>End</span>
+                            <label string=""/>
+                            <label string="Start"/>
+                            <label string="End"/>
                         </group>
                         <group col="1">
-                            <label string="" for="enable_date_min"/>
+                            <label string=""/>
                             <field name="enable_date_min" nolabel="1"/>
                             <field name="enable_date_max" nolabel="1"/>
                         </group>
                         <group col="1">
-                            <label string="Years" for="year_min"/>
+                            <label string="Years"/>
                             <field name="year_min" nolabel="1"/>
                             <field name="year_max" nolabel="1"/>
                         </group>
                         <group col="1">
-                            <label string="Months" for="month_min"/>
+                            <label string="Months"/>
                             <field name="month_min" nolabel="1"/>
                             <field name="month_max" nolabel="1"/>
                         </group>
                         <group col="1">
-                            <label string="Weeks" for="week_min"/>
+                            <label string="Weeks"/>
                             <field name="week_min" nolabel="1"/>
                             <field name="week_max" nolabel="1"/>
                         </group>
                         <group col="1">
-                            <label string="Days" for="day_min"/>
+                            <label string="Days"/>
                             <field name="day_min" nolabel="1"/>
                             <field name="day_max" nolabel="1"/>
                         </group>

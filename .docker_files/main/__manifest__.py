@@ -17,7 +17,6 @@
         'stock',
 
         'date_range_field_template',
-        'form_view_image_120px',
         'karma',
         'karma_crm',
         'karma_grade',

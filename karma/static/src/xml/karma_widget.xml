@@ -52,19 +52,19 @@
 
     <t t-name="KarmaWidgetScore">
         <div class="o_karma_widget__score">
-            <a href="#"><t t-if="score" t-raw="score.score"/></a>
+            <a><t t-if="score" t-raw="score.score"/></a>
         </div>
     </t>
 
     <t t-name="KarmaWidgetHistory">
         <div class="o_karma_widget__history">
-            <a href="#"><i class="fa fa-history"></i></a>
+            <a><i class="fa fa-history"></i></a>
         </div>
     </t>
 
     <t t-name="KarmaWidgetRefresh">
         <div class="o_karma_widget__refresh" t-if="karma.authorize_anticipate_computation">
-            <a href="#"><i class="fa fa-refresh"></i></a>
+            <a><i class="fa fa-refresh"></i></a>
         </div>
     </t>
 

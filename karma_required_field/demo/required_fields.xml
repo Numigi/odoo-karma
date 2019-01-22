@@ -3,47 +3,47 @@
 
     <record id="required_field_partner_email" model="karma.required.field">
         <field name="model_id" ref="base.model_res_partner"/>
-        <field name="field_id" ref="base.field_res_partner__email"/>
+        <field name="field_id" ref="base.field_res_partner_email"/>
     </record>
 
     <record id="required_field_partner_street" model="karma.required.field">
         <field name="model_id" ref="base.model_res_partner"/>
-        <field name="field_id" ref="base.field_res_partner__street"/>
+        <field name="field_id" ref="base.field_res_partner_street"/>
     </record>
 
     <record id="required_field_partner_city" model="karma.required.field">
         <field name="model_id" ref="base.model_res_partner"/>
-        <field name="field_id" ref="base.field_res_partner__city"/>
+        <field name="field_id" ref="base.field_res_partner_city"/>
     </record>
 
     <record id="required_field_partner_country_id" model="karma.required.field">
         <field name="model_id" ref="base.model_res_partner"/>
-        <field name="field_id" ref="base.field_res_partner__country_id"/>
+        <field name="field_id" ref="base.field_res_partner_country_id"/>
     </record>
 
     <record id="required_field_partner_zip" model="karma.required.field">
         <field name="model_id" ref="base.model_res_partner"/>
-        <field name="field_id" ref="base.field_res_partner__zip"/>
+        <field name="field_id" ref="base.field_res_partner_zip"/>
     </record>
 
     <record id="required_field_partner_phone" model="karma.required.field">
         <field name="model_id" ref="base.model_res_partner"/>
-        <field name="field_id" ref="base.field_res_partner__phone"/>
+        <field name="field_id" ref="base.field_res_partner_phone"/>
     </record>
 
     <record id="required_field_partner_lang" model="karma.required.field">
         <field name="model_id" ref="base.model_res_partner"/>
-        <field name="field_id" ref="base.field_res_partner__lang"/>
+        <field name="field_id" ref="base.field_res_partner_lang"/>
     </record>
 
     <record id="required_field_partner_category_id" model="karma.required.field">
         <field name="model_id" ref="base.model_res_partner"/>
-        <field name="field_id" ref="base.field_res_partner__category_id"/>
+        <field name="field_id" ref="base.field_res_partner_category_id"/>
     </record>
 
     <record id="required_field_partner_comment" model="karma.required.field">
         <field name="model_id" ref="base.model_res_partner"/>
-        <field name="field_id" ref="base.field_res_partner__comment"/>
+        <field name="field_id" ref="base.field_res_partner_comment"/>
     </record>
 
 </odoo>

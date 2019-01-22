@@ -6,7 +6,7 @@ from datetime import datetime
 from functools import partial
 
 from odoo import api, fields, models, _
-from odoo.addons.base.models.ir_model import FIELD_TYPES
+from odoo.addons.base.ir.ir_model import FIELD_TYPES
 from odoo.exceptions import UserError
 from .tools import get_technical_field_name
 
@@ -58,6 +58,11 @@ class BaseWithRangeFieldComputing(models.AbstractModel):
 
         return range_
 
+    @api.model_cr
+    def _register_hook(self):
+        super()._register_hook()
+        self.__class__._date_range_fields = {}
+
     @classmethod
     def _register_date_range_field(cls, reference, func):
         """Register a date range field template for the model.
@@ -65,6 +70,4 @@ class BaseWithRangeFieldComputing(models.AbstractModel):
         :param reference: the reference of the field template
         :param func: the field template function
         """
-        if not hasattr(cls, '_date_range_fields'):
-            cls._date_range_fields = {}
         cls._date_range_fields[reference] = func

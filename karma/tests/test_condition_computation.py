@@ -61,8 +61,8 @@ class ComputedKarmaCase(SavepointCase):
         })
 
         cls.category_0 = cls.env.ref('base.res_partner_category_0')
-        cls.category_1 = cls.env.ref('base.res_partner_category_1')
-        cls.category_2 = cls.env.ref('base.res_partner_category_2')
+        cls.category_1 = cls.env.ref('base.res_partner_category_2')
+        cls.category_2 = cls.env.ref('base.res_partner_category_3')
 
         cls.partner = cls.env['res.partner'].create({
             'name': 'John Doe',

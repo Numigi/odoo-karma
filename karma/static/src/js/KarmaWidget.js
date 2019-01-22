@@ -111,7 +111,9 @@ var KarmaWidget = Widget.extend({
     /**
      * Display the details that compose the score.
      */
-    scoreDrilldown(){
+    scoreDrilldown(event){
+        event.preventDefault();
+        event.stopPropagation();
         var actionModel = (
             this.karma.type_ === "inherited" ?
             "karma.score.inherited.detail" : "karma.score.condition.detail"
@@ -127,7 +129,9 @@ var KarmaWidget = Widget.extend({
     /**
      * Open the scores history for the current record.
      */
-    openHistory(){
+    openHistory(event){
+        event.preventDefault();
+        event.stopPropagation();
         this.do_action({
             res_model: "karma.score",
             name: _t("{karma_label} (history)").replace("{karma_label}", this.karma.label),
@@ -145,7 +149,9 @@ var KarmaWidget = Widget.extend({
     /**
      * Compute (refresh) the score for the current record.
      */
-    async computeScore(){
+    async computeScore(event){
+        event.preventDefault();
+        event.stopPropagation();
         await this._rpc({
             model: "karma",
             method: "run_anticipate_computation",

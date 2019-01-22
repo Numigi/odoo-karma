@@ -3,7 +3,7 @@
 
 from datetime import date
 from odoo import api, fields, models
-from odoo.addons.base.ir.ir_model import FIELD_TYPES
+from odoo.addons.base.models.ir_model import FIELD_TYPES
 from typing import Iterable
 
 

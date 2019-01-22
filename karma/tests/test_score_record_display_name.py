@@ -27,7 +27,7 @@ class TestKarmaScoreWithRecordDisplayName(SavepointCase):
         })
 
         cls.user_1 = cls.env.ref('base.user_demo')
-        cls.user_2 = cls.env.ref('base.user_root')
+        cls.user_2 = cls.env.ref('base.user_admin')
 
         cls.score_1 = cls.env['karma.score'].create({
             'karma_id': cls.karma_partner.id,

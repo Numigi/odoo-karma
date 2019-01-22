@@ -75,14 +75,19 @@ class TestInheritedKarmaComputation(SavepointCase):
             'email': 'karma_test@test.com',
         })
 
+        cls.product = cls.env['product.product'].create({
+            'type': 'service',
+            'name': 'Service',
+        })
+
         cls.order = cls.env['sale.order'].create({
             'partner_id': cls.customer.id,
             'order_line': [(0, 0, {
                 'name': '/',
-                'product_id': cls.env.ref('product.service_order_01').id,
+                'product_id': cls.product.id,
                 'price_unit': 2000,
                 'product_uom_qty': 1,
-                'product_uom': cls.env.ref('product.product_uom_unit').id,
+                'product_uom': cls.env.ref('uom.product_uom_unit').id,
             })]
         })
 

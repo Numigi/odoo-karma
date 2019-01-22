@@ -12,9 +12,19 @@ var ScoreDrilldownWidget = basicFields.FieldFloat.extend({
         return this._super.apply(this, arguments).then(() => {
             this.$el.click((event) => {
                 event.preventDefault();
+                event.stopPropagation();
                 this.drilldown();
             });
+            this._colorizeLink();
         });
+    },
+    /**
+     * Colorize the link.
+     *
+     * Since Odoo version 12.0, links without an href are not colored.
+     */
+    _colorizeLink(){
+        this.$el.attr("href", "#");
     },
     /**
      * Open the details that compose the karma score.

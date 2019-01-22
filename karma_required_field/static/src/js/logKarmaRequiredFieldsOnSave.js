@@ -9,12 +9,11 @@ var rpc = require("web.rpc");
  */
 function isEmptyFieldValue(value){
     var isMany2manyEmptyValue = (
-        value &&
-        value.type === "list" &&
-        value.res_ids.length === 0
+        (value instanceof Array && value.length === 0) ||
+        (value instanceof Object && value.type === "list" && value.res_ids.length === 0)
     );
     if(isMany2manyEmptyValue){
-        return !value.length;
+        return true;
     }
     return !value;
 }
@@ -73,13 +72,13 @@ require("web.FormController").include({
      * When a record is saved, log the karma required fields that changed.
      */
     saveRecord(){
-        var karmaFields = this._getAvailableKarmaFieldWidgets();
+        var karmaFieldNames = this._getAvailableKarmaFieldNames();
 
         var initialValues = this._initialValues[this.renderer.state.id];
-        var initialEmptyFields = karmaFields.filter((f) => isEmptyFieldValue(initialValues[f.name]));
+        var initialEmptyFields = karmaFieldNames.filter((f) => isEmptyFieldValue(initialValues[f]));
 
         var finalValues = this._getCurrentRecordValues();
-        var finalEmptyFields = karmaFields.filter((f) => isEmptyFieldValue(finalValues[f.name]));
+        var finalEmptyFields = karmaFieldNames.filter((f) => isEmptyFieldValue(finalValues[f]));
 
         var deferred = this._super.apply(this, arguments);
         deferred.then((record) => {
@@ -90,24 +89,21 @@ require("web.FormController").include({
         return deferred;
     },
     /**
-     * Get all field widgets that are `colorized` and visible.
+     * Get the field names of all field widgets that are `colorized` and visible.
      */
-    _getAvailableKarmaFieldWidgets(){
-        var fields = this.renderer.state.fields;
+    _getAvailableKarmaFieldNames(){
         var allFieldWidgets = this.renderer.allFieldWidgets[this.renderer.state.id];
         var availableKarmaFieldWidgets = allFieldWidgets.filter(
             (w) => isRequiredFieldWidget(w) && !isInvisibleFieldWidget(w));
-        return availableKarmaFieldWidgets.map((w) => fields[w.attrs.name]);
+        return availableKarmaFieldWidgets.map((w) => w.attrs.name);
     },
     /**
      * Log the given karma fields on the server.
      *
-     * @param {Array<Object>} initialEmptyFields - the fields that were empty before editing the record.
-     * @param {Array<Object>} finalEmptyFields - the fields that were empty after editing the record.
+     * @param {Array<Object>} initialEmptyFieldsNames - the name of the fields that were empty before editing the record.
+     * @param {Array<Object>} finalEmptyFieldsNames - the name of the fields that were empty after editing the record.
      */
-    _logKarmaRequiredFields(initialEmptyFields, finalEmptyFields){
-        var initialEmptyFieldsNames = initialEmptyFields.map((f) => f.name);
-        var finalEmptyFieldsNames = finalEmptyFields.map((f) => f.name);
+    _logKarmaRequiredFields(initialEmptyFieldsNames, finalEmptyFieldsNames){
         var recordModel = this.renderer.state.model;
         var recordId = this.renderer.state.res_id;
         rpc.query({

@@ -100,7 +100,7 @@ class TestKarmaComputationScheduling(BasicKarmaHierarchyCase):
         job_6 = self._find_job(self.karma_6)
 
         assert job_1.eta > job_2.eta
-        assert job_2.eta > fields.Datetime.to_string(datetime.now())
+        assert job_2.eta > datetime.now()
 
         assert not job_3.eta
         assert not job_4.eta
@@ -198,7 +198,7 @@ class TestKarmaSchedulingWithLoopInHierarchy(BasicKarmaHierarchyCase):
         assert not job_6.eta
         assert not job_8.eta
 
-        now = fields.Datetime.to_string(datetime.now())
+        now = datetime.now()
 
         assert job_2.eta > now
         assert job_4.eta > now

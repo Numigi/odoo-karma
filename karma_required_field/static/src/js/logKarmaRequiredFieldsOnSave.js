@@ -93,6 +93,12 @@ require("web.FormController").include({
      */
     _getAvailableKarmaFieldNames(){
         var allFieldWidgets = this.renderer.allFieldWidgets[this.renderer.state.id];
+
+        // In case of a wizard with no fields, allFieldWidgets is undefined.
+        if(!allFieldWidgets){
+            return [];
+        }
+
         var availableKarmaFieldWidgets = allFieldWidgets.filter(
             (w) => isRequiredFieldWidget(w) && !isInvisibleFieldWidget(w));
         return availableKarmaFieldWidgets.map((w) => w.attrs.name);

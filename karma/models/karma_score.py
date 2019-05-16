@@ -10,6 +10,7 @@ class RelatedRecordInfoMixin(models.AbstractModel):
     """Add a reference to the record."""
 
     _name = 'karma.related.record.info'
+    _description = "Karma Related Record Info"
 
     res_id = fields.Integer('Object ID', index=True)
     res_model = fields.Char('Object Model')

@@ -8,6 +8,7 @@ class KarmaSession(models.Model):
     """A session of score computation for a Karma."""
 
     _name = 'karma.session'
+    _description = 'Karma Session'
     _order = 'id desc'
 
     name = fields.Char(compute='_compute_name', store=True)

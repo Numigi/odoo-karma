@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <template id="assets_backend_with_karma_dashboard" name="assets_backend_with_karma_dashboard" inherit_id="web.assets_common">
+    <template id="assets_backend_with_karma_dashboard" name="assets_backend_with_karma_dashboard" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
             <script type="text/javascript" src="/karma_user_dashboard/static/src/js/dashboard.js"></script>
             <link type="text/css" rel="stylesheet" href="/karma_user_dashboard/static/src/css/dashboard.css"></link>

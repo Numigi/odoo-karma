@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <template id="assets_backend_with_image_120px" name="assets_backend_with_image_120px" inherit_id="web.assets_common">
+    <template id="assets_backend_with_image_120px" name="assets_backend_with_image_120px" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
         	<script type="text/javascript" src="/form_view_image_120px/static/src/js/form_view_image_120px.js"></script>
             <link type="text/css" rel="stylesheet" href="/form_view_image_120px/static/src/css/form_view_image_120px.css"></link>

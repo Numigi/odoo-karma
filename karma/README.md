@@ -64,7 +64,7 @@ If the field contains a number, you could for example have the python expression
 
 The condition above means:
 
-* If a customer bougth more than 10 different products in a month,
+* If a customer bought more than 10 different products in a month,
 * Then he gets a score equal to the number of products bought divided by 10.
 
 Now, let's suppose we would like to add an upper boundary for the potential score to reach.

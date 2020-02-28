@@ -75,7 +75,7 @@ are included in the computation.
 
 ![Karma Form](static/description/karma_form.png?raw=true)
 
-For each model that you whish to score the field completion, you must add a condition line.
+For each model that you wish to score the field completion, you must add a condition line.
 
 In the example above, the users will be scored over the completion of `Contacts (res.partner)` and `Leads (crm.lead)`.
 The completion of `Leads` have an higher weighting than `Contacts`, thus will have an higher impact over the Karma score.

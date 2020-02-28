@@ -2,7 +2,7 @@ Karma Project
 =============
 This module adds the karma widget to the project task form views.
 
-.. image:: /karma_product/static/description/project_task_form.png
+.. image:: /karma_project/static/description/project_task_form.png
 
 Contributors
 ------------

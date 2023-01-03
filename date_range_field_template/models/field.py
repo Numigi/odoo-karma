@@ -1,4 +1,4 @@
-# © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © 2022 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo import api, fields, models
@@ -15,7 +15,7 @@ class ComputedField(models.Model):
         'computed.field.template', 'Field Template', required=True, ondelete='restrict')
     range_id = fields.Many2one(
         'computed.field.date.range', 'Date Range', required=True, ondelete='restrict')
-    field_id = fields.Many2one('ir.model.fields', 'Field', ondelete='restrict')
+    field_id = fields.Many2one('ir.model.fields', 'Field', ondelete='set null')
     related_model_id = fields.Many2one('ir.model', 'Related Model')
 
     @api.model
@@ -24,13 +24,11 @@ class ComputedField(models.Model):
         record._create_related_field()
         return record
 
-    @api.multi
     def write(self, vals):
         super().write(vals)
         self._update_related_field()
         return True
 
-    @api.multi
     def unlink(self):
         """Unlink the related field if the computed field is unlinked.
 
@@ -74,7 +72,6 @@ class ComputedField(models.Model):
             'column1': False,
             'column2': False,
             'compute': self._get_compute_script(),
-            'copy': False,
             'depends': False,
             'domain': False,
             'groups': False,

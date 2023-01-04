@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="crm_lead_form_view_with_karma_widget" model="ir.ui.view">
+        <field name="name">CRM Lead Form View: Add Karma Widget</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="after">
+                <div style="float: right;">
+                    <widget name="karma"/>
+                </div>
+            </div>
+        </field>
+    </record>
+
+    <record id="crm_team_form_view_with_karma_widget" model="ir.ui.view">
+        <field name="name">CRM Team Form View: Add Karma Widget</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="after">
+                <div style="float: right;">
+                    <widget name="karma"/>
+                </div>
+            </div>
+        </field>
+    </record>
+
+</odoo>

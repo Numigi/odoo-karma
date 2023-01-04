@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_karma_required_field_list" model="ir.ui.view">
+        <field name="name">Karma Field List View</field>
+        <field name="model">karma.required.field</field>
+        <field name="arch" type="xml">
+            <tree string="Karma Fields" editable="top">
+                <field name="model_id"/>
+                <field name="field_id"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_karma_required_field_search" model="ir.ui.view">
+        <field name="name">Karma Field Search View</field>
+        <field name="model">karma.required.field</field>
+        <field name="arch" type="xml">
+            <search string="Karma Fields">
+                <field name="model_id"/>
+                <field name="field_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_karma_required_field" model="ir.actions.act_window">
+        <field name="name">Karma Fields</field>
+        <field name="res_model">karma.required.field</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_karma_required_field"
+        name="Karma Fields"
+        parent="karma.menu_karma_settings"
+        action="action_karma_required_field"
+        sequence="60"/>
+
+</odoo>

@@ -16,7 +16,7 @@
     'data': [
         'views/assets.xml',
         'views/dashboard_menu_item.xml',
-        'karma_display_on_dashboard.xml',
+        'views/karma_display_on_dashboard.xml',
     ],
     'qweb': [
         'static/src/xml/dashboard.xml',

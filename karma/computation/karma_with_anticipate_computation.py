@@ -1,4 +1,4 @@
-# © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © 2023 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo import api, fields, models
@@ -11,7 +11,6 @@ class KarmaWithScoreComputingJob(models.Model):
 
     authorize_anticipate_computation = fields.Boolean()
 
-    @api.multi
     def run_anticipate_computation(self, record_model, record_id):
         """Compute the score of the record for the given karma.
 

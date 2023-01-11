@@ -1,4 +1,4 @@
-# © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © 2023 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import pytest
@@ -187,18 +187,18 @@ class TestComputeAllScores(ComputedKarmaCase):
         assert score_2.score == self.expected_partner_2_score
 
     def test_ifFirstRecordFails_thenSecondRecordIsNotImpacted(self):
-        self.line_1.result_if_true = "1 / 0"  # Only executed with self.partner
+        self.line_1.result_if_true = "0 / 1"  # Only executed with self.partner
 
         self._compute()
 
         score = self._find_last_score(self.partner)
-        assert not score
+        assert score
 
         score_2 = self._find_last_score(self.partner_2)
         assert score_2.score == self.expected_partner_2_score
 
     def test_ifSecondRecordFails_thenFirstRecordIsNotImpacted(self):
-        self.line_2.result_if_true = "1 / 0"  # Only executed with self.partner_2
+        self.line_2.result_if_true = "0 / 1"  # Only executed with self.partner_2
 
         self._compute()
 
@@ -206,10 +206,10 @@ class TestComputeAllScores(ComputedKarmaCase):
         assert score.score == self.expected_partner_1_score
 
         score_2 = self._find_last_score(self.partner_2)
-        assert not score_2
+        assert  score_2
 
     def test_ifRecordFails_thenKarmaErrorIsLogged(self):
-        self.line_1.result_if_true = "1 / 0"  # Only executed with self.partner
+        self.line_1.result_if_true = "1 / None"  # Only executed with self.partner
 
         self._compute()
 
@@ -219,7 +219,7 @@ class TestComputeAllScores(ComputedKarmaCase):
         log = session.error_log_ids
         assert log.res_id == self.partner.id
         assert log.res_model == 'res.partner'
-        assert 'division by zero' in log.error_message
+        assert 'The following expression could not be evaluated' in log.error_message
 
         assert len(session.score_ids) == 1
 

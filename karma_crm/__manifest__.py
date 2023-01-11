@@ -1,4 +1,4 @@
-# © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © 2023 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 {
@@ -10,9 +10,9 @@
     'license': 'LGPL-3',
     'category': 'Karma',
     'summary': 'Add the karma widget on the crm leads and teams form view.',
-    'depends': ['karma', 'crm'],
+    'depends': ['karma', 'sale_crm', 'sales_team'],
     'data': [
-        'crm_view.xml',
+        'views/crm_view.xml',
     ],
     'installable': True,
 }

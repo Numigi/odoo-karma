@@ -1,9 +1,8 @@
-# © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © 2023 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from collections import defaultdict
 from odoo import api, fields, models
-from odoo.addons import decimal_precision as dp
 
 
 class RelatedRecordInfoMixin(models.AbstractModel):
@@ -53,7 +52,7 @@ class KarmaScore(models.Model):
     karma_id = fields.Many2one('karma', 'Karma', required=True, index=True)
     model_id = fields.Many2one(related='karma_id.model_id', auto_join=True, readonly=True)
     karma_type = fields.Selection(related='karma_id.type_', readonly=True)
-    score = fields.Float('Score', digits=dp.get_precision('Karma Score'))
+    score = fields.Float('Score', digits='Account')
     inherited_detail_ids = fields.One2many(
         'karma.score.inherited.detail', 'score_id', 'Details (Inherited)')
 
@@ -72,10 +71,10 @@ class KarmaScoreInheritedDetail(models.Model):
     child_score_karma_type = fields.Selection(related="child_score_id.karma_type", readonly=True)
 
     karma_id = fields.Many2one(related='child_score_id.karma_id', readonly=True)
-    score = fields.Float('Score', digits=dp.get_precision('Karma Score'))
+    score = fields.Float('Score', digits='Account')
 
-    weighting = fields.Float('Weighting', digits=dp.get_precision('Karma Weighting'))
-    result = fields.Float('Result', digits=dp.get_precision('Karma Score'))
+    weighting = fields.Float('Weighting', digits='Account')
+    result = fields.Float('Result', digits='Account')
 
     url = fields.Char('Related Url', related='karma_id.url')
 
@@ -89,8 +88,8 @@ class KarmaScoreConditionDetail(models.Model):
     condition_id = fields.Many2one('karma.score.condition', 'Condition', required=True)
     field_value = fields.Char()
     condition_reached = fields.Boolean('Condition Reached')
-    score = fields.Float('Score', digits=dp.get_precision('Karma Score'))
-    result = fields.Float('Result', digits=dp.get_precision('Karma Score'))
+    score = fields.Float('Score', digits='Account')
+    result = fields.Float('Result', digits='Account')
 
     field_id = fields.Many2one(related='condition_id.field_id', readonly=True)
     condition_label = fields.Char(related='condition_id.condition_label', readonly=True)
@@ -106,9 +105,9 @@ class KarmaScoreCondition(models.Model):
     _description = 'Karma Score Condition'
 
     karma_id = fields.Many2one('karma', 'Karma', ondelete='cascade')
-    field_id = fields.Many2one('ir.model.fields', 'Field', required=True, index=True)
+    field_id = fields.Many2one('ir.model.fields', 'Field', required=True, index=True, ondelete='cascade')
     condition_label = fields.Char(translate=True)
     condition = fields.Char(required=True)
     result_if_true = fields.Char(required=True)
     result_if_false = fields.Char(required=True)
-    weighting = fields.Float('Weighting', digits=dp.get_precision('Karma Weighting'))
+    weighting = fields.Float('Weighting', digits='Account')

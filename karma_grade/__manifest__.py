@@ -1,4 +1,4 @@
-# © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © 2023 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 {
@@ -11,7 +11,7 @@
     'category': 'Karma',
     'depends': ['karma'],
     'data': [
-        'karma_with_grades.xml',
+        'views/karma_with_grades.xml',
         'security/ir.model.access.csv',
     ],
     'qweb': [

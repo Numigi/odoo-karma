@@ -1,4 +1,4 @@
-# © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © 2023 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import pytz
@@ -16,7 +16,6 @@ class BaseWithRangeFieldComputing(models.AbstractModel):
 
     _inherit = 'base'
 
-    @api.multi
     def compute_date_range_field(
         self, field_reference, range_reference, related_model_name=None,
     ):

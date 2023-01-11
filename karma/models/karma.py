@@ -1,10 +1,9 @@
-# © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © 2023 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import ast
 
 from odoo import api, fields, models
-from odoo.addons import decimal_precision as dp
 
 
 class Karma(models.Model):
@@ -20,7 +19,7 @@ class Karma(models.Model):
         "Related Url",
         help="On the Karma widget, a clickable link is added to the karma name."
     )
-    model_id = fields.Many2one('ir.model', 'Model', required=True)
+    model_id = fields.Many2one('ir.model', 'Model', required=True, ondelete='cascade')
     model = fields.Char(related='model_id.model', readonly=True)
     type_ = fields.Selection([
         ('inherited', 'Inherited'),
@@ -99,13 +98,13 @@ class KarmaConditionLine(models.Model):
     sequence = fields.Integer()
     karma_id = fields.Many2one('karma', 'Parent Karma', required=True, ondelete='cascade')
     field_id = fields.Many2one(
-        'ir.model.fields', 'Field', required=True,
+        'ir.model.fields', 'Field', required=True, ondelete='cascade',
         domain="[('model_id', '=', parent.model_id)]")
     condition_label = fields.Char(required=True, translate=True)
     condition = fields.Char(required=True)
     result_if_true = fields.Char(required=True)
     result_if_false = fields.Char(required=True, default='0')
-    weighting = fields.Float('Weighting', digits=dp.get_precision('Karma Weighting'))
+    weighting = fields.Float('Weighting', digits='Account')
 
 
 class KarmaLine(models.Model):
@@ -121,7 +120,7 @@ class KarmaLine(models.Model):
     model_id = fields.Many2one(related='child_karma_id.model_id', readonly=True)
     model = fields.Char(related='child_karma_id.model_id.model', readonly=True)
     field_id = fields.Many2one(
-        'ir.model.fields', 'Field',
+        'ir.model.fields', 'Field', ondelete='cascade',
         domain="[('model_id', '=', parent.model_id), ('ttype', '=', 'many2one'),"
                " ('relation', '=', model)]")
-    weighting = fields.Float('Weighting', digits=dp.get_precision('Karma Weighting'))
+    weighting = fields.Float('Weighting', digits='Account')

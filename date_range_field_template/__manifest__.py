@@ -10,7 +10,7 @@
     'license': 'LGPL-3',
     'category': 'Karma',
     'summary': 'Enable generating computed fields from templates based on date ranges.',
-    'depends': ['base'],
+    'depends': ['base', 'stock', 'gamification'],
     'data': [
         'data/date_range.xml',
         'views/date_range.xml',

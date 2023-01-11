@@ -1,4 +1,4 @@
-# © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © 2023 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 {
@@ -12,7 +12,7 @@
     'summary': 'Add the karma widget on partner form views.',
     'depends': ['karma'],
     'data': [
-        'partner_view.xml',
+        'views/partner_view.xml',
     ],
     'installable': True,
 }

@@ -1,4 +1,4 @@
-# © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © 2023 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 {
@@ -11,7 +11,6 @@
     'category': 'Karma',
     'summary': 'Compute scores on all types of records.',
     'depends': [
-        'decimal_precision',
         'date_range_field_template',
         'queue_job',
     ],

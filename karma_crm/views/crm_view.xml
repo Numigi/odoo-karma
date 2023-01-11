@@ -4,7 +4,7 @@
     <record id="crm_lead_form_view_with_karma_widget" model="ir.ui.view">
         <field name="name">CRM Lead Form View: Add Karma Widget</field>
         <field name="model">crm.lead</field>
-        <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+        <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
         <field name="arch" type="xml">
             <div name="button_box" position="after">
                 <div style="float: right;">

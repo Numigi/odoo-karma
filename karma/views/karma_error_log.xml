@@ -47,7 +47,6 @@
     <record id="action_karma_error_log" model="ir.actions.act_window">
         <field name="name">Karma Error Logs</field>
         <field name="res_model">karma.error.log</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 

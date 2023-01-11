@@ -1,4 +1,4 @@
-# © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © 2023 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import pytz
@@ -7,7 +7,7 @@ from datetime import datetime
 from freezegun import freeze_time
 from odoo.tests.common import TransactionCase
 
-from ..date_range import (
+from ..models.date_range import (
     get_day_start,
     get_day_end,
     get_first_day_of_week,

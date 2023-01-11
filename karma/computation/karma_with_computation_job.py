@@ -1,4 +1,4 @@
-# © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © 2023 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import functools
@@ -8,7 +8,6 @@ import uuid
 from datetime import datetime
 
 from odoo import models
-from odoo.addons.queue_job.job import job
 from .condition import KarmaConditionEvaluationError
 from ..computation import ConditionKarmaComputer, InheritedKarmaComputer
 
@@ -20,7 +19,7 @@ class KarmaWithScoreComputingJob(models.Model):
 
     _inherit = 'karma'
 
-    @job
+
     def compute_all_scores(self, raise_=False):
         """Compute the scores for all records targeted by the karma.
 

@@ -62,7 +62,6 @@
     <record id="action_field_template" model="ir.actions.act_window">
         <field name="name">Field Templates</field>
         <field name="res_model">computed.field.template</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 

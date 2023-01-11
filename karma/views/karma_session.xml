@@ -4,7 +4,6 @@
     <record id="action_karma_score_from_session" model="ir.actions.act_window">
         <field name="name">Karma Scores</field>
         <field name="res_model">karma.score</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree</field>
         <field name="domain">[('session_id', '=', context.get('active_id'))]</field>
     </record>
@@ -12,7 +11,6 @@
     <record id="action_karma_error_log_from_session" model="ir.actions.act_window">
         <field name="name">Karma Error Logs</field>
         <field name="res_model">karma.error.log</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('session_id', '=', context.get('active_id'))]</field>
     </record>
@@ -82,7 +80,6 @@
     <record id="action_karma_session" model="ir.actions.act_window">
         <field name="name">Karma Sessions</field>
         <field name="res_model">karma.session</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 

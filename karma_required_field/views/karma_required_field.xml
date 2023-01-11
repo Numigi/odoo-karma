@@ -27,7 +27,6 @@
     <record id="action_karma_required_field" model="ir.actions.act_window">
         <field name="name">Karma Fields</field>
         <field name="res_model">karma.required.field</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 

@@ -1,4 +1,4 @@
-# © 2018 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © 2023 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo.tests.common import SavepointCase
@@ -14,8 +14,8 @@ class TestKarmaDisplayOnFormView(SavepointCase):
         cls.customer_karma = cls.env['karma'].create({
             'name': 'Customer Karma',
             'type_': 'condition',
+            'domain': "[('customer_rank', '>', 0)]",
             'model_id': cls.env.ref('base.model_res_partner').id,
-            'domain': "[('customer', '=', True)]",
             'display_on_form_view': True,
         })
 
@@ -23,14 +23,14 @@ class TestKarmaDisplayOnFormView(SavepointCase):
             'name': 'Customer Karma',
             'type_': 'condition',
             'model_id': cls.env.ref('base.model_res_partner').id,
-            'domain': "[('supplier', '=', True)]",
+            'domain': "[('supplier_rank', '>', 0)]",
             'display_on_form_view': True,
         })
 
         cls.partner = cls.env['res.partner'].create({
             'name': 'Partner Test',
-            'customer': False,
-            'supplier': False,
+            'supplier_rank':0,
+
         })
 
         cls.user = cls.env.ref('base.user_demo')
@@ -45,22 +45,26 @@ class TestKarmaDisplayOnFormView(SavepointCase):
         return result
 
     def test_ifPartnerIsCustomer_thenCustomerKarmaIsDisplayed(self):
-        self.partner.customer = True
+        """ to align with 14 , there is no customer or supplier in partner object"""
+        self.partner.customer_rank = 1
         assert self._find_karma() == self.customer_karma
 
     def test_ifPartnerIsSupplier_thenSupplierKarmaIsDisplayed(self):
-        self.partner.supplier = True
+        """ to align with 14 , there is no customer or supplier in partner object"""
+        self.partner.supplier_rank = 1
         assert self._find_karma() == self.supplier_karma
 
     def test_ifPartnerIsNeither_thenNoKarmaIsDisplayed(self):
         assert not self._find_karma()
 
     def test_ifPartnerIsBoth_thenBothKarmasAreDisplayed(self):
-        self.partner.customer = True
-        self.partner.supplier = True
+        """ to align with 14 , there is no customer or supplier in partner object"""
+        self.partner.customer_rank = 1
+        self.partner.supplier_rank = 1
         assert self._find_karma() == self.customer_karma | self.supplier_karma
 
     def test_ifDisplayOnFormViewIsFalse_thenKarmaIsNotDisplayed(self):
-        self.partner.customer = True
+        """ to align with 14 , there is no customer or supplier in partner object"""
+        self.partner.customer_rank = 1
         self.customer_karma.display_on_form_view = False
         assert not self._find_karma()

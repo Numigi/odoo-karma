@@ -62,7 +62,6 @@
     <record id="action_karma_required_field_log" model="ir.actions.act_window">
         <field name="name">Karma Field Logs</field>
         <field name="res_model">karma.required.field.log</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 

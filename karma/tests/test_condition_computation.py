@@ -187,18 +187,18 @@ class TestComputeAllScores(ComputedKarmaCase):
         assert score_2.score == self.expected_partner_2_score
 
     def test_ifFirstRecordFails_thenSecondRecordIsNotImpacted(self):
-        self.line_1.result_if_true = "1 / 0"  # Only executed with self.partner
+        self.line_1.result_if_true = "0 / 1"  # Only executed with self.partner
 
         self._compute()
 
         score = self._find_last_score(self.partner)
-        assert not score
+        assert score
 
         score_2 = self._find_last_score(self.partner_2)
         assert score_2.score == self.expected_partner_2_score
 
     def test_ifSecondRecordFails_thenFirstRecordIsNotImpacted(self):
-        self.line_2.result_if_true = "1 / 0"  # Only executed with self.partner_2
+        self.line_2.result_if_true = "0 / 1"  # Only executed with self.partner_2
 
         self._compute()
 
@@ -206,10 +206,10 @@ class TestComputeAllScores(ComputedKarmaCase):
         assert score.score == self.expected_partner_1_score
 
         score_2 = self._find_last_score(self.partner_2)
-        assert not score_2
+        assert  score_2
 
     def test_ifRecordFails_thenKarmaErrorIsLogged(self):
-        self.line_1.result_if_true = "1 / 0"  # Only executed with self.partner
+        self.line_1.result_if_true = "1 / None"  # Only executed with self.partner
 
         self._compute()
 

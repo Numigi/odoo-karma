@@ -140,11 +140,12 @@ class ConditionKarmaComputer:
                 '\n\n{expression}'
                 '\n\n{err}'
             ).format(value=value, expression=expression, err=err)
-            # pycompat.reraise(
-            #     KarmaConditionEvaluationError,
-            #     KarmaConditionEvaluationError(error_message),
-            #     sys.exc_info()[2],
-            # )
+            tp = KarmaConditionEvaluationError
+            value = KarmaConditionEvaluationError(error_message)
+            tb = sys.exc_info()[2]
+            if value.__traceback__ != tb:
+                raise value.with_traceback(tb)
+            raise value
 
 
 class ScoreConditionCache:

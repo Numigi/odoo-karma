@@ -219,7 +219,7 @@ class TestComputeAllScores(ComputedKarmaCase):
         log = session.error_log_ids
         assert log.res_id == self.partner.id
         assert log.res_model == 'res.partner'
-        assert 'division by zero' in log.error_message
+        assert 'The following expression could not be evaluated' in log.error_message
 
         assert len(session.score_ids) == 1
 

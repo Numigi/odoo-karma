@@ -8,7 +8,7 @@ Karma CRM
 =========
 This module adds the karma widget to the CRM Leads and teams form view.
 
-.. image:: /karma_crm/static/description/crm_lead_form.png
+.. image:: /odoo-karma/karma_crm/static/description/crm_lead_form.png
 
 .. image:: /karma_crm/static/description/crm_team_form.png
 

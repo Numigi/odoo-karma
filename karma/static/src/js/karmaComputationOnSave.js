@@ -21,7 +21,9 @@ require("web.BasicModel").include({
             return savePromise;
         } else {
             await savePromise;
-            return this.triggerKarmaScoreComputation(record.model, record.res_id);
+            return this.triggerKarmaScoreComputation(record.model, record.res_id).then(() => {
+                return savePromise; // Return savePromise after triggerKarmaScoreComputation completes
+            });
         }
     },
     /**

@@ -11,24 +11,18 @@ require("web.BasicModel").include({
      * @param {String} recordId - a client side identifier of the record.
      *     This identifier is not related to the database ID of the record.
      */
-    save(recordId){
-        var saveDeferred = this._super.apply(this, arguments);
-        var scoreDeferred = $.Deferred();
-        var self = this;
-        saveDeferred.then(function(){
-            var record = self.localData[recordId];
-
-            var isVirtualRecord = typeof record.res_id === "string";
-            if(isVirtualRecord){
-                scoreDeferred.resolve();
-            }
-            else{
-                self.triggerKarmaScoreComputation(record.model, record.res_id).then(function(){
-                    scoreDeferred.resolve();
-                });
-            }
-        });
-        return $.when(saveDeferred, scoreDeferred);
+    save: async function (recordId, options) {
+        const savePromise = this._super(recordId, options);
+    
+        const record = this.localData[recordId];
+        const isVirtualRecord = typeof record.res_id === "string";
+    
+        if (isVirtualRecord) {
+            return savePromise;
+        } else {
+            await savePromise;
+            return this.triggerKarmaScoreComputation(record.model, record.res_id);
+        }
     },
     /**
      * Trigger the computation of karma scores for the given record.

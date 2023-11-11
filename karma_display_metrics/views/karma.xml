@@ -2,20 +2,23 @@
 <odoo>
 
     <record id="view_karma_form" model="ir.ui.view">
-        <field name="name">Karma Dispaly Metricsl</field>
+        <field name="name">Karma Dispaly Metrics</field>
         <field name="model">karma</field>
         <field name="inherit_id" ref="karma.view_karma_form"/>
         <field name="arch" type="xml">
             <button name="compute_all_scores" position="after">
+<!--                 <button name="add_field_properties"  class="oe_stat_button" type="object"-->
+<!--                         string="Field properties"-->
+<!--                         attrs ="{'invisible':[('hide_properties','=',False)]}"-->
+<!--                        help="This button displays 2 checkboxes in the Karma form view. 'Show Grade' and 'Show Score' "/>-->
                  <button name="add_field_properties"  class="oe_stat_button" type="object"
-                         string="Field properties"
-                         attrs ="{'invisible':[('hide_properties','=',False)]}"
-                        help="This button displays 2 checkboxes in the Karma form view. 'Show Grade' and 'Show Score' "/>
+                         string="Field properties"/>
             </button>
 
             <xpath expr="//group[1]" position="attributes">
                <attribute name='col'>2</attribute>
                <attribute name='colspan'>2</attribute>
+
             </xpath>
             <xpath expr="//group[1]" position="inside">
                  <group>
@@ -28,6 +31,11 @@
                       <field name="display_score" attrs ="{'invisible':[('hide_properties','=',True)]}"
                              help="This option adds the Score field to the list and search views and allows you to apply filters
                       to the field. Once unchecked the Score field will be hidden"/>
+
+                     <button name="action_dispaly_grade"   type="object" string="Display grade"/>
+                     <button name="action_dispaly_score"   type="object" string="Display score"/>
+                     <button name="action_remove_grade"  type="object" string="Remove grade"/>
+                     <button name="action_remove_score"   type="object" string="Remove score"/>
                  </group>
             </xpath>
 

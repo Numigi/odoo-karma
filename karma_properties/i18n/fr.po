@@ -1,0 +1,62 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* karma_display_metrics
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-02 16:49+0000\n"
+"PO-Revision-Date: 2023-11-02 16:49+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+
+#. module: karma_display_metrics
+#: model_terms:ir.ui.view,arch_db:karma_display_metrics.view_karma_form
+msgid "Field properties"
+msgstr "Propriétés des champs"
+
+
+#. module: karma_display_metrics
+#: model:ir.model.fields,field_description:karma_display_metrics.field_karma__display_grade
+msgid "Show grade"
+msgstr "Afficher le  Grade"
+
+#. module: karma_display_metrics
+#: model:ir.model.fields,field_description:karma_display_metrics.field_karma__display_score
+msgid "Show score"
+msgstr "Afficher le Score"
+
+#. module: karma_display_metrics
+#: model_terms:ir.ui.view,arch_db:karma_display_metrics.view_karma_form
+msgid ""
+"This button displays 2 checkboxes in the Karma form view. 'Show Grade' and "
+"'Show Score'"
+msgstr ""
+"Ce bouton affiche 2 cases à cocher dans la vue formulaire du Karma. 'Afficher le  Grade' et "
+"'Afficher le Score'
+
+#. module: karma_display_metrics
+#: model_terms:ir.ui.view,arch_db:karma_display_metrics.view_karma_form
+msgid ""
+"This option adds the Grade field to the list and search views and allows "
+"filters                                   and grouping to be applied to the "
+"field. Once unchecked, the Grade field will be hidden"
+msgstr ""
+Cette option ajoute le champ Grade dans la vue liste et la vue de recherche et permet "
+" d'appliquer des filtres et des regroupement sur le champ. Une fois décochée, le champ Grade sera masqué"
+
+#. module: karma_display_metrics
+#: model_terms:ir.ui.view,arch_db:karma_display_metrics.view_karma_form
+msgid ""
+"This option adds the Score field to the list and search views and allows you"
+" to                                  apply filters to the field. Once "
+"unchecked the Score field will be hidden"
+msgstr ""
+"Cette option ajoute le champ Score dans la vue liste et la vue de recherche et permet d'appliquer des filtres "
+"sur le champ. Une fois décochée, le champ Score sera masqué"

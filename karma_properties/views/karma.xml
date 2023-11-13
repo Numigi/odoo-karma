@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_karma_form" model="ir.ui.view">
+        <field name="name">Karma Dispaly Metrics</field>
+        <field name="model">karma</field>
+        <field name="inherit_id" ref="karma.view_karma_form"/>
+        <field name="arch" type="xml">
+            <button name="compute_all_scores" position="after">
+                 <button name="add_field_properties"  class="oe_stat_button" type="object"
+                         string="Field properties"
+                         attrs ="{'invisible':[('show_properties','=',True)]}"
+                        help="This button displays 2 checkboxes in the Karma form view. 'Show Grade' and 'Show Score' "/>
+            </button>
+
+            <xpath expr="//group[1]" position="attributes">
+               <attribute name='col'>2</attribute>
+               <attribute name='colspan'>2</attribute>
+
+            </xpath>
+            <xpath expr="//group[1]" position="inside">
+                 <group>
+                     <field name="show_properties" invisible="1" />
+
+                      <field name="display_grade" attrs ="{'invisible':[('show_properties','=',False)]}"
+                             help="This option adds the Grade field to the list and search views and allows filters
+                      and grouping to be applied to the field. Once unchecked, the Grade field will be hidden"/>
+
+                      <field name="display_score" attrs ="{'invisible':[('show_properties','=',False)]}"
+                             help="This option adds the Score field to the list and search views and allows you to apply filters
+                      to the field. Once unchecked the Score field will be hidden"/>
+                 </group>
+            </xpath>
+
+        </field>
+    </record>
+
+
+</odoo>

@@ -1,6 +1,6 @@
-# Karma Grades
+# Karma Propeties
 
-This module allows users to display  the Karma grade and score in the Karmar object's tree and search view .
+This module allows to display the Karma properties in the tree and the search view of the Karma model.
 
 
 Contributors

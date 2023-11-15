@@ -25,7 +25,7 @@ msgstr "Propriétés des champs"
 #. module: karma_display_metrics
 #: model:ir.model.fields,field_description:karma_display_metrics.field_karma__display_grade
 msgid "Show grade"
-msgstr "Afficher le  Grade"
+msgstr "Afficher le Grade"
 
 #. module: karma_display_metrics
 #: model:ir.model.fields,field_description:karma_display_metrics.field_karma__display_score
@@ -49,7 +49,7 @@ msgid ""
 "field. Once unchecked, the Grade field will be hidden"
 msgstr ""
 Cette option ajoute le champ Grade dans la vue liste et la vue de recherche et permet "
-" d'appliquer des filtres et des regroupement sur le champ. Une fois décochée, le champ Grade sera masqué"
+" d\'appliquer des filtres et des regroupement sur le champ. Une fois décochée, le champ Grade sera masqué"
 
 #. module: karma_display_metrics
 #: model_terms:ir.ui.view,arch_db:karma_display_metrics.view_karma_form

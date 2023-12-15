@@ -30,22 +30,30 @@ class Karma(models.Model):
                 'display_score': False,
             })
 
-    def create_new_field(self, name, type, model_id):
+    def create_new_field(self, name, ttype, model_id):
         if self._check_if_field_exist(model_id, name):
             return
         new_field = {
             'name': name,
-            'field_description': "%s %s" % (self.label, name.split("_")[2].capitalize()),
-            'ttype': type,
+            'field_description': "%s %s" % (
+                self.label, name.split("_")[2].capitalize()),
+            'ttype': ttype,
             'model_id': model_id.id,
             'model': model_id.name,
         }
         self.env['ir.model.fields'].create(new_field)
 
+    def _get_karma_properties_field_name(self):
+        return ("x_karma_score_" + (self.ref).lower(),
+                "x_karma_grade_" + (self.ref).lower())
+
     def add_field_properties(self):
         self.show_properties = True
-        self.create_new_field(name="x_karma_score", type='float', model_id=self.model_id)
-        self.create_new_field(name="x_karma_grade", type='char', model_id=self.model_id)
+        score_fname, grade_fname = self._get_karma_properties_field_name()
+        self.create_new_field(
+            name=score_fname, ttype='float', model_id=self.model_id)
+        self.create_new_field(
+            name=grade_fname, ttype='char', model_id=self.model_id)
 
     def add_field_to_view(self, field, view_type):
         key = 'karma_%s' % field.split("_")[2]
@@ -70,9 +78,11 @@ class Karma(models.Model):
             if view_type == "search":
                 label = _("%s %s" % (self.label, field.split("_")[2]))
                 group_by = """
-                            <filter string="%s" name="%s" domain="[]" context="{'group_by':'%s'}"/>
-                        """ % (label, field, field)
-                arch_base = arch_base.split("</xpath>", 1)[0] + group_by + "</xpath>"
+                    <filter string="%s" name="%s" domain="[]"
+                    context="{'group_by':'%s'}"/>
+                """ % (label, field, field)
+                arch_base = arch_base.split("</xpath>", 1)[0] +\
+                    group_by + "</xpath>"
             value = {
                     'name': 'karma.%s.%s' % (field, view_id.name),
                     'type': view_type,
@@ -105,21 +115,31 @@ class Karma(models.Model):
     def write(self, vals):
         super().write(vals)
         for rec in self:
-            if self.show_properties:
+            if rec.show_properties:
+                (score_fname,
+                 grade_fname) = self._get_karma_properties_field_name()
                 if "display_grade" in vals or "model_id" in vals:
-                    display_grade = "display_grade" in vals or self.display_grade
+                    display_grade = (
+                        "display_grade" in vals or self.display_grade
+                        )
                     rec.add_remove_property(display_grade,
-                                            field='x_karma_grade')
+                                            field=grade_fname)
                 if "display_score" in vals or "model_id" in vals:
-                    display_score = "display_score" in vals or self.display_score
+                    display_score = (
+                        "display_score" in vals or self.display_score
+                        )
                     rec.add_remove_property(display_score,
-                                            field='x_karma_score')
+                                            field=score_fname)
         return True
 
     @api.model
     def _compute(self, computer, record):
-        score = super()._compute(computer, record)
+        result = super()._compute(computer, record)
         if self.show_properties:
-            record.x_karma_score = score.score
-            record.x_karma_grade = score.grade
-        return score
+            score_fname, grade_fname = self._get_karma_properties_field_name()
+            _logger.info('3333333333333')
+            _logger.info(record._fields.get(score_fname))
+            _logger.info(record._fields.get(grade_fname))
+            record._fields[score_fname] = result.score
+            record._fields[grade_fname] = result.grade
+        return result

@@ -15,12 +15,6 @@ class Karma(models.Model):
     display_grade = fields.Boolean("Show grade", copy=False)
     display_score = fields.Boolean("Show score", copy=False)
 
-    def _check_if_field_exist(self, model_id, name):
-        field_exist = self.env['ir.model.fields'].search([
-            ('model_id', '=', model_id.id), ('name', '=', name)
-            ])
-        return True if field_exist else False
-
     @api.onchange('model_id')
     def onchange_model_id(self):
         if self.model_id and self.show_properties:
@@ -30,7 +24,14 @@ class Karma(models.Model):
                 'display_score': False,
             })
 
+    def _check_if_field_exist(self, model_id, name):
+        field_exist = self.env['ir.model.fields'].search([
+            ('model_id', '=', model_id.id), ('name', '=', name)
+            ])
+        return True if field_exist else False
+
     def create_new_field(self, name, ttype, model_id):
+        self.ensure_one()
         if self._check_if_field_exist(model_id, name):
             return
         new_field = {
@@ -40,6 +41,9 @@ class Karma(models.Model):
             'ttype': ttype,
             'model_id': model_id.id,
             'model': model_id.name,
+            'state': 'manual',
+            'copied': False,
+            'readonly': True,
         }
         self.env['ir.model.fields'].create(new_field)
 
@@ -48,12 +52,19 @@ class Karma(models.Model):
                 "x_karma_grade_" + (self.ref).lower())
 
     def add_field_properties(self):
+        self.ensure_one()
         self.show_properties = True
         score_fname, grade_fname = self._get_karma_properties_field_name()
         self.create_new_field(
             name=score_fname, ttype='float', model_id=self.model_id)
         self.create_new_field(
             name=grade_fname, ttype='char', model_id=self.model_id)
+
+    def _check_if_view_exist(self, model, name):
+        view_exist = self.env['ir.ui.view'].search([
+            ('model', '=', model), ('name', '=', name)
+            ])
+        return True if view_exist else False
 
     def add_field_to_view(self, field, view_type):
         key = 'karma_%s' % field.split("_")[2]
@@ -72,19 +83,19 @@ class Karma(models.Model):
             inherit_id = self.env.ref(view_id.xml_id)
             arch_base = """<?xml version="1.0"?>
                              <xpath expr="." position="inside">
-                                <field name="%s"/>
+                                <field name="%s" optional="show"/>
                              </xpath>
                              """ % field
             if view_type == "search":
                 label = _("%s %s" % (self.label, field.split("_")[2]))
-                group_by = """
-                    <filter string="%s" name="%s" domain="[]"
-                    context="{'group_by':'%s'}"/>
-                """ % (label, field, field)
-                arch_base = arch_base.split("</xpath>", 1)[0] +\
-                    group_by + "</xpath>"
+                arch_base = """<xpath expr="//group" position="inside">
+                                <filter string="%s" name="%s" domain="[]"
+                                context="{'group_by':'%s'}"/>
+                                </xpath>
+                            """ % (label, field, field)
+            view_name = '%s.%s' % (view_id.name, field)
             value = {
-                    'name': 'karma.%s.%s' % (field, view_id.name),
+                    'name': view_name,
                     'type': view_type,
                     'model': view_id.model,
                     'mode': 'extension',
@@ -93,6 +104,8 @@ class Karma(models.Model):
                     'arch_base': arch_base,
                     'active': True
                     }
+            if self._check_if_view_exist(view_id.model, view_name):
+                return
             self.env['ir.ui.view'].sudo().create(value)
 
     def property_view_get(self, key):
@@ -117,29 +130,32 @@ class Karma(models.Model):
         for rec in self:
             if rec.show_properties:
                 (score_fname,
-                 grade_fname) = self._get_karma_properties_field_name()
-                if "display_grade" in vals or "model_id" in vals:
-                    display_grade = (
-                        "display_grade" in vals or self.display_grade
-                        )
-                    rec.add_remove_property(display_grade,
-                                            field=grade_fname)
+                 grade_fname) = rec._get_karma_properties_field_name()
+                # Add fields to tree and search view
                 if "display_score" in vals or "model_id" in vals:
                     display_score = (
-                        "display_score" in vals or self.display_score
+                        "display_score" in vals or rec.display_score
                         )
                     rec.add_remove_property(display_score,
                                             field=score_fname)
+                if "display_grade" in vals or "model_id" in vals:
+                    display_grade = (
+                        "display_grade" in vals or rec.display_grade
+                        )
+                    rec.add_remove_property(display_grade,
+                                            field=grade_fname)
         return True
 
     @api.model
     def _compute(self, computer, record):
-        result = super()._compute(computer, record)
+        result = super(Karma, self)._compute(computer, record)
         if self.show_properties:
             score_fname, grade_fname = self._get_karma_properties_field_name()
-            _logger.info('3333333333333')
-            _logger.info(record._fields.get(score_fname))
-            _logger.info(record._fields.get(grade_fname))
-            record._fields[score_fname] = result.score
-            record._fields[grade_fname] = result.grade
+            model = self.model_id.model
+            score_field = self.env[model]._fields.get(score_fname)
+            grade_field = self.env[model]._fields.get(grade_fname)
+            if score_field and result.score:
+                record[score_fname] = result.score
+            if grade_field and result.grade:
+                record[grade_fname] = result.grade
         return result

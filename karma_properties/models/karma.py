@@ -12,16 +12,16 @@ class Karma(models.Model):
     _inherit = 'karma'
 
     show_properties = fields.Boolean("Show properties", copy=False)
-    display_grade = fields.Boolean("Show grade", copy=False)
-    display_score = fields.Boolean("Show score", copy=False)
+    show_grade = fields.Boolean("Show grade", copy=False)
+    show_score = fields.Boolean("Show score", copy=False)
 
     @api.onchange('model_id')
     def onchange_model_id(self):
         if self.model_id and self.show_properties:
             self.write({
                 'show_properties': False,
-                'display_grade': False,
-                'display_score': False,
+                'show_grade': False,
+                'show_score': False,
             })
 
     def _check_if_field_exist(self, model_id, name):
@@ -51,6 +51,10 @@ class Karma(models.Model):
         return ("x_karma_score_" + (self.ref).lower(),
                 "x_karma_grade_" + (self.ref).lower())
 
+    def _get_karma_properties_view_ref(self, field, view_type):
+        view_ref = 'karma_properties.%s.%s' % (field, view_type)
+        return self.env.ref(view_ref, raise_if_not_found=False)
+
     def add_field_properties(self):
         self.ensure_one()
         self.show_properties = True
@@ -68,7 +72,7 @@ class Karma(models.Model):
 
     def add_field_to_view(self, field, view_type):
         key = 'karma_%s' % field.split("_")[2]
-        view_ids = self.property_view_get(key)
+        view_ids = self._get_karma_properties_view_ref(field, view_type)
         if view_ids:
             return
         if not self._check_if_field_exist(self.model_id, field):
@@ -108,22 +112,18 @@ class Karma(models.Model):
                 return
             self.env['ir.ui.view'].sudo().create(value)
 
-    def property_view_get(self, key):
-        return self.env['ir.ui.view'].search([
-            ('model', '=', self.model_id.model),
-            ('key', '=', 'karma_%s' % key),
-        ])
-
-    def remove_field_form_view(self, key):
-        view_ids = self.property_view_get(key)
-        view_ids.sudo().unlink()
+    def remove_view(self, field, view_type):
+        view_id = self._get_karma_properties_view_ref(field, view_type)
+        if view_id:
+            view_id.sudo().unlink()
 
     def add_remove_property(self, property, field):
         if property:
-            self.add_field_to_view(field=field, view_type='tree')
-            self.add_field_to_view(field=field, view_type='search')
+            self.add_field_to_view(field, 'tree')
+            self.add_field_to_view(field, 'search')
         else:
-            self.remove_field_form_view(key=field.split("_")[2])
+            self.remove_view(field, 'tree')
+            self.remove_view(field, 'search')
 
     def write(self, vals):
         super().write(vals)
@@ -131,19 +131,13 @@ class Karma(models.Model):
             if rec.show_properties:
                 (score_fname,
                  grade_fname) = rec._get_karma_properties_field_name()
-                # Add fields to tree and search view
-                if "display_score" in vals or "model_id" in vals:
-                    display_score = (
-                        "display_score" in vals or rec.display_score
-                        )
-                    rec.add_remove_property(display_score,
-                                            field=score_fname)
-                if "display_grade" in vals or "model_id" in vals:
-                    display_grade = (
-                        "display_grade" in vals or rec.display_grade
-                        )
-                    rec.add_remove_property(display_grade,
+                # Add or Remove tree and search views
+                if "show_grade" in vals:
+                    rec.add_remove_property(vals['show_grade'],
                                             field=grade_fname)
+                if "show_score" in vals:
+                    rec.add_remove_property(vals['show_score'],
+                                            field=score_fname)
         return True
 
     @api.model
@@ -151,11 +145,8 @@ class Karma(models.Model):
         result = super(Karma, self)._compute(computer, record)
         if self.show_properties:
             score_fname, grade_fname = self._get_karma_properties_field_name()
-            model = self.model_id.model
-            score_field = self.env[model]._fields.get(score_fname)
-            grade_field = self.env[model]._fields.get(grade_fname)
-            if score_field and result.score:
-                record[score_fname] = result.score
-            if grade_field and result.grade:
-                record[grade_fname] = result.grade
+            if score_fname in record._fields.items():
+                record._fields[score_fname] = result.score
+            if grade_fname in record._fields.items():
+                record._fields[grade_fname] = result.grade
         return result

@@ -29,7 +29,7 @@ class TestKarmaDisplayOnFormView(SavepointCase):
 
         cls.partner = cls.env['res.partner'].create({
             'name': 'Partner Test',
-            'supplier_rank':0,
+            'supplier_rank': 0,
 
         })
 

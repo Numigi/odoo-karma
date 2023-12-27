@@ -1,0 +1,93 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* karma_properties
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-21 20:11+0000\n"
+"PO-Revision-Date: 2023-12-21 20:11+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: karma_properties
+#: code:addons/karma_properties/models/karma.py:0
+#, python-format
+msgid "%s %s"
+msgstr ""
+
+#. module: karma_properties
+#: model:ir.model.fields,field_description:karma_properties.field_karma__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: karma_properties
+#: model_terms:ir.ui.view,arch_db:karma_properties.view_karma_form
+msgid "Field properties"
+msgstr "Propriétés des champs"
+
+#. module: karma_properties
+#: model:ir.model.fields,field_description:karma_properties.field_karma__id
+msgid "ID"
+msgstr ""
+
+#. module: karma_properties
+#: model:ir.model,name:karma_properties.model_karma
+msgid "Karma"
+msgstr ""
+
+#. module: karma_properties
+#: model:ir.model.fields,field_description:karma_properties.field_karma____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: karma_properties
+#: model:ir.model.fields,field_description:karma_properties.field_karma__show_grade
+msgid "Show grade"
+msgstr "Afficher le Grade"
+
+#. module: karma_properties
+#: model:ir.model.fields,field_description:karma_properties.field_karma__show_properties
+msgid "Show properties"
+msgstr "Afficher les propriétés"
+
+#. module: karma_properties
+#: model:ir.model.fields,field_description:karma_properties.field_karma__show_score
+msgid "Show score"
+msgstr "Afficher le Score"
+
+#. module: karma_properties
+#: model_terms:ir.ui.view,arch_db:karma_properties.view_karma_form
+msgid ""
+"This button displays 2 checkboxes in the Karma form view. 'Show Grade' and "
+"'Show Score'"
+msgstr ""
+"Ce bouton affiche 2 cases à cocher dans la vue formulaire du Karma. 'Afficher le Grade' et "
+"'Afficher le Score' " 
+
+#. module: karma_properties
+#: model_terms:ir.ui.view,arch_db:karma_properties.view_karma_form
+msgid ""
+"This option adds the Grade field to the list and search views and allows "
+"filters                       and grouping to be applied to the field. Once "
+"unchecked, the Grade field will be hidden"
+msgstr ""
+"Cette option ajoute le champ Grade dans la vue liste et la vue de recherche et permet " 
+"d/'appliquer des filtres et des regroupement sur le champ. Une fois "
+"décochée, le champ Grade sera masqué."
+
+
+#. module: karma_properties
+#: model_terms:ir.ui.view,arch_db:karma_properties.view_karma_form
+msgid ""
+"This option adds the Score field to the list and search views and allows you"
+" to apply filters                       to the field. Once unchecked the "
+"Score field will be hidden"
+msgstr ""
+"Cette option ajoute le champ Score dans la vue liste et la vue de recherche et permet "
+"d/'appliquer des filtres sur le champ. Une fois décochée, le champ Score sera masqué."

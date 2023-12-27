@@ -24,6 +24,7 @@
         'karma_partner',
         'karma_product',
         'karma_project',
+        'karma_properties',
         'karma_required_field',
         'karma_user_dashboard',
     ],

@@ -21,6 +21,7 @@ COPY karma_grade /mnt/extra-addons/karma_grade
 COPY karma_partner /mnt/extra-addons/karma_partner
 COPY karma_product /mnt/extra-addons/karma_product
 COPY karma_project /mnt/extra-addons/karma_project
+COPY karma_properties /mnt/extra-addons/karma_properties
 COPY karma_required_field /mnt/extra-addons/karma_required_field
 COPY karma_user_dashboard /mnt/extra-addons/karma_user_dashboard
 

@@ -16,37 +16,35 @@ In the current version of the application Karma, it is not possible to search, f
 Usage
 -----
 
-As a user with access to the Karma application, I access the form view in `Configuration > Karmas`. 
-When creating a Karma form view, I notice that a new button “Field properties” is available.
+As a user with access to the Karma application, I access the form view in ``Configuration > Karmas``. 
+When creating a Karma, in the form view, I notice that a new button ``Field properties`` is available.
 
 .. image:: static/description/field_properties_button.png
 
-When I click on the new button, I notice the presence of 2 new check boxes:
+When I click on the new button, I notice the presence of 2 new checkboxes:
  - Show Grade
  - Show Score
-I also notice that the `Field Properties` button is no longer displayed.
+
+I also notice that the ``Field Properties`` button is no longer displayed.
 
 .. image:: static/description/show_grade_show_score_checkbox.png
 
 I can activate one or both checkboxes depending on my needs.
 
-I activate the cases on the defined model, in my example the model is `Partner`
+I activate the checboxes on the defined model, in this example the model is ``Partner``
 
 .. image:: static/description/partner_show_grade_score.png
 
-I notice that the 2 new fields `{karma_name} Grade` and `{karma_name} Score` are available in list view (Partners liste view in my example).
+I notice that the 2 new fields ``{karma_name} Grade`` and ``{karma_name} Score`` are available in the list view (Partners list view in this example).
 And they are calculated from Karma scores
 
 .. image:: static/description/karma_properties.png
 
-I notice also that I can filter and grouby the fields `{karma_name} Grade` and `{karma_name} Score`:
+I notice also that I can filter and grouby the fields ``{karma_name} Grade`` and ``{karma_name} Score``:
 
 .. image:: static/description/karma_properties_filter.png
 
 .. image:: static/description/karma_properties_groupby.png
-
-
-
 
 
 Contributors

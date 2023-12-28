@@ -187,6 +187,7 @@ class TestComputeAllScores(ComputedKarmaCase):
         assert score_2.score == self.expected_partner_2_score
 
     def test_ifFirstRecordFails_thenSecondRecordIsNotImpacted(self):
+        # check TU of this method
         self.line_1.result_if_true = "1 / 0"  # Only executed with self.partner
 
         self._compute()

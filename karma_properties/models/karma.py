@@ -1,8 +1,10 @@
 # © 2023 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import api, fields, models, _
 import logging
+
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -45,11 +47,14 @@ class Karma(models.Model):
             'copied': False,
             'readonly': True,
         }
-        self.env['ir.model.fields'].create(new_field)
+        try:
+            self.env['ir.model.fields'].create(new_field)
+        except ValidationError as e:
+            raise ValidationError(_("Invalid reference: {}".format(e)))
 
     def _get_karma_properties_field_name(self):
-        return ("x_karma_score_" + (self.ref).lower(),
-                "x_karma_grade_" + (self.ref).lower())
+        return ("x_karma_score_" + (self.ref).replace('-', '_').lower(),
+                "x_karma_grade_" + (self.ref).replace('-', '_').lower())
 
     def _get_karma_properties_view_ref(self, field, view_type):
         view_ref = 'karma_properties.%s.%s' % (field, view_type)
@@ -82,7 +87,7 @@ class Karma(models.Model):
             ('type', '=', view_type),
             ('mode', '=', 'primary'),
             ('key', 'not like', 'karma')
-        ])
+        ], limit=1)
         for view_id in view_ids:
             inherit_id = self.env.ref(view_id.xml_id)
             arch_base = """<?xml version="1.0"?>
@@ -91,12 +96,11 @@ class Karma(models.Model):
                              </xpath>
                              """ % field
             if view_type == "search":
-                label = _("%s %s" % (self.label, field.split("_")[2]))
                 arch_base = """<xpath expr="//group" position="inside">
-                                <filter string="%s" name="%s" domain="[]"
+                                <filter name="%s" domain="[]"
                                 context="{'group_by':'%s'}"/>
                                 </xpath>
-                            """ % (label, field, field)
+                            """ % (field, field)
             view_name = '%s.%s' % (view_id.name, field)
             value = {
                     'name': view_name,
@@ -110,7 +114,14 @@ class Karma(models.Model):
                     }
             if self._check_if_view_exist(view_id.model, view_name):
                 return
-            self.env['ir.ui.view'].sudo().create(value)
+            view_id = self.env['ir.ui.view'].sudo().create(value)
+            self.env['ir.model.data'].sudo().create({
+                'module': 'karma_properties',
+                'name': '%s.%s' % (field, view_type),
+                'model': 'ir.ui.view',
+                'res_id': view_id.id,
+                'noupdate': True,
+            })
 
     def remove_view(self, field, view_type):
         view_id = self._get_karma_properties_view_ref(field, view_type)

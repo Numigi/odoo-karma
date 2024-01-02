@@ -9,6 +9,8 @@
     'website': 'https://bit.ly/numigi-com',
     'license': 'LGPL-3',
     'category': 'Karma',
+    'summary': """Search, group by, filter and add in the views
+    the Karma score and grade of any specified model""",
     'depends': ['karma_grade'],
     'data': [
         "views/karma.xml"

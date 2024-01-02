@@ -46,8 +46,16 @@ I notice also that I can filter and grouby the fields `{karma_name} Grade` and `
 .. image:: static/description/karma_properties_groupby.png
 
 
+I can remove the Grade or Score field or both from the list and search view by unchecking the option from the karma file.
+- Example:
+
+.. image:: static/description/show_grade_uncheck.png
+
+.. image:: static/description/partner_grade_removed.png
 
 
+Please note that if you uncheck an option (Show Grade or Show Score) on the karma form the field remains in the database, 
+it is just the view which displays the field which will be deleted.
 
 Contributors
 ------------

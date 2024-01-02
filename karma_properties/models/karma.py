@@ -156,8 +156,11 @@ class Karma(models.Model):
         result = super(Karma, self)._compute(computer, record)
         if self.show_properties:
             score_fname, grade_fname = self._get_karma_properties_field_name()
-            if score_fname in record._fields.items():
-                record._fields[score_fname] = result.score
-            if grade_fname in record._fields.items():
-                record._fields[grade_fname] = result.grade
+            model = self.model_id.model
+            score_field = self.env[model]._fields.get(score_fname)
+            grade_field = self.env[model]._fields.get(grade_fname)
+            if score_field and result.score:
+                record[score_fname] = result.score
+            if grade_field and result.grade:
+                record[grade_fname] = result.grade
         return result

@@ -96,11 +96,13 @@ class Karma(models.Model):
                              </xpath>
                              """ % field
             if view_type == "search":
-                arch_base = """<xpath expr="//group" position="inside">
+                arch_base = """<?xml version="1.0"?>
+                             <xpath expr="." position="inside">
+                                <field name="%s"/>
                                 <filter name="%s" domain="[]"
                                 context="{'group_by':'%s'}"/>
                                 </xpath>
-                            """ % (field, field)
+                            """ % (field, field, field)
             view_name = '%s.%s' % (view_id.name, field)
             value = {
                     'name': view_name,

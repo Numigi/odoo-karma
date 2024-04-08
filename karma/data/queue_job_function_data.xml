@@ -1,0 +1,14 @@
+<odoo noupdate="0">
+    <record model="queue.job.channel" id="channel_karma">
+        <field name="name">karma</field>
+        <field name="removal_interval">5</field>
+        <field name="parent_id" ref="queue_job.channel_root" />
+    </record>
+
+    <record id="job_function_compute_all_scores" model="queue.job.function">
+        <field name="model_id" ref="karma.model_karma" />
+        <field name="method">compute_all_scores</field>
+        <field name="channel_id" ref="channel_karma" />
+    </record>
+</odoo>
+

@@ -18,16 +18,18 @@ class InheritedKarmaComputer:
         """
         record = record.sudo()
 
-        score_line = self._env['karma.score'].create({
-            'karma_id': self._karma.id,
-            'res_id': record.id,
-            'res_model': record._name,
-        })
+        score_line = self._env["karma.score"].create(
+            {
+                "karma_id": self._karma.id,
+                "res_id": record.id,
+                "res_model": record._name,
+            }
+        )
 
         for line in self._karma.line_ids:
             self._create_score_detail_line(score_line, line, record)
 
-        score_line.score = sum(l.result for l in score_line.inherited_detail_ids)
+        score_line.score = sum(line.result for line in score_line.inherited_detail_ids)
 
         return score_line
 
@@ -39,34 +41,39 @@ class InheritedKarmaComputer:
         :param record: the record to process
         """
         vals = {
-            'score_id': parent_score.id,
-            'res_id': None,
-            'res_model': None,
-            'child_score_id': None,
-            'score': 0,
-            'weighting': karma_line.weighting,
-            'result': 0,
+            "score_id": parent_score.id,
+            "res_id": None,
+            "res_model": None,
+            "child_score_id": None,
+            "score": 0,
+            "weighting": karma_line.weighting,
+            "result": 0,
         }
 
         related_record = self._get_related_record(karma_line, record)
 
         if related_record:
-            vals['res_id'] = related_record.id
-            vals['res_model'] = related_record._name
+            vals["res_id"] = related_record.id
+            vals["res_model"] = related_record._name
 
-            child_score = self._find_most_recent_child_karma_score(karma_line, related_record)
+            child_score = self._find_most_recent_child_karma_score(
+                karma_line, related_record
+            )
 
             if child_score:
-                vals['child_score_id'] = child_score.id
-                vals['score'] = child_score.score
-                vals['result'] = self._compute_child_line_result(karma_line, child_score.score)
+                vals["child_score_id"] = child_score.id
+                vals["score"] = child_score.score
+                vals["result"] = self._compute_child_line_result(
+                    karma_line, child_score.score
+                )
 
-        self._env['karma.score.inherited.detail'].create(vals)
+        self._env["karma.score.inherited.detail"].create(vals)
 
     def _compute_child_line_result(self, karma_line, score):
         return (
             score * karma_line.weighting / self._total_weight
-            if self._total_weight else 0
+            if self._total_weight
+            else 0
         )
 
     def _get_related_record(self, karma_line, record):
@@ -89,8 +96,12 @@ class InheritedKarmaComputer:
         :param karma_line: the `karma.line` for which to find the matching score
         :param related_record: the record related to the child karma.
         """
-        return self._env['karma.score'].search([
-            ('karma_id', '=', karma_line.child_karma_id.id),
-            ('res_id', '=', related_record.id),
-            ('res_model', '=', related_record._name),
-        ], limit=1, order='id desc')
+        return self._env["karma.score"].search(
+            [
+                ("karma_id", "=", karma_line.child_karma_id.id),
+                ("res_id", "=", related_record.id),
+                ("res_model", "=", related_record._name),
+            ],
+            limit=1,
+            order="id desc",
+        )

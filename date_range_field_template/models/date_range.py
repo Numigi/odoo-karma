@@ -5,7 +5,8 @@ import pytz
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
-from odoo import api, fields, models
+from odoo import fields, models
+
 
 def get_day_start(datetime_: datetime) -> datetime:
     """Get the start of the day relative to a given date."""
@@ -85,8 +86,8 @@ class ComputedFieldDateRange(models.Model):
     2018-05-01 04:00:00 to 2018-06-01 03:59:59 and 999999 microseconds
     """
 
-    _name = 'computed.field.date.range'
-    _description = 'Date Range For Computed Fields'
+    _name = "computed.field.date.range"
+    _description = "Date Range For Computed Fields"
 
     name = fields.Char(required=True, translate=True)
     reference = fields.Char(required=True)
@@ -105,16 +106,19 @@ class ComputedFieldDateRange(models.Model):
     month_max = fields.Integer()
     year_max = fields.Integer()
 
-    week_start = fields.Boolean('Start on previous Sunday')
-    week_end = fields.Boolean('End on the following Saturday')
-    month_start = fields.Boolean('Start on first day of month')
-    month_end = fields.Boolean('End on last day of month')
-    year_start = fields.Boolean('Start on January 1rst')
-    year_end = fields.Boolean('End on December 31th')
+    week_start = fields.Boolean("Start on previous Sunday")
+    week_end = fields.Boolean("End on the following Saturday")
+    month_start = fields.Boolean("Start on first day of month")
+    month_end = fields.Boolean("End on last day of month")
+    year_start = fields.Boolean("Start on January 1rst")
+    year_end = fields.Boolean("End on December 31th")
 
     _sql_constraints = [
-        ('unique_reference', 'unique(reference)',
-         'The reference of a date range must be unique.'),
+        (
+            "unique_reference",
+            "unique(reference)",
+            "The reference of a date range must be unique.",
+        ),
     ]
 
     def get_date_min(self) -> datetime:
@@ -182,7 +186,5 @@ class ComputedFieldDateRange(models.Model):
 
         :rtype: datetime.datetime
         """
-        tz = pytz.timezone(self.env.context.get('tz') or 'UTC')
+        tz = pytz.timezone(self.env.context.get("tz") or "UTC")
         return datetime.now(tz)
-
-

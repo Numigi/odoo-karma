@@ -1,8 +1,6 @@
 # © 2023 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-import pytest
-
 from odoo.tests.common import SavepointCase
 from ..computation import InheritedKarmaComputer, ConditionKarmaComputer
 
@@ -13,82 +11,128 @@ class TestInheritedKarmaComputation(SavepointCase):
     def setUpClass(cls):
         super().setUpClass()
 
-        cls.partner_karma = cls.env['karma'].create({
-            'name': 'Partner Information',
-            'type_': 'condition',
-            'model_id': cls.env.ref('base.model_res_partner').id,
-            'condition_line_ids': [(0, 0, {
-                'field_id': cls.env['ir.model.fields'].search([
-                    ('model', '=', 'res.partner'),
-                    ('name', '=', 'email'),
-                ]).id,
-                'condition_label': 'Email contains @',
-                'condition': "'@' in value",
-                'result_if_true': "1",
-                'result_if_false': "0",
-                'weighting': 10,
-            })]
-        })
+        cls.partner_karma = cls.env["karma"].create(
+            {
+                "name": "Partner Information",
+                "type_": "condition",
+                "model_id": cls.env.ref("base.model_res_partner").id,
+                "condition_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "field_id": cls.env["ir.model.fields"]
+                            .search(
+                                [
+                                    ("model", "=", "res.partner"),
+                                    ("name", "=", "email"),
+                                ]
+                            )
+                            .id,
+                            "condition_label": "Email contains @",
+                            "condition": "'@' in value",
+                            "result_if_true": "1",
+                            "result_if_false": "0",
+                            "weighting": 10,
+                        },
+                    )
+                ],
+            }
+        )
 
-        cls.sale_order_karma = cls.env['karma'].create({
-            'name': 'Sale Order Conditions',
-            'type_': 'condition',
-            'model_id': cls.env.ref('sale.model_sale_order').id,
-            'condition_line_ids': [(0, 0, {
-                'field_id': cls.env['ir.model.fields'].search([
-                    ('model', '=', 'sale.order'),
-                    ('name', '=', 'amount_total'),
-                ]).id,
-                'condition_label': 'Total amount greater than 1000',
-                'condition': "value > 1000",
-                'result_if_true': "1",
-                'result_if_false': "0",
-                'weighting': 20,
-            })]
-        })
+        cls.sale_order_karma = cls.env["karma"].create(
+            {
+                "name": "Sale Order Conditions",
+                "type_": "condition",
+                "model_id": cls.env.ref("sale.model_sale_order").id,
+                "condition_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "field_id": cls.env["ir.model.fields"]
+                            .search(
+                                [
+                                    ("model", "=", "sale.order"),
+                                    ("name", "=", "amount_total"),
+                                ]
+                            )
+                            .id,
+                            "condition_label": "Total amount greater than 1000",
+                            "condition": "value > 1000",
+                            "result_if_true": "1",
+                            "result_if_false": "0",
+                            "weighting": 20,
+                        },
+                    )
+                ],
+            }
+        )
 
-        cls.karma = cls.env['karma'].create({
-            'name': 'Global Sale Order Karma',
-            'type_': 'inherited',
-            'model_id': cls.env.ref('sale.model_sale_order').id,
-        })
+        cls.karma = cls.env["karma"].create(
+            {
+                "name": "Global Sale Order Karma",
+                "type_": "inherited",
+                "model_id": cls.env.ref("sale.model_sale_order").id,
+            }
+        )
 
-        cls.line_1 = cls.env['karma.line'].create({
-            'karma_id': cls.karma.id,
-            'child_karma_id': cls.partner_karma.id,
-            'field_id': cls.env['ir.model.fields'].search([
-                ('model', '=', 'sale.order'),
-                ('name', '=', 'partner_id'),
-            ]).id,
-            'weighting': 60,
-        })
+        cls.line_1 = cls.env["karma.line"].create(
+            {
+                "karma_id": cls.karma.id,
+                "child_karma_id": cls.partner_karma.id,
+                "field_id": cls.env["ir.model.fields"]
+                .search(
+                    [
+                        ("model", "=", "sale.order"),
+                        ("name", "=", "partner_id"),
+                    ]
+                )
+                .id,
+                "weighting": 60,
+            }
+        )
 
-        cls.line_2 = cls.env['karma.line'].create({
-            'karma_id': cls.karma.id,
-            'child_karma_id': cls.sale_order_karma.id,
-            'weighting': 40,
-        })
+        cls.line_2 = cls.env["karma.line"].create(
+            {
+                "karma_id": cls.karma.id,
+                "child_karma_id": cls.sale_order_karma.id,
+                "weighting": 40,
+            }
+        )
 
-        cls.customer = cls.env['res.partner'].create({
-            'name': 'Customer',
-            'email': 'karma_test@test.com',
-        })
+        cls.customer = cls.env["res.partner"].create(
+            {
+                "name": "Customer",
+                "email": "karma_test@test.com",
+            }
+        )
 
-        cls.product = cls.env['product.product'].create({
-            'type': 'service',
-            'name': 'Service',
-        })
+        cls.product = cls.env["product.product"].create(
+            {
+                "type": "service",
+                "name": "Service",
+            }
+        )
 
-        cls.order = cls.env['sale.order'].create({
-            'partner_id': cls.customer.id,
-            'order_line': [(0, 0, {
-                'name': '/',
-                'product_id': cls.product.id,
-                'price_unit': 2000,
-                'product_uom_qty': 1,
-                'product_uom': cls.env.ref('uom.product_uom_unit').id,
-            })]
-        })
+        cls.order = cls.env["sale.order"].create(
+            {
+                "partner_id": cls.customer.id,
+                "order_line": [
+                    (
+                        0,
+                        0,
+                        {
+                            "name": "/",
+                            "product_id": cls.product.id,
+                            "price_unit": 2000,
+                            "product_uom_qty": 1,
+                            "product_uom": cls.env.ref("uom.product_uom_unit").id,
+                        },
+                    )
+                ],
+            }
+        )
 
     def setUp(self):
         super().setUp()
@@ -145,41 +189,67 @@ class TestInheritedKarmaComputationWithNullableRelation(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.user_karma = cls.env['karma'].create({
-            'name': 'User Information',
-            'type_': 'condition',
-            'model_id': cls.env.ref('base.model_res_users').id,
-            'condition_line_ids': [(0, 0, {
-                'field_id': cls.env['ir.model.fields'].search([
-                    ('model', '=', 'res.users'),
-                    ('name', '=', 'email'),
-                ]).id,
-                'condition_label': 'Email contains @',
-                'condition': "'@' in value",
-                'result_if_true': "1",
-                'result_if_false': "0",
-                'weighting': 10,
-            })]
-        })
+        cls.user_karma = cls.env["karma"].create(
+            {
+                "name": "User Information",
+                "type_": "condition",
+                "model_id": cls.env.ref("base.model_res_users").id,
+                "condition_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "field_id": cls.env["ir.model.fields"]
+                            .search(
+                                [
+                                    ("model", "=", "res.users"),
+                                    ("name", "=", "email"),
+                                ]
+                            )
+                            .id,
+                            "condition_label": "Email contains @",
+                            "condition": "'@' in value",
+                            "result_if_true": "1",
+                            "result_if_false": "0",
+                            "weighting": 10,
+                        },
+                    )
+                ],
+            }
+        )
 
-        cls.partner_karma = cls.env['karma'].create({
-            'name': 'Partner Inherited Karma',
-            'type_': 'inherited',
-            'model_id': cls.env.ref('base.model_res_partner').id,
-            'line_ids': [(0, 0, {
-                'child_karma_id': cls.user_karma.id,
-                'field_id': cls.env['ir.model.fields'].search([
-                    ('model', '=', 'res.partner'),
-                    ('name', '=', 'user_id'),
-                ]).id,
-                'weighting': 20,
-            })]
-        })
+        cls.partner_karma = cls.env["karma"].create(
+            {
+                "name": "Partner Inherited Karma",
+                "type_": "inherited",
+                "model_id": cls.env.ref("base.model_res_partner").id,
+                "line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "child_karma_id": cls.user_karma.id,
+                            "field_id": cls.env["ir.model.fields"]
+                            .search(
+                                [
+                                    ("model", "=", "res.partner"),
+                                    ("name", "=", "user_id"),
+                                ]
+                            )
+                            .id,
+                            "weighting": 20,
+                        },
+                    )
+                ],
+            }
+        )
 
-        cls.partner = cls.env['res.partner'].create({
-            'name': 'Customer',
-            'email': 'karma_test@test.com',
-        })
+        cls.partner = cls.env["res.partner"].create(
+            {
+                "name": "Customer",
+                "email": "karma_test@test.com",
+            }
+        )
 
     def setUp(self):
         super().setUp()

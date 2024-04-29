@@ -10,17 +10,19 @@ from odoo import fields, models
 class KarmaWithComputationScheduling(models.Model):
     """Add cron jobs to karmas."""
 
-    _inherit = 'karma'
+    _inherit = "karma"
 
-    cron_schedule = fields.Selection([
-        ('daily', 'Daily'),
-        ('weekly', 'Weekly'),
-        ('monthly', 'Monthly'),
-        ('yearly', 'Yearly'),
-    ])
+    cron_schedule = fields.Selection(
+        [
+            ("daily", "Daily"),
+            ("weekly", "Weekly"),
+            ("monthly", "Monthly"),
+            ("yearly", "Yearly"),
+        ]
+    )
 
-    last_cron_date = fields.Date('Previous Cron Date', readonly=True)
-    force_next_cron_date = fields.Date('Force Next Cron Date')
+    last_cron_date = fields.Date("Previous Cron Date", readonly=True)
+    force_next_cron_date = fields.Date("Force Next Cron Date")
 
     def schedule_computation(self):
         """Plan a queued job for each outdated karma.
@@ -42,26 +44,29 @@ class KarmaWithComputationScheduling(models.Model):
 
         :rtype: datetime.timedelta
         """
-        minutes = int(self.env['ir.config_parameter'].get_param('karma.inherited_karma_delay', 10))
+        minutes = int(
+            self.env["ir.config_parameter"].get_param("karma.inherited_karma_delay", 10)
+        )
         return timedelta(minutes=minutes)
 
     def _get_children_karma_depth(self, visited_karmas=None):
         """Get the hierarchy depth of the karma.
 
-        :param visited_karmas: karmas already visited when calling the method recursively.
+        :param visited_karmas: karmas already visited when calling
+        the method recursively.
         :return: the children depth
         """
         if visited_karmas is None:
-            visited_karmas = self.env['karma']
+            visited_karmas = self.env["karma"]
 
         # prevent infinite recursion of inherited karmas
         if self in visited_karmas:
             return 0
 
-        if self.type_ == 'inherited':
+        if self.type_ == "inherited":
             children_depths = [
-                l.child_karma_id._get_children_karma_depth(visited_karmas | self)
-                for l in self.line_ids
+                line.child_karma_id._get_children_karma_depth(visited_karmas | self)
+                for line in self.line_ids
             ]
             max_child_depth = max(children_depths) if children_depths else 0
             return max_child_depth + 1
@@ -100,7 +105,7 @@ class NextDateScheduler:
 
 
 next_date_scheduler = NextDateScheduler()
-next_date_scheduler.register_schedule('daily', timedelta(1))
-next_date_scheduler.register_schedule('weekly', timedelta(7))
-next_date_scheduler.register_schedule('monthly', relativedelta(months=1))
-next_date_scheduler.register_schedule('yearly', relativedelta(years=1))
+next_date_scheduler.register_schedule("daily", timedelta(1))
+next_date_scheduler.register_schedule("weekly", timedelta(7))
+next_date_scheduler.register_schedule("monthly", relativedelta(months=1))
+next_date_scheduler.register_schedule("yearly", relativedelta(years=1))

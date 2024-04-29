@@ -2,7 +2,6 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from datetime import datetime
-from odoo import fields
 from odoo.tests.common import SavepointCase
 
 
@@ -27,62 +26,82 @@ class BasicKarmaHierarchyCase(SavepointCase):
     def setUpClass(cls):
         super().setUpClass()
 
-        cls.karma_1 = cls.env['karma'].create({
-            'name': 'Karma 1',
-            'type_': 'inherited',
-            'model_id': cls.env.ref('base.model_res_partner').id,
-            'cron_schedule': 'daily',
-        })
+        cls.karma_1 = cls.env["karma"].create(
+            {
+                "name": "Karma 1",
+                "type_": "inherited",
+                "model_id": cls.env.ref("base.model_res_partner").id,
+                "cron_schedule": "daily",
+            }
+        )
 
-        cls.karma_2 = cls.env['karma'].create({
-            'name': 'Karma 2',
-            'type_': 'inherited',
-            'model_id': cls.env.ref('base.model_res_partner').id,
-            'cron_schedule': 'daily',
-        })
+        cls.karma_2 = cls.env["karma"].create(
+            {
+                "name": "Karma 2",
+                "type_": "inherited",
+                "model_id": cls.env.ref("base.model_res_partner").id,
+                "cron_schedule": "daily",
+            }
+        )
 
-        cls.karma_3 = cls.env['karma'].create({
-            'name': 'Karma 3',
-            'type_': 'condition',
-            'model_id': cls.env.ref('base.model_res_partner').id,
-            'cron_schedule': 'daily',
-        })
+        cls.karma_3 = cls.env["karma"].create(
+            {
+                "name": "Karma 3",
+                "type_": "condition",
+                "model_id": cls.env.ref("base.model_res_partner").id,
+                "cron_schedule": "daily",
+            }
+        )
 
-        cls.karma_4 = cls.env['karma'].create({
-            'name': 'Karma 4',
-            'type_': 'condition',
-            'model_id': cls.env.ref('base.model_res_partner').id,
-            'cron_schedule': 'daily',
-        })
+        cls.karma_4 = cls.env["karma"].create(
+            {
+                "name": "Karma 4",
+                "type_": "condition",
+                "model_id": cls.env.ref("base.model_res_partner").id,
+                "cron_schedule": "daily",
+            }
+        )
 
-        cls.karma_5 = cls.env['karma'].create({
-            'name': 'Karma 5',
-            'type_': 'condition',
-            'model_id': cls.env.ref('base.model_res_partner').id,
-            'cron_schedule': 'daily',
-        })
+        cls.karma_5 = cls.env["karma"].create(
+            {
+                "name": "Karma 5",
+                "type_": "condition",
+                "model_id": cls.env.ref("base.model_res_partner").id,
+                "cron_schedule": "daily",
+            }
+        )
 
-        cls.karma_6 = cls.env['karma'].create({
-            'name': 'Karma 6',
-            'type_': 'condition',
-            'model_id': cls.env.ref('base.model_res_partner').id,
-            'cron_schedule': 'daily',
-        })
+        cls.karma_6 = cls.env["karma"].create(
+            {
+                "name": "Karma 6",
+                "type_": "condition",
+                "model_id": cls.env.ref("base.model_res_partner").id,
+                "cron_schedule": "daily",
+            }
+        )
 
-        for (parent, child) in [
+        for parent, child in [
             (cls.karma_1, cls.karma_2),
             (cls.karma_1, cls.karma_3),
             (cls.karma_2, cls.karma_4),
             (cls.karma_2, cls.karma_5),
             (cls.karma_2, cls.karma_6),
         ]:
-            cls.env['karma.line'].create({'karma_id': parent.id, 'child_karma_id': child.id})
+            cls.env["karma.line"].create(
+                {"karma_id": parent.id, "child_karma_id": child.id}
+            )
 
     def _find_job(self, karma):
-        job = self.env['queue.job'].search([
-            ('model_name', '=', 'karma'),
-            ('method_name', '=', 'compute_all_scores'),
-        ]).filtered(lambda j: j.record_ids == [karma.id])
+        job = (
+            self.env["queue.job"]
+            .search(
+                [
+                    ("model_name", "=", "karma"),
+                    ("method_name", "=", "compute_all_scores"),
+                ]
+            )
+            .filtered(lambda j: j.record_ids == [karma.id])
+        )
         assert job.ensure_one()
         return job
 
@@ -90,7 +109,7 @@ class BasicKarmaHierarchyCase(SavepointCase):
 class TestKarmaComputationScheduling(BasicKarmaHierarchyCase):
 
     def test_schedule_computation(self):
-        self.env['karma'].schedule_computation()
+        self.env["karma"].schedule_computation()
 
         job_1 = self._find_job(self.karma_1)
         job_2 = self._find_job(self.karma_2)
@@ -152,37 +171,50 @@ class TestKarmaSchedulingWithLoopInHierarchy(BasicKarmaHierarchyCase):
     def setUpClass(cls):
         super().setUpClass()
 
-        cls.karma_4.type_ = 'inherited'
+        cls.karma_4.type_ = "inherited"
 
-        cls.karma_7 = cls.env['karma'].create({
-            'name': 'Karma 7',
-            'type_': 'inherited',
-            'model_id': cls.env.ref('base.model_res_partner').id,
-            'cron_schedule': 'daily',
-        })
+        cls.karma_7 = cls.env["karma"].create(
+            {
+                "name": "Karma 7",
+                "type_": "inherited",
+                "model_id": cls.env.ref("base.model_res_partner").id,
+                "cron_schedule": "daily",
+            }
+        )
 
-        cls.karma_8 = cls.env['karma'].create({
-            'name': 'Karma 8',
-            'type_': 'condition',
-            'model_id': cls.env.ref('base.model_res_partner').id,
-            'cron_schedule': 'daily',
-        })
+        cls.karma_8 = cls.env["karma"].create(
+            {
+                "name": "Karma 8",
+                "type_": "condition",
+                "model_id": cls.env.ref("base.model_res_partner").id,
+                "cron_schedule": "daily",
+            }
+        )
 
-        cls.env['karma.line'].create({
-            'karma_id': cls.karma_4.id, 'child_karma_id': cls.karma_7.id,
-        })
+        cls.env["karma.line"].create(
+            {
+                "karma_id": cls.karma_4.id,
+                "child_karma_id": cls.karma_7.id,
+            }
+        )
 
-        cls.env['karma.line'].create({
-            'karma_id': cls.karma_7.id, 'child_karma_id': cls.karma_2.id,
-        })
+        cls.env["karma.line"].create(
+            {
+                "karma_id": cls.karma_7.id,
+                "child_karma_id": cls.karma_2.id,
+            }
+        )
 
-        cls.env['karma.line'].create({
-            'karma_id': cls.karma_7.id, 'child_karma_id': cls.karma_8.id,
-        })
+        cls.env["karma.line"].create(
+            {
+                "karma_id": cls.karma_7.id,
+                "child_karma_id": cls.karma_8.id,
+            }
+        )
 
     def test_schedule_computation_with_infinite_recursion(self):
 
-        self.env['karma'].schedule_computation()
+        self.env["karma"].schedule_computation()
 
         job_1 = self._find_job(self.karma_1)
         job_2 = self._find_job(self.karma_2)

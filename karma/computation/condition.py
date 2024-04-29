@@ -4,7 +4,6 @@
 import sys
 
 from odoo import models, _
-from odoo.tools import pycompat
 from ..safe_eval import restricted_safe_eval
 
 
@@ -13,10 +12,10 @@ class KarmaConditionEvaluationError(Exception):
 
 
 FIELD_NULL_VALUES = {
-    'boolean': False,
-    'char': '',
-    'html': '',
-    'text': '',
+    "boolean": False,
+    "char": "",
+    "html": "",
+    "text": "",
 }
 
 
@@ -35,23 +34,26 @@ class ConditionKarmaComputer:
         :return: a `karma.score.condition` record
         """
         record = record.sudo()
-        score_line = self._env['karma.score'].create({
-            'karma_id': self._karma.id,
-            'res_id': record.id,
-            'res_model': record._name,
-        })
+        score_line = self._env["karma.score"].create(
+            {
+                "karma_id": self._karma.id,
+                "res_id": record.id,
+                "res_model": record._name,
+            }
+        )
 
         for line in self._karma.condition_line_ids:
             self._create_score_detail_line(score_line, line, record)
 
-        score_line.score = sum(l.result for l in score_line.condition_detail_ids)
+        score_line.score = sum(line.result for line in score_line.condition_detail_ids)
 
         return score_line
 
     def _create_score_detail_line(self, parent_score, karma_line, record):
         """Create a detail line for the given score line.
 
-        :param parent_score: the `karma.score` record for which to create the detail lines.
+        :param parent_score: the `karma.score` recordfor which to create
+        the detail lines.
         :param karma_line: the `karma.condition.line` to process
         :param record: the record to process
         """
@@ -63,18 +65,21 @@ class ConditionKarmaComputer:
 
         result_expression = (
             karma_line.result_if_true
-            if condition_reached else karma_line.result_if_false
+            if condition_reached
+            else karma_line.result_if_false
         )
         score = self._eval_expression(result_expression, value)
 
-        self._env['karma.score.condition.detail'].create({
-            'score_id': parent_score.id,
-            'field_value': self._format_field_value(karma_line, value),
-            'condition_id': condition.id,
-            'condition_reached': condition_reached,
-            'score': score,
-            'result': score * karma_line.weighting,
-        })
+        self._env["karma.score.condition.detail"].create(
+            {
+                "score_id": parent_score.id,
+                "field_value": self._format_field_value(karma_line, value),
+                "condition_id": condition.id,
+                "condition_reached": condition_reached,
+                "score": score,
+                "result": score * karma_line.weighting,
+            }
+        )
 
     @staticmethod
     def _get_field_value(karma_line, record):
@@ -113,11 +118,11 @@ class ConditionKarmaComputer:
 
         :param value: the value to format
         """
-        if karma_line.field_id.ttype == 'binary':
-            return _('Filled') if value else _('Empty')
+        if karma_line.field_id.ttype == "binary":
+            return _("Filled") if value else _("Empty")
 
         if isinstance(value, models.Model):
-            return ', '.join(value.mapped('display_name'))
+            return ", ".join(value.mapped("display_name"))
         else:
             return value
 
@@ -133,14 +138,14 @@ class ConditionKarmaComputer:
         :param value: the value to assign to the `value` attribute of the expression.
         """
         try:
-            return restricted_safe_eval(expression, {'value': value})
+            return restricted_safe_eval(expression, {"value": value})
         except ValueError as err:
             error_message = _(
-                'The following expression could not be evaluated with the value {value}. '
-                '\n\n{expression}'
-                '\n\n{err}'
+                "The following expression could not be evaluated "
+                "with the value {value}. "
+                "\n\n{expression}"
+                "\n\n{err}"
             ).format(value=value, expression=expression, err=err)
-            tp = KarmaConditionEvaluationError
             value = KarmaConditionEvaluationError(error_message)
             tb = sys.exc_info()[2]
             if value.__traceback__ != tb:
@@ -164,7 +169,7 @@ class ScoreConditionCache:
     def __init__(self, env):
         self._env = env
         self._conditions = {}
-        self._langs = self._env['res.lang'].search([])
+        self._langs = self._env["res.lang"].search([])
 
     def get(self, karma_line):
         """Get a `karma.score.condition` record matching a `karma.condition.line`.
@@ -193,39 +198,51 @@ class ScoreConditionCache:
         return condition
 
     def _find_matching_score_condition(self, karma_line):
-        condition = self._env['karma.score.condition'].search([
-            ('karma_id', '=', karma_line.karma_id.id),
-            ('field_id', '=', karma_line.field_id.id),
-            ('condition', '=', karma_line.condition),
-            ('result_if_true', '=', karma_line.result_if_true),
-            ('result_if_false', '=', karma_line.result_if_false),
-            ('weighting', '=', karma_line.weighting),
-        ], order='id desc', limit=1)
+        condition = self._env["karma.score.condition"].search(
+            [
+                ("karma_id", "=", karma_line.karma_id.id),
+                ("field_id", "=", karma_line.field_id.id),
+                ("condition", "=", karma_line.condition),
+                ("result_if_true", "=", karma_line.result_if_true),
+                ("result_if_false", "=", karma_line.result_if_false),
+                ("weighting", "=", karma_line.weighting),
+            ],
+            order="id desc",
+            limit=1,
+        )
 
         def karma_line_matches_condition_label(lang):
             return (
-                condition.with_context(lang=lang.code).condition_label ==
-                karma_line.with_context(lang=lang.code).condition_label
+                condition.with_context(lang=lang.code).condition_label
+                == karma_line.with_context(lang=lang.code).condition_label
             )
 
-        matches_labels = all(karma_line_matches_condition_label(lang) for lang in self._langs)
+        matches_labels = all(
+            karma_line_matches_condition_label(lang) for lang in self._langs
+        )
         return condition if matches_labels else None
 
     def _create_score_condition(self, karma_line):
-        condition = self._env['karma.score.condition'].create({
-            'karma_id': karma_line.karma_id.id,
-            'condition_label': karma_line.condition_label,
-            'field_id': karma_line.field_id.id,
-            'condition': karma_line.condition,
-            'result_if_true': karma_line.result_if_true,
-            'result_if_false': karma_line.result_if_false,
-            'weighting': karma_line.weighting,
-        })
+        condition = self._env["karma.score.condition"].create(
+            {
+                "karma_id": karma_line.karma_id.id,
+                "condition_label": karma_line.condition_label,
+                "field_id": karma_line.field_id.id,
+                "condition": karma_line.condition,
+                "result_if_true": karma_line.result_if_true,
+                "result_if_false": karma_line.result_if_false,
+                "weighting": karma_line.weighting,
+            }
+        )
 
         # Translate the condition in every languages.
         for lang in self._langs:
-            condition.with_context(lang=lang.code).write({
-                'condition_label': karma_line.with_context(lang=lang.code).condition_label,
-            })
+            condition.with_context(lang=lang.code).write(
+                {
+                    "condition_label": karma_line.with_context(
+                        lang=lang.code
+                    ).condition_label,
+                }
+            )
 
         return condition

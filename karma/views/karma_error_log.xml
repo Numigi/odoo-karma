@@ -17,7 +17,6 @@
             </form>
         </field>
     </record>
-    <b>
 
     <record id="view_karma_error_log_list" model="ir.ui.view">
         <field name="name">Karma Error Log List View</field>

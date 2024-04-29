@@ -8,7 +8,7 @@ class InheritedKarmaComputer:
     def __init__(self, karma):
         self._karma = karma.sudo()
         self._env = self._karma.env
-        self._total_weight = sum(l.weighting for l in karma.line_ids)
+        self._total_weight = sum(line.weighting for line in karma.line_ids)
 
     def compute(self, record):
         """Compute the karma score for the given record.
@@ -36,7 +36,8 @@ class InheritedKarmaComputer:
     def _create_score_detail_line(self, parent_score, karma_line, record):
         """Create a detail line for the given score line.
 
-        :param parent_score: the `karma.score` record for which to create the detail lines.
+        :param parent_score: the `karma.score` record for which to create
+        the detail lines.
         :param karma_line: the `karma.line` to process
         :param record: the record to process
         """
@@ -79,8 +80,8 @@ class InheritedKarmaComputer:
     def _get_related_record(self, karma_line, record):
         """Get a record related to the processed record.
 
-        If the given `karma.line` record has a field, then that field is used as a relation
-        to find the related record.
+        If the given `karma.line` record has a field, then that field is used
+        as a relation to find the related record.
 
         If the given `karma.line` record does not have a field, this means that the
         children karma uses the same record as the parent karma.

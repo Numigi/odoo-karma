@@ -613,7 +613,8 @@ msgstr "Cible"
 #: code:addons/karma/computation/condition.py:138
 #, python-format
 msgid ""
-"The following expression could not be evaluated with the value {value}. \n"
+"The following expression could not be evaluated "
+"with the value {value}. \n"
 "\n"
 "{expression}\n"
 "\n"

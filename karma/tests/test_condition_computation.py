@@ -1,8 +1,6 @@
 # © 2023 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-import pytest
-
 from odoo.tests.common import SavepointCase
 from ..computation import ConditionKarmaComputer
 
@@ -13,69 +11,91 @@ class ComputedKarmaCase(SavepointCase):
     def setUpClass(cls):
         super().setUpClass()
 
-        cls.karma_manager = cls.env['res.users'].create({
-            'name': 'Karma Manager',
-            'login': 'karma_manager',
-            'email': 'karma_manager@example.com',
-            'groups_id': [
-                (4, cls.env.ref('karma.group_karma_manager').id),
-                (4, cls.env.ref('sales_team.group_sale_manager').id),
-            ],
-        })
+        cls.karma_manager = cls.env["res.users"].create(
+            {
+                "name": "Karma Manager",
+                "login": "karma_manager",
+                "email": "karma_manager@example.com",
+                "groups_id": [
+                    (4, cls.env.ref("karma.group_karma_manager").id),
+                    (4, cls.env.ref("sales_team.group_sale_manager").id),
+                ],
+            }
+        )
 
-        cls.karma = cls.env['karma'].create({
-            'name': 'Partner Information',
-            'type_': 'condition',
-            'model_id': cls.env.ref('base.model_res_partner').id,
-            'description': 'Scores the completeness of the information on the partner.',
-        })
+        description = "Scores the completeness of the information on the partner."
+        cls.karma = cls.env["karma"].create(
+            {
+                "name": "Partner Information",
+                "type_": "condition",
+                "model_id": cls.env.ref("base.model_res_partner").id,
+                "description": description,
+            }
+        )
 
-        cls.field_email = cls.env['ir.model.fields'].search([
-            ('model', '=', 'res.partner'),
-            ('name', '=', 'email'),
-        ])
+        cls.field_email = cls.env["ir.model.fields"].search(
+            [
+                ("model", "=", "res.partner"),
+                ("name", "=", "email"),
+            ]
+        )
 
-        cls.field_tags = cls.env['ir.model.fields'].search([
-            ('model', '=', 'res.partner'),
-            ('name', '=', 'category_id'),
-        ])
+        cls.field_tags = cls.env["ir.model.fields"].search(
+            [
+                ("model", "=", "res.partner"),
+                ("name", "=", "category_id"),
+            ]
+        )
 
-        cls.line_1 = cls.env['karma.condition.line'].create({
-            'karma_id': cls.karma.id,
-            'field_id': cls.field_email.id,
-            'condition_label': 'Email contains @',
-            'condition': "'@' in value",
-            'result_if_true': "1",
-            'result_if_false': "0",
-            'weighting': 10,
-        })
+        cls.line_1 = cls.env["karma.condition.line"].create(
+            {
+                "karma_id": cls.karma.id,
+                "field_id": cls.field_email.id,
+                "condition_label": "Email contains @",
+                "condition": "'@' in value",
+                "result_if_true": "1",
+                "result_if_false": "0",
+                "weighting": 10,
+            }
+        )
 
-        cls.line_2 = cls.env['karma.condition.line'].create({
-            'karma_id': cls.karma.id,
-            'field_id': cls.field_tags.id,
-            'condition_label': 'At least 2 partner tags',
-            'condition': "len(value) > 1",
-            'result_if_true': "len(value) / 2",
-            'result_if_false': "0",
-            'weighting': 5,
-        })
+        cls.line_2 = cls.env["karma.condition.line"].create(
+            {
+                "karma_id": cls.karma.id,
+                "field_id": cls.field_tags.id,
+                "condition_label": "At least 2 partner tags",
+                "condition": "len(value) > 1",
+                "result_if_true": "len(value) / 2",
+                "result_if_false": "0",
+                "weighting": 5,
+            }
+        )
 
-        cls.category_0 = cls.env.ref('base.res_partner_category_0')
-        cls.category_1 = cls.env.ref('base.res_partner_category_2')
-        cls.category_2 = cls.env.ref('base.res_partner_category_3')
+        cls.category_0 = cls.env.ref("base.res_partner_category_0")
+        cls.category_1 = cls.env.ref("base.res_partner_category_2")
+        cls.category_2 = cls.env.ref("base.res_partner_category_3")
 
-        cls.partner = cls.env['res.partner'].create({
-            'name': 'John Doe',
-        })
+        cls.partner = cls.env["res.partner"].create(
+            {
+                "name": "John Doe",
+            }
+        )
 
-        cls.partner_2 = cls.env['res.partner'].create({
-            'name': 'Jane Doe',
-        })
+        cls.partner_2 = cls.env["res.partner"].create(
+            {
+                "name": "Jane Doe",
+            }
+        )
 
     def _find_last_score(self, partner):
-        return self.env['karma.score'].search([
-            ('res_id', '=', partner.id), ('karma_id', '=', self.karma.id),
-        ], limit=1, order='id desc')
+        return self.env["karma.score"].search(
+            [
+                ("res_id", "=", partner.id),
+                ("karma_id", "=", self.karma.id),
+            ],
+            limit=1,
+            order="id desc",
+        )
 
 
 class TestComputedKarmaComputation(ComputedKarmaCase):
@@ -85,7 +105,7 @@ class TestComputedKarmaComputation(ComputedKarmaCase):
         self.computer = ConditionKarmaComputer(self.karma)
 
     def test_compute_score_with_email(self):
-        self.partner.email = 'test_karma@test.com'
+        self.partner.email = "test_karma@test.com"
         score_line = self.computer.compute(self.partner)
         assert score_line.score == 10
 
@@ -107,7 +127,7 @@ class TestComputedKarmaComputation(ComputedKarmaCase):
 
     def test_compute_score_for_multiple_records(self):
         """Test that the same condition computer can be reused for multiple records."""
-        self.partner.email = 'test_karma@test.com'
+        self.partner.email = "test_karma@test.com"
         score_line = self.computer.compute(self.partner)
         assert score_line.score == 10
 
@@ -129,23 +149,24 @@ class TestComputedKarmaComputation(ComputedKarmaCase):
         score_line = self.computer.compute(self.partner)
         score_line_2 = self.computer.compute(self.partner)
 
-        score_1_conditions = score_line.mapped('condition_detail_ids.condition_id')
-        score_2_conditions = score_line_2.mapped('condition_detail_ids.condition_id')
+        score_1_conditions = score_line.mapped("condition_detail_ids.condition_id")
+        score_2_conditions = score_line_2.mapped("condition_detail_ids.condition_id")
         assert len(score_1_conditions) == 2
         assert score_1_conditions == score_2_conditions
 
     def test_condition_data_records_are_reused_if_not_changed(self):
-        """Test that the condition metadata is reused if the condition did not change."""
+        """Test that the condition metadata is reused if the condition
+        did not change."""
         score_line = ConditionKarmaComputer(self.karma).compute(self.partner)
         score_line_2 = ConditionKarmaComputer(self.karma).compute(self.partner)
 
-        score_1_conditions = score_line.mapped('condition_detail_ids.condition_id')
-        score_2_conditions = score_line_2.mapped('condition_detail_ids.condition_id')
+        score_1_conditions = score_line.mapped("condition_detail_ids.condition_id")
+        score_2_conditions = score_line_2.mapped("condition_detail_ids.condition_id")
         assert len(score_1_conditions) == 2
         assert score_1_conditions == score_2_conditions
 
     def test_condition_data_records_are_not_reused_if_condition_changed(self):
-        """Test that the condition metadata is not reused if the condition changed changed."""
+        """Test that the condition metadata is not reused if the condition changed."""
         score_line = ConditionKarmaComputer(self.karma).compute(self.partner)
 
         self.line_2.condition_label = "At least 3 partner tags"
@@ -153,8 +174,8 @@ class TestComputedKarmaComputation(ComputedKarmaCase):
 
         score_line_2 = ConditionKarmaComputer(self.karma).compute(self.partner)
 
-        score_1_conditions = score_line.mapped('condition_detail_ids.condition_id')
-        score_2_conditions = score_line_2.mapped('condition_detail_ids.condition_id')
+        score_1_conditions = score_line.mapped("condition_detail_ids.condition_id")
+        score_2_conditions = score_line_2.mapped("condition_detail_ids.condition_id")
 
         assert len(score_1_conditions) == 2
         assert len(score_2_conditions) == 2
@@ -166,10 +187,12 @@ class TestComputeAllScores(ComputedKarmaCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.partner.email = 'test_karma@test.com'
+        cls.partner.email = "test_karma@test.com"
         cls.partner_2.category_id = cls.category_0 | cls.category_1 | cls.category_2
 
-        cls.karma.domain = "[('id', 'in', {ids})]".format(ids=[cls.partner.id, cls.partner_2.id])
+        cls.karma.domain = "[('id', 'in', {ids})]".format(
+            ids=[cls.partner.id, cls.partner_2.id]
+        )
 
         cls.expected_partner_1_score = 10
         cls.expected_partner_2_score = 7.5  # 3 * 5 / 2
@@ -206,24 +229,24 @@ class TestComputeAllScores(ComputedKarmaCase):
         assert score.score == self.expected_partner_1_score
 
         score_2 = self._find_last_score(self.partner_2)
-        assert  score_2
+        assert score_2
 
     def test_ifRecordFails_thenKarmaErrorIsLogged(self):
         self.line_1.result_if_true = "1 / None"  # Only executed with self.partner
 
         self._compute()
 
-        session = self.env['karma.session'].search([('karma_id', '=', self.karma.id)])
+        session = self.env["karma.session"].search([("karma_id", "=", self.karma.id)])
         assert len(session.error_log_ids) == 1
 
         log = session.error_log_ids
         assert log.res_id == self.partner.id
-        assert log.res_model == 'res.partner'
-        assert 'The following expression could not be evaluated' in log.error_message
+        assert log.res_model == "res.partner"
+        assert "The following expression could not be evaluated" in log.error_message
 
         assert len(session.score_ids) == 1
 
     def test_ifRecordSucceeds_thenScoreIsBoundToSession(self):
         self._compute()
-        session = self.env['karma.session'].search([('karma_id', '=', self.karma.id)])
+        session = self.env["karma.session"].search([("karma_id", "=", self.karma.id)])
         assert len(session.score_ids) == 2

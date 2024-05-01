@@ -7,9 +7,9 @@ from odoo.addons import decimal_precision as dp
 
 class KarmaWithgrades(models.Model):
 
-    _inherit = 'karma'
+    _inherit = "karma"
 
-    grade_line_ids = fields.One2many('karma.grade.range', 'karma_id', 'Grade Ranges')
+    grade_line_ids = fields.One2many("karma.grade.range", "karma_id", "Grade Ranges")
 
     @api.model
     def _compute(self, computer, record):
@@ -20,29 +20,33 @@ class KarmaWithgrades(models.Model):
 
 class KarmaGradeRange(models.Model):
 
-    _name = 'karma.grade.range'
-    _description = 'Karma Grade Range'
-    _order = 'sequence'
+    _name = "karma.grade.range"
+    _description = "Karma Grade Range"
+    _order = "sequence"
 
-    karma_id = fields.Many2one('karma', 'Karma', required=True, ondelete='cascade')
+    karma_id = fields.Many2one("karma", "Karma", required=True, ondelete="cascade")
     sequence = fields.Integer()
-    min_score = fields.Float('Lower Boundary', digits=dp.get_precision('Karma Score'))
-    max_score = fields.Float('Upper Boundary', digits=dp.get_precision('Karma Score'))
+    min_score = fields.Float("Lower Boundary", digits=dp.get_precision("Karma Score"))
+    max_score = fields.Float("Upper Boundary", digits=dp.get_precision("Karma Score"))
     grade = fields.Char(required=True, translate=True)
 
 
 class KarmaScoreWithGrade(models.Model):
 
-    _inherit = 'karma.score'
+    _inherit = "karma.score"
 
     grade = fields.Char()
 
     def _compute_grade(self):
-        matching_grade_line = next((
-            l for l in self.karma_id.grade_line_ids
-            if (not l.min_score or l.min_score <= self.score) and
-               (not l.max_score or self.score < l.max_score)
-        ), None)
+        matching_grade_line = next(
+            (
+                line
+                for line in self.karma_id.grade_line_ids
+                if (not line.min_score or line.min_score <= self.score)
+                and (not line.max_score or self.score < line.max_score)
+            ),
+            None,
+        )
 
         if matching_grade_line is not None:
             self.grade = matching_grade_line.grade

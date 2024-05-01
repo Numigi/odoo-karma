@@ -17,8 +17,7 @@ _logger = logging.getLogger(__name__)
 class KarmaWithScoreComputingJob(models.Model):
     """Add cron jobs to karmas."""
 
-    _inherit = 'karma'
-
+    _inherit = "karma"
 
     def compute_all_scores(self, raise_=False):
         """Compute the scores for all records targeted by the karma.
@@ -32,13 +31,15 @@ class KarmaWithScoreComputingJob(models.Model):
         """
         records = self._get_targeted_records()
         computer = self._get_score_computer()
-        session = self.env['karma.session'].create({
-            'karma_id': self.id,
-            'start_time': datetime.now(),
-            'number_of_records': len(records),
-        })
+        session = self.env["karma.session"].create(
+            {
+                "karma_id": self.id,
+                "start_time": datetime.now(),
+                "number_of_records": len(records),
+            }
+        )
 
-        scores = self.env['karma.score']
+        scores = self.env["karma.score"]
 
         for record in records:
             compute_func = functools.partial(self._compute, computer, record)
@@ -54,13 +55,15 @@ class KarmaWithScoreComputingJob(models.Model):
             if score is not None:
                 scores |= score
 
-        scores.write({'session_id': session.id})
+        scores.write({"session_id": session.id})
 
         session.end_time = datetime.now()
-        self.write({
-            'last_cron_date': datetime.now().date(),
-            'force_next_cron_date': False,
-        })
+        self.write(
+            {
+                "last_cron_date": datetime.now().date(),
+                "force_next_cron_date": False,
+            }
+        )
 
     def _get_targeted_records(self):
         domain = self._get_domain()
@@ -68,7 +71,9 @@ class KarmaWithScoreComputingJob(models.Model):
 
     def _get_score_computer(self):
         computer_cls = (
-            InheritedKarmaComputer if self.type_ == 'inherited' else ConditionKarmaComputer
+            InheritedKarmaComputer
+            if self.type_ == "inherited"
+            else ConditionKarmaComputer
         )
         return computer_cls(self)
 
@@ -103,7 +108,7 @@ class SavepointContextManager:
     def __init__(self, env):
         self._env = env
         self._cr = env.cr
-        self._savepoint_id = 'savepoint_{sid}'.format(sid=uuid.uuid4().hex)
+        self._savepoint_id = "savepoint_{sid}".format(sid=uuid.uuid4().hex)
 
     def __enter__(self):
         self._begin_nested()
@@ -117,14 +122,14 @@ class SavepointContextManager:
             return True
 
     def _begin_nested(self):
-        self._cr.execute('SAVEPOINT {sp}'.format(sp=self._savepoint_id))
+        self._cr.execute("SAVEPOINT {sp}".format(sp=self._savepoint_id))
 
     def _rollback(self):
-        self._cr.execute('ROLLBACK TO SAVEPOINT {sp}'.format(sp=self._savepoint_id))
+        self._cr.execute("ROLLBACK TO SAVEPOINT {sp}".format(sp=self._savepoint_id))
         self._env.clear()
 
     def _release(self):
-        self._cr.execute('RELEASE SAVEPOINT {sp}'.format(sp=self._savepoint_id))
+        self._cr.execute("RELEASE SAVEPOINT {sp}".format(sp=self._savepoint_id))
 
 
 class KarmaErrorLogContextManager:
@@ -146,24 +151,25 @@ class KarmaErrorLogContextManager:
 
     def _log_error_in_syslogs(self, err):
         message = (
-            'An error happened while computing the score of the Karma {karma} '
-            'for the record with ID={record_id}.\n\n{err}'
-            .format(
+            "An error happened while computing the score of the Karma {karma} "
+            "for the record with ID={record_id}.\n\n{err}".format(
                 karma=self._session.karma_id.display_name,
                 record_id=self._record.id,
-                err=repr(err)
+                err=repr(err),
             )
         )
         _logger.error(message)
 
     def _create_error_log_record(self, err):
-        self._session.env['karma.error.log'].create({
-            'karma_id': self._session.karma_id.id,
-            'res_id': self._record.id,
-            'res_model': self._record._name,
-            'error_message': repr(err),
-            'session_id': self._session.id,
-        })
+        self._session.env["karma.error.log"].create(
+            {
+                "karma_id": self._session.karma_id.id,
+                "res_id": self._record.id,
+                "res_model": self._record._name,
+                "error_message": repr(err),
+                "session_id": self._session.id,
+            }
+        )
 
 
 class IgnoreConditionEvaluationContextManager:

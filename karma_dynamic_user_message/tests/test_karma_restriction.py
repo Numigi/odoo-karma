@@ -1,30 +1,55 @@
 # Copyright 2024 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.addons.karma.tests.test_condition_computation import (
-    TestComputedKarmaComputation,
-)
+from odoo.tests.common import SavepointCase
 from odoo.exceptions import UserError
+from ..computation import ConditionKarmaComputer
 
 
-class TestKarmaRestriction(TestComputedKarmaComputation):
-    def setUp(self):
-        super().setUp()
+class TestKarmaRestriction(SavepointCase):
 
-    def test_karma_restriction_on_write(self):
-        # Update the karma, to activate the output type to information.
-        self.job_position = self.env["ir.model.fields"].search(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.karma = cls.env["karma"].create(
+            {
+                "name": "Partner Information",
+                "type_": "condition",
+                "model_id": cls.env.ref("base.model_res_partner").id,
+                "description": "Scores the completeness of the information on the partner.",
+            }
+        )
+
+        cls.field_email = cls.env["ir.model.fields"].search(
+            [
+                ("model", "=", "res.partner"),
+                ("name", "=", "email"),
+            ]
+        )
+
+        cls.job_position = cls.env["ir.model.fields"].search(
             [
                 ("model", "=", "res.partner"),
                 ("name", "=", "function"),
             ]
         )
-        # Recreate condition lines with different conditions.
-        self.line_2.unlink()
-        self.line_2 = self.env["karma.condition.line"].create(
+
+        cls.line_1 = cls.env["karma.condition.line"].create(
             {
-                "karma_id": self.karma.id,
-                "field_id": self.job_position.id,
+                "karma_id": cls.karma.id,
+                "field_id": cls.field_email.id,
+                "condition_label": "Email contains @",
+                "condition": "'@' in value",
+                "result_if_true": "1",
+                "result_if_false": "0",
+                "weighting": 10,
+            }
+        )
+
+        cls.line_2 = cls.env["karma.condition.line"].create(
+            {
+                "karma_id": cls.karma.id,
+                "field_id": cls.job_position.id,
                 "condition_label": "Have function",
                 "condition": "value != ''",
                 "result_if_true": "1",
@@ -32,7 +57,15 @@ class TestKarmaRestriction(TestComputedKarmaComputation):
                 "weighting": 5,
             }
         )
+        cls.partner = cls.env["res.partner"].create(
+            {
+                "name": "John Doe",
+            }
+        )
 
+        cls.computer = ConditionKarmaComputer(cls.karma)
+
+    def test_karma_restriction_on_write(self):
         # Activate the restriction on the karma.
         self.karma.write({"output_type": "information"})
         self.karma._onchange_output_type()

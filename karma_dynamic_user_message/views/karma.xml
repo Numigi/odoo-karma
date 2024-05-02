@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_karma_form_inherit" model="ir.ui.view">
+        <field name="name">Karma Form View Inherited</field>
+        <field name="model">karma</field>
+        <field name="inherit_id" ref="karma.view_karma_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type_']" position="after">
+                <field name="output_type"/>
+                <field name="has_info_output" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='description']" position="after">
+                <field name="info_message" 
+                    attrs="{'required': [('has_info_output','=', True)],
+                    'invisible': ['|',('has_info_output','=', False),('output_type','=', False)]}"/>
+                <field name="update_restrictions"
+                    attrs="{'invisible': [('output_type', '=', 'score')]}"/>
+                <field name="restriction_message"
+                    attrs="{'invisible': ['&amp;',('update_restrictions', '=', False),('has_info_output', '=', True)], 'required': [('update_restrictions', '=', True)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='authorize_anticipate_computation']" position="attributes">
+                <attribute name="attrs">{'invisible': [('has_info_output', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='display_on_form_view']" position="attributes">
+                <attribute name="attrs">{'invisible': [('has_info_output', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='cron_schedule']" position="attributes">
+                <attribute name="attrs">{'invisible': [('has_info_output', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='compute_on_save']" position="attributes">
+                <attribute name="attrs">{'invisible': [('has_info_output', '=', True)]}</attribute>
+            </xpath>
+            <!-- Pass context to condition_line_ids to set the default value of karma_output_type  -->
+            <xpath expr="//field[@name='condition_line_ids']" position="attributes">
+                <attribute name="context">{'default_karma_output_type': output_type}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='condition_line_ids']/tree/field[@name='result_if_true']" position="before">
+                <field name="karma_output_type" invisible="1" force_save="1"/>
+            </xpath>
+            <xpath expr="//field[@name='condition_line_ids']/tree/field[@name='result_if_true']" position="attributes">
+                <attribute name="attrs">{'column_invisible': [('parent.has_info_output', '=', True)],'required':[('karma_output_type', '!=', 'information')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='condition_line_ids']/tree/field[@name='result_if_false']" position="attributes">
+                <attribute name="attrs">{'column_invisible': [('parent.has_info_output', '=', True)], 'required':[('karma_output_type', '!=', 'information')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='condition_line_ids']/tree/field[@name='weighting']" position="attributes">
+                <attribute name="attrs">{'column_invisible': [('parent.has_info_output', '=', True)]}</attribute>
+            </xpath>
+
+            <!-- New tab for update restrictions fields-->
+            <xpath expr="//notebook/page[@name='conditions']" position="after">
+                <page string="Update Restrictions" name="update_restrictions_fields"
+                    attrs="{'invisible':[('update_restrictions', '=', False)]}">
+                    <div class="alert alert-info" role="alert">
+                    Modification of the fields selected below will be blocked upon saving if all conditions are met and the error message will be displayed.
+                    </div>
+                    <field name="update_restrictions_fields_ids"
+                        options="{'no_open': True, 'no_create': True}"
+                        domain="[('model_id', '=', model_id)]"/>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

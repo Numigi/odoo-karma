@@ -1,0 +1,62 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* karma_dynamic_user_message
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-01 20:02+0000\n"
+"PO-Revision-Date: 2024-05-01 20:02+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: karma_dynamic_user_message
+#: model:ir.model.fields,help:karma_dynamic_user_message.field_karma__update_restrictions
+msgid "If activated, apply a blocking exception on selected fields changes."
+msgstr "Si coché, vous pouvez appliquer un message d’erreur bloquant sur la modification des champs sélectionnés dans l’onglet ‘Restrictions de modifications’."
+
+#. module: karma_dynamic_user_message
+#: model:ir.model.fields,field_description:karma_dynamic_user_message.field_karma__info_message
+msgid "Information Message"
+msgstr "Message d’information"
+
+#. module: karma_dynamic_user_message
+#: model_terms:ir.ui.view,arch_db:karma_dynamic_user_message.view_karma_form_inherit
+msgid "Modification of the fields selected below will be blocked upon saving if all conditions are met and the error message will be displayed."
+msgstr "La modification des champs sélectionnés ci-dessous sera bloquée lors de l'enregistrement si toutes les conditions sont remplies et le message d'erreur s'affichera."
+
+#. module: karma_dynamic_user_message
+#: model:ir.model.fields,field_description:karma_dynamic_user_message.field_karma__restriction_message
+msgid "Restriction Message"
+msgstr "Message d'erreur bloquant"
+
+#. module: karma_dynamic_user_message
+#: model:ir.model.fields,field_description:karma_dynamic_user_message.field_karma_condition_line__result_if_false
+msgid "Result If False"
+msgstr "Résultat si faux"
+
+#. module: karma_dynamic_user_message
+#: model:ir.model.fields,field_description:karma_dynamic_user_message.field_karma_condition_line__result_if_true
+msgid "Result If True"
+msgstr "Résultat si vrai"
+
+#. module: karma_dynamic_user_message
+#: model:ir.model.fields,field_description:karma_dynamic_user_message.field_karma__output_type
+msgid "Result Type"
+msgstr "Type de résultat"
+
+#. module: karma_dynamic_user_message
+#: model:ir.model.fields,field_description:karma_dynamic_user_message.field_karma__update_restrictions
+#: model_terms:ir.ui.view,arch_db:karma_dynamic_user_message.view_karma_form_inherit
+msgid "Update Restrictions"
+msgstr "Restrictions de modification"
+
+#. module: karma_dynamic_user_message
+#: model:ir.model.fields,field_description:karma_dynamic_user_message.field_karma__update_restrictions_fields_ids
+msgid "Update Restrictions Fields"
+msgstr "Restrictions de modification de champs"

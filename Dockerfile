@@ -17,6 +17,7 @@ COPY date_range_field_template /mnt/extra-addons/date_range_field_template
 COPY form_view_image_120px /mnt/extra-addons/form_view_image_120px
 COPY karma /mnt/extra-addons/karma
 COPY karma_crm /mnt/extra-addons/karma_crm
+COPY karma_dynamic_user_message /mnt/extra-addons/karma_dynamic_user_message
 COPY karma_grade /mnt/extra-addons/karma_grade
 COPY karma_partner /mnt/extra-addons/karma_partner
 COPY karma_product /mnt/extra-addons/karma_product

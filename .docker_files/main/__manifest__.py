@@ -15,6 +15,7 @@
         "gamification",
         "sale",
         "stock",
+        # Karma addons
         "date_range_field_template",
         "form_view_image_120px",
         "karma",

@@ -8,11 +8,9 @@ class Karma(models.Model):
     _inherit = "karma"
 
     output_type = fields.Selection(
-        [
-            ("score", "Score"),
-            ("information", "Information"),
-        ],
+        [("score", "Score"), ("information", "Information")],
         string="Result Type",
+        default="score",
         required=True,
     )
 

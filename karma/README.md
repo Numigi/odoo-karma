@@ -292,12 +292,9 @@ class KarmaWithExtraComputationBehavior(models.Model):
 
 Contributors
 ------------
-* Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 
-The Karma app logo was taken from font-awesome and adapted:
+The [Numigi](https://numigi.com/r/home) team is the contributor to this project. We help Quebec companies implement Odoo and Konvergo ERP.
+
+The Karma app logo was taken from font-awesome and adapted by [Kapreon](https://kapreon.com):
 
 https://fontawesome.com/icons/crown
-
-More information
-----------------
-* Meet us at https://bit.ly/numigi-com

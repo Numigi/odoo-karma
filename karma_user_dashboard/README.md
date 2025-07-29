@@ -26,8 +26,5 @@ In order to select which Karma should be displayed on the dashboard:
 
 Contributors
 ------------
-* Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 
-More information
-----------------
-* Meet us at https://bit.ly/numigi-com
+The [Numigi](https://numigi.com/r/home) team is the contributor to this project. We help Quebec companies implement Odoo and Konvergo ERP.
